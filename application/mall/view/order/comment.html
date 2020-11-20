@@ -1,0 +1,371 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>评论管理</legend>
+        </fieldset>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form"> 
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-input-inline" style="width:130px;">
+                        <a class="layui-btn"  lay-filter="add" href="{:url('mall/order/comment_add')}">添加评论</a>
+                    </div>
+                    <div class="layui-input-inline" style="width:250px;">
+                       <input type="text" name="search" class="layui-input" id="search" placeholder="请输入需查询的订单号">
+                    </div>
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">搜索</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </form>
+            <table class="layui-hide" id="order" lay-filter="order"></table>
+            <script type="text/html" id="paySnTool">
+                {{# if(d.pay_sn ==null || d.pay_sn ==""){}}
+                    <a style="cursor:pointer">未支付</a>
+                {{#}else{}}
+                    <a >{{d.pay_sn}}</a>
+                {{#}}}
+            </script>
+            <script type="text/html" id="barTool">
+                {{# if(d.state ==0){}}
+                    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="examine">审核</a>
+                {{#}else{}}
+                    <a class="layui-btn layui-btn-xs" lay-event="details">查看</a>
+                {{#}}}
+            </script>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script>
+layui.use(["table","layer","form",'rate'], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        form  = layui.form,
+        rate  = layui.rate,
+        $ = layui.$;
+    table.render({
+        elem: '#order',
+        /*toolbar: '#toolbarDemo',*/
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"order",
+        url: '{:url("mall/order/comment")}',
+        height: 'full-148',
+        page: true,
+        cols: [[
+            {type: 'numbers',width:60},
+            { field: 'item_title',align: 'center',width:200,  title: '商品名称'},
+            { field: 'specs',align: 'center',  title: '规格参数'},  
+            { field: 'nickname',align: 'center',  title: '会员'},
+            { field: 'add_time',align: 'center',  title: '添加时间'},
+            { field: 'status',align: 'center',  title: '状态'},
+            { field: 'level',align: 'center',  title: '评星'},
+            /*{ field: 'paytime',align: 'center',width:164,  title: '付款时间'},
+            { field: 'order_status',align: 'center',  title: '订单状态'},*/
+            { align: 'center', title: '操作', toolbar: '#barTool' }
+        ]],
+    });
+    form.on("submit(formDemo)",function(data){
+        var search = data.field.search;
+        table.reload('order', {
+            page: {
+                curr: 1 //重新从第 1 页开始
+            }
+            ,where: {
+                search:search,
+            }
+        }, 'data');
+        return false;
+    })
+    table.on('tool(order)', function(obj) {
+        var data = obj.data;
+        if(obj.event === "examine"){
+            var pic = "";
+            if(data.pic){
+                for(var i=0;i<data.pic.length;i++){
+                    pic += `<img layer-src="${data.pic[i]}" src="${data.pic[i]}" style="width:100px;margin-left:10px;">`;
+                }
+            }else{
+                pic += `未上传图片信息`;
+            }
+
+            layer.open({
+                type:1,
+                title:"评论审核",
+                area:['720px',"600px"],
+                content:`
+                <form class="layui-form">
+                    <div class="layui-row" style="margin-top:20px;">
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">商品名称</label>
+                            <div class="layui-form-mid layui-word-aux" style="width:200px;">
+                               ${data.item_title}
+                            </div>
+                            <input type="hidden" name="id" value="${data.id}">
+                        </div>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">规格参数</label>
+                            <div class="layui-form-mid layui-word-aux" style="width:200px;">
+                                ${data.specs}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">添加时间</label>
+                            <div class="layui-form-mid layui-word-aux" style="width:200px;">
+                                ${data.add_time}
+                            </div>
+                        </div>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">是否匿名</label>
+                            <div class="layui-form-mid layui-word-aux" style="width:200px;">
+                                ${data.member_id==0?"匿名评论":"正常评论"}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md12">
+                            <label class="layui-form-label">评论星级</label>
+                            <div id="level" style="width:200px;"></div>
+                        </div>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md12">
+                            <label class="layui-form-label">图片信息</label>
+                            <div class="layui-form-mid layui-word-aux">
+                                <div id="layer-photos-demo" class="layer-photos-demo">
+                                    ${pic}
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md12">
+                            <label class="layui-form-label">商品评论</label>
+                            <div class="layui-form-mid layui-word-aux">
+                                <textarea placeholder="暂无内容" class="layui-textarea" readonly style="resize:none;width:300px;height:200px" >${data.comment}</textarea>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div style="float:right;margin-right:20px;margin-bottom:10px;margin-top:10px;">
+                        <button class="layui-btn" lay-submit lay-filter="define">通过</button>
+                        <button class="layui-btn layui-btn-danger" lay-submit lay-filter="refuse">拒绝</button>
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="cancel">关闭</button>
+                    </div>
+                </form>`,
+                success:function(layero,index){
+                    layer.photos({
+                        photos:'#layer-photos-demo',
+                        anim:5,
+                        closeBtn:1
+                    });
+                    rate.render({
+                        elem: '#level'
+                        ,value: data.levels //初始值
+                        ,text: true //开启文本
+                        ,theme: '#FC5A5A',
+                        readonly:true,
+                        setText: function(value){ //自定义文本的回调
+                            var arrs = {
+                                '1': '差评'
+                                ,'2': '差评'
+                                ,'3': '中评'
+                                ,'4': '中评'
+                                ,'5': '好评'
+                            };
+                          this.span.text(arrs[value] || ( value + "星"));
+                        }
+                    });
+                    form.on("submit(define)",function(sdata){
+                        var id = sdata.field.id;
+                        $.ajax({
+                            url: '{:url("mall/order/comment_edit")}',
+                            type: "POST",
+                            data: {id:id,status:1},
+                            success:function(result){
+                                if(result.result){
+                                    layer.msg(result.msg, {icon: 6 , time: 1200 ,shade:0.6},function(){ 
+                                        layer.close(index);
+                                        layer.close(indexs);
+                                    });
+                                }else{
+                                    layer.msg(result.msg, {icon: 6 , time: 1200 ,shade:0.6});
+                                }
+                            }
+                        });
+                        return false;
+                    })
+                    form.on("submit(refuse)",function(sdata){
+                        var id = sdata.field.id;
+                        layer.prompt({
+                            formType: 2,
+                            value: '',
+                            title: '拒绝',
+                            area: ['400px', '250px']
+                        }, function(value, indexs, elem){
+                            $.ajax({
+                                url: '{:url("mall/order/comment_edit")}',
+                                type: "POST",
+                                data: {id:id,value:value,status:2},
+                                success:function(result){
+                                    if(result.result){
+                                        layer.msg(result.msg, {icon: 6 , time: 1200 ,shade:0.6},function(){ 
+                                            layer.close(index);
+                                            layer.close(indexs);
+                                        });
+                                    }else{
+                                        layer.msg(result.msg, {icon: 6 , time: 1200 ,shade:0.6});
+                                    }
+                                }
+                            });
+                            return false;
+                            layer.close(index);
+                        });
+                        $(".layui-layer-content .layui-layer-input").attr("placeholder","输入拒绝理由");
+                        $(".layui-layer-content .layui-layer-input").css("resize","none");
+                        return false;
+                    })
+                    //关闭
+                    form.on("submit(cancel)",function(data){
+                        layer.close(index);
+                        return false;
+                    })
+                },
+                end:function(layero,index){
+                    table.reload('order', {
+                    });
+                }
+            })
+        }
+        if(obj.event === "details"){
+            var id = data.id;
+            var pic = "";
+            if(data.pic){
+                for(var i=0;i<data.pic.length;i++){
+                    pic += `<img layer-src="${data.pic[i]}" src="${data.pic[i]}" style="width:100px;margin-left:10px;">`;
+                }
+            }else{
+                pic += `未上传图片信息`;
+            }
+            var remark = "";
+            if(data.state ==2){
+                remark = `<div class="layui-row"><div class="layui-col-md12"><label class="layui-form-label">拒绝理由</label><div class="layui-form-mid layui-word-aux"><textarea placeholder="暂无内容" class="layui-textarea" readonly style="resize:none;width:300px">${data.remark}</textarea></div></div></div>`;
+            }
+            layer.open({
+                type:1,
+                title:"评论详情",
+                area:['720px',"600px"],
+                content:`
+                <form class="layui-form">
+                    <div class="layui-row" style="margin-top:20px;">
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">商品名称</label>
+                            <div class="layui-form-mid layui-word-aux" style="width:200px;">
+                               ${data.item_title}
+                            </div>
+                            <input type="hidden" name="id" value="${data.id}">
+                        </div>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">规格参数</label>
+                            <div class="layui-form-mid layui-word-aux" style="width:200px;">
+                                ${data.specs}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">添加时间</label>
+                            <div class="layui-form-mid layui-word-aux" style="width:200px;">
+                                ${data.add_time}
+                            </div>
+                        </div>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">是否匿名</label>
+                            <div class="layui-form-mid layui-word-aux" style="width:200px;">
+                                ${data.member_id==0?"匿名评论":"正常评论"}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md12">
+                            <label class="layui-form-label">评论星级</label>
+                            <div id="level" style="width:200px;"></div>
+                        </div>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md12">
+                            <label class="layui-form-label">图片信息</label>
+                            <div class="layui-form-mid layui-word-aux">
+                                <div id="layer-photos-demo" class="layer-photos-demo">
+                                    ${pic}
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md12">
+                            <label class="layui-form-label">商品评论</label>
+                            <div class="layui-form-mid layui-word-aux">
+                                <textarea placeholder="暂无内容" class="layui-textarea" readonly style="resize:none;width:300px;height:200px" >${data.comment}</textarea>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">审核人</label>
+                            <div class="layui-form-mid layui-word-aux" style="width:200px;">
+                                ${data.operator}
+                            </div>
+                        </div>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">审核时间</label>
+                            <div class="layui-form-mid layui-word-aux" style="width:200px;">
+                                ${data.operator_time}
+                            </div>
+                        </div>
+                    </div>
+                    ${remark}
+                    <div style="float:right;margin-right:20px;margin-bottom:10px;margin-top:10px;">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="cancel">关闭</button>
+                    </div>
+                </form>`,
+                success:function(layero,index){
+                    layer.photos({
+                        photos:'#layer-photos-demo',
+                        anim:5,
+                        closeBtn:1
+                    });
+                    rate.render({
+                        elem: '#level'
+                        ,value: data.levels //初始值
+                        ,text: true //开启文本
+                        ,theme: '#FC5A5A',
+                        readonly:true,
+                        setText: function(value){ //自定义文本的回调
+                            var arrs = {
+                                '1': '差评'
+                                ,'2': '差评'
+                                ,'3': '中评'
+                                ,'4': '中评'
+                                ,'5': '好评'
+                            };
+                          this.span.text(arrs[value] || ( value + "星"));
+                        }
+                    });
+                    //关闭
+                    form.on("submit(cancel)",function(data){
+                        layer.close(index);
+                        return false;
+                    })
+                },
+            })
+        }
+    });
+});
+</script>
+{/block}

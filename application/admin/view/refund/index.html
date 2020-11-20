@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理系统</title>
+    <meta name="author" content="YZNCMS">
+    <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/admin.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/ddxm.css">
+    <link rel="stylesheet" href="__STATIC__/admin/font/iconfont.css">
+    <script src="__STATIC__/libs/layui/layui.js"></script>
+    <script src="__STATIC__/libs/jquery/jquery.min.js"></script>
+     <link rel="stylesheet" href="__STATIC__/steps.css">
+    <script src="__STATIC__/steps.js"></script>
+    <style type="text/css">
+        .layui-table-cell{
+            height:auto !important;
+        }
+        .layui-layer-title{
+            text-align: center;
+            padding: 0 ;
+            font-size:20px;
+        
+        }
+        .width150{
+            width:80px;
+        }
+        .width200{
+            width:80px;
+        }
+        .step-title{
+            text-align:center
+        }
+    </style>
+    
+<script type="text/javascript">
+//全局变量
+var GV = {
+    'image_upload_url': '{$image_upload_url ? $image_upload_url : url("attachment/attachments/upload", ["dir" => "images", "module" => request()->module()])}',
+    'file_upload_url': '{$file_upload_url ? $file_upload_url : url("attachment/attachments/upload", ["dir" => "files", "module" => request()->module()])}',
+    'WebUploader_swf': '__STATIC__/webuploader/Uploader.swf',
+    'upload_check_url': '{$upload_check_url ? $upload_check_url : url("attachment/Attachments/check")}',
+    'ueditor_upload_url': '{$ueditor_upload_url ? $ueditor_upload_url : url("attachment/Ueditor/run")}',
+};
+</script>
+</head>
+<body class="childrenBody">
+<div class="layui-card">
+    <div class="layui-card-header">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>退货单</legend>
+        </fieldset>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-btn-container">
+            <a class="layui-btn layui-btn-sm">导出</a>
+            <a class="layui-btn layui-btn-sm" id="add">新增退货单</a>
+        </div>
+        <div class="layui-form">
+            <table class="layui-hide" id="table" lay-filter="table"></table> 
+        </div>
+        <script type="text/html" id="statusTool">
+            {{# if(d.status ==1){}}
+                待出库
+            {{#}else if(d.status==2){}}
+                已完成
+           
+            {{#}}}
+        </script>
+        <script type="text/html" id="itemBarTool">
+             <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="itemrecord" style="background-color:#81bdfa">入库记录</a>   
+        </script>
+        <script type="text/html" id="barTool">
+            {{# if(d.status ==1){}}
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="out_shop" style="width:68px;background-color:#81bdfa">出库</a>
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="edit" style="width:68px;background-color:#81bdfa">编辑</a>
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="del" style="width:68px;background-color:#81bdfa">删除</a>   
+            {{#}else if(d.status==2){}}
+                无
+               <!--  <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="del" style="width:68px;background-color:#81bdfa">删除</a>   --> 
+            {{#}}}
+        </script>
+        <div id="steps"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+layui.use(["table","layer","form"], function() {
+    var table = layui.table,
+        form  = layui.form,
+        layer = layui.layer,
+      /*  steps = layui.steps;*/
+        $ = layui.$;
+    table.render({
+        elem: '#table',
+       /* toolbar: '#toolbarDemo',*/
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"tableTest",
+        url: '{:url("admin/refund/index")}',
+        height: 'full-148',
+        page: true,
+        cols: [[
+            { field: 'message',minWidth:220, title: '退货信息',style:"vertical-align:text-top;"},
+            { field: 'item_name', minWidth:200,title: '商品信息',style:"vertical-align:text-top;"},
+            { field: 'price', minWidth:100,title: '单位成本',style:"vertical-align:text-top;"},
+            { field: 'number',minWidth:120, align: 'center',  title: '退货数量',style:"vertical-align:text-top;"},
+            { field: 'amount', minWidth:120,title: '退货金额',style:"vertical-align:text-top;"},
+            { field: 'out_message', minWidth:220,title: '出库信息',style:"vertical-align:text-top;"},
+            { align: 'center',minWidth:80 ,title: '状态',toolbar: '#statusTool'},
+            { align: 'center',align: 'center',minWidth:260, title: '操作',toolbar: '#barTool'},
+        ]],
+    });
+    $("#add").click(function(){
+        layer.open({
+            type:2,
+            title: '<strong>新增退货单</strong>',
+            area: ['1400px', '740px'],
+            content: '{:url("admin/refund/add_refund")}',
+            end: function(layero, index){
+                table.reload('tableTest', {
+                });
+            }
+        })
+    });
+    table.on('tool(table)', function(obj) {
+        var data = obj.data;
+        //发货
+        if (obj.event === 'out_shop') {
+            var id = data.id;
+            $.ajax({
+                url: '{:url("admin/refund/out_refund")}',
+                type: "POST" ,
+                data: {id:id},
+                success:function(res){
+                    if(res.result){
+                        layer.open({
+                            type:1,
+                            title:"商品出库",
+                            area: ['1200px', '740px'],
+                            content: `
+                             <div class="layui-card">
+                                <div class="layui-card-body">
+                                <form class="layui-form form-horizontal" method="post">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label width200">退货单号：</label>
+                                        <div class="layui-form-mid layui-word-aux">${res.data.sn}</div>
+                                        <label class="layui-form-label width150">退货仓库：</label>
+                                        <div class="layui-form-mid layui-word-aux" style="width:120px;white-space:nowrap;
+                                        text-overflow:ellipsis;overflow:hidden;" title="${res.data.shop}">${res.data.shop}</div>                        
+                                        <label class="layui-form-label width150">供应商：</label>
+                                        <div class="layui-form-mid layui-word-aux" style="width:120px;">${res.data.supplier}</div>
+                                        <label class="layui-form-label width200">退货人：</label>
+                                        <div class="layui-form-mid layui-word-aux">${res.data.create_user}</div> 
+                                        <label class="layui-form-label width200">退货时间：</label>
+                                        <div class="layui-form-mid layui-word-aux">${res.data.create_time}</div>                          
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label width200">备注：</label>
+                                        <div class="layui-input-block" style="width:500px;">
+                                            <input readonly  class="layui-input" value="${res.data.remark}">
+                                        </div>                                                      
+                                    </div>
+                                    <table id="out_item" lay-filter="out_item"></table>
+                                    <div class="layui-input-inline layui-btn-group userTable" style="margin-right:40px;float:right">
+                                        <button class="layui-btn layui-btn-primary" lay-submit lay-filter="close">取消</button>
+                                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="out_shop" >确定</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>`,
+                            success:function(layero, index){
+                                table.render({
+                                    elem: '#out_item',
+                                   /* toolbar: '#toolbarDemo',*/
+                                    skin: 'row', //行边框风格
+                                    even: true ,//开启隔行背景
+                                    id:"out_item",
+                                    url: '{:url("admin/refund/out_item")}',
+                                    where:{                        
+                                        id:id, 
+                                    },      
+                                    page: true,
+                                    cols: [[
+                                        {type:'numbers'},
+                                        { field: 'item',align:"center" ,width:300, title: '商品名称'},
+                                        { field: 'bar_code',align:"center" ,  title: '条形码'},
+                                        { field: 'num',align:"center" ,  title: '退货数量'},
+                                    ]],
+                                });
+                                form.on('submit(out_shop)', function(data){
+                                    $.ajax({
+                                        url: '{:url("admin/refund/out_shop")}',
+                                        type: "POST" ,
+                                        data: {id:id},
+                                        success:function(r){
+                                            if(r.result){
+                                                layer.msg(r.msg,{icon: 6 , time: 1200 ,shade:0.6},function(){
+                                                    layer.close(index);
+                                                })
+                                            }else{
+                                                layer.msg(r.msg,{icon:5});
+                                            }
+                                        }
+                                    });
+                                    return false;
+                                });
+                            },
+                            end: function(layero, index){
+                                table.reload('tableTest', {
+                                });
+                            }
+                        })
+                    }else{
+                        layer.msg(res.msg,{icon:6});
+                    }
+                }
+            })
+        }
+        //打印
+        if (obj.event === 'print') {
+
+        }
+        //修改
+        if (obj.event === 'edit') {
+
+        }
+        //删除
+        if (obj.event === 'del') {
+            var id = data.id;
+            layer.confirm('确定删除当前退货单?', {icon: 3, title:'删除提示'}, function(index){
+                $.ajax({
+                    url:"{:url('admin/refund/del')}",
+                    type:"POST",
+                    data:{id:id},
+                    success:function(res){
+                        if(res.result){
+                            layer.msg(res.msg,{icon: 6 , time: 1200 ,shade:0.6},function(){
+                                table.reload('tableTest', {
+                                });
+                            })
+                        }else{
+                            layer.msg(res.msg,{icon:5});
+                        }
+                    }
+                })
+                layer.close(index);
+            });
+        }
+    })
+});
+</script>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">编辑单位</div>
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal">    <!-- action="{:url('admin/Member/level_doPost')}" method="post" -->
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span>单位名称 </label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="title"  autocomplete="title"  placeholder="单位名称" value="{$list['title']}" class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">序号 </label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="sort" onkeyup="this.value=this.value.replace(/\D/g,'')" onblur="this.value=this.value.replace(/\D/g,'')" autocomplete="sort" value="{$list['sort']}" placeholder="序号" class="layui-input">
+                </div>
+            </div>
+
+           
+            
+            <input type="hidden" name="id" value="{$list['id']}">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="L_submit">立即提交</button>
+                    <button class="layui-btn layui-btn-normal" id = "close">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    layui.use(["form"], function(){
+        var layer = layui.layer;
+        form = layui.form;
+        form.on('submit(L_submit)', function(data){
+            var formData = data.field;
+            $.ajax({
+                type : "post",
+                url : "/admin/Items/unit_doPost",
+                data: formData,
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 1 ){
+                        layer.msg(res.msg); 
+                        var index = parent.layer.getFrameIndex(window.name);
+                        setTimeout(function(){
+                            parent.layer.close(index);
+                            parent.location.reload();
+                        }, 1000);  
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+            return false;
+        });
+
+        //关闭
+        $("#close").click(function(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            parent.location.reload();
+        })
+    });
+</script>
+{/block}

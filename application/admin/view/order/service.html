@@ -1,0 +1,268 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>门店服务订单</legend>
+        </fieldset>
+ </div>
+    <div class="layui-card-body">
+        <div class="layui-form">
+            <table class="layui-hide" id="table" lay-filter="table"></table>
+            <script type="text/html" id="typeTool">
+                {{# if(d.mobile ==0){}}
+                    非会员
+                {{#}else{}}
+                    <a lay-event="member" style="cursor:pointer">{{d.mobile}}</a>
+                {{#}}}
+            </script>
+             <script type="text/html" id="workerTool">
+
+                <a lay-event="worker" style="cursor:pointer">{{d.waiter}}</a>
+
+            </script>
+            <script type="text/html" id="statusTool">
+                {{# if(d.order_status =="正常"){}}
+                    <div class="layui-btn layui-btn-xs" style="cursor:default">
+                        {{d.order_status}}
+                    </div>
+                {{#}else if(d.order_status=="有退单"){}}
+                    <div class="layui-btn layui-btn-xs layui-btn-normal" style="cursor:default">
+                        {{d.order_status}}
+                    </div>
+                {{#}else if(d.order_status=="已退单"){}}
+                    <div class="layui-btn layui-btn-xs layui-btn-danger" style="cursor:default">
+                        {{d.order_status}}
+                    </div>
+                {{#}}}
+            </script>
+            <script type="text/html" id="barTool">
+                {{# if(d.order_status =="正常"){}}
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="refund">退单</a>
+                {{#}else if(d.order_status=="有退单"){}}
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="refund">退单</a>
+                {{#}}}
+
+                <a class="layui-btn layui-btn-xs" lay-event="details">订单详情</a>
+            </script>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.use(["table","layer"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        $ = layui.$;
+    table.render({
+        elem: '#table',
+        toolbar: '#toolbarDemo',
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"tableTest",
+        url: '{:url("admin/order/service")}',
+        height: 'full-148',
+        page: true,
+        cols: [
+            [
+                { field: 'sn',  title: '订单号'},
+                { field: 'shop_name',  title: '门店'},
+                { field: 'member_id',  title: '会员账号', toolbar: '#typeTool'},
+                { field: 'amount',  title: '付款金额'},
+                { field: 'pay_way', title: '付款方式' },
+                { field: 'overtime',title: '交易时间' },
+                { field: 'waiter', title: '服务人员',toolbar:"#workerTool"},
+                { field: 'order_status', title: '状态',toolbar:"#statusTool" },
+                { fixed: 'right', minWidth: 205, title: '操作', toolbar: '#barTool' }
+            ]
+        ],
+    });
+
+    //监听行工具事件
+    table.on('tool(table)', function(obj) {
+        var data = obj.data;
+        //console.log(obj);
+        if (obj.event === 'del') {
+            layer.confirm('确定删除这条数据？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/order/del")}', { 'id': data.order_id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }else if (obj.event === 'edit') {
+            var url = '{:url("admin/item/edit")}' + "?id=" + data.id;
+            layer.open({
+                type: 2,
+                title: '在线调试',
+                area: ['500px', '300px'],
+                content: url,
+                end: function(layero, index){
+                   table.reload('tableTest', {
+                    });
+                }
+            });
+        }else if(obj.event === 'member'){
+            var loadingFlag;
+            $.ajax({
+                url: '{:url("admin/order/user")}',
+                type: "POST" ,
+                data: {id: data.member_id,title:"member"},
+                beforeSend: function (XMLHttpRequest) {
+                    loadingFlag= layer.msg('正在读取数据，请稍候……',
+                        {icon: 16,
+                        shade: 0.01,
+                        shadeClose:false,
+                        time:60000
+                    });
+                },
+                success:function(data){
+                    layer.close(loadingFlag);
+                    layer.open({
+                        type:1,
+                        title:"会员信息",
+                        area:['300px','300px'],
+                        content:`
+                        <div class="layui-row">
+                            <div class="layui-col-md12 " style="margin-top:10px;">
+                                <label class="layui-form-label">会员昵称</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.nickname}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">手机号码</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.mobile}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">所属门店</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.name}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">会员等级</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.level_name}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">加入时间</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.regtime}
+                                </div>
+                            </div>
+                        </div>
+                        `,
+                    });
+                }
+            })
+        }else if(obj.event==="worker"){
+            var loadingFlag;
+                $.ajax({
+                url: '{:url("admin/order/user")}',
+                type: "POST" ,
+                data: {id: data.waiter_id,title:"worker"},
+                beforeSend: function (XMLHttpRequest) {
+                    loadingFlag= layer.msg('正在读取数据，请稍候……',
+                        {icon: 16,
+                        shade: 0.01,
+                        shadeClose:false,
+                        time:60000
+                    });
+                },
+                success: function(data) {
+                    layer.close(loadingFlag);
+                    layer.open({
+                        type:1,
+                        title:"服务人员信息",
+                        area:['300px','300px'],
+                        content:`
+                        <div class="layui-row">
+                            <div class="layui-col-md12 " style="margin-top:10px;">
+                                <label class="layui-form-label">员工姓名</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.name}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">手机号码</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.mobile}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">所属门店</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.shop_name}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">所属职位</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.type}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">加入时间</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.addtime}
+                                </div>
+                            </div>
+                        </div>
+                        `,
+                    });
+                }
+            })
+        }else if(obj.event==="details"){
+            var shop_id = data.id;
+            layer.open({
+                type:2,
+                title:"订单详情",
+                area:['900px','700px'],
+                content:"{:url('admin/order/s_details')}?id="+shop_id,
+                end: function(layero, index){
+                   table.reload('tableTest', {
+                    });
+                }
+            })
+        }else if(obj.event === "refund"){
+            var data =  obj.data;
+            layer.open({
+                type:2,
+                title:"退货订单",
+                area:['760px','640px'],
+                content:"{:url('admin/order/s_refund')}?id="+data.id,
+                end: function(layero, index){
+                   table.reload('tableTest', {
+                    });
+                }
+            })
+        }
+    });
+});
+</script>
+{/block}

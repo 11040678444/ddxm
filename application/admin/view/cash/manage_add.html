@@ -1,0 +1,187 @@
+{extend name="index_layout"/}
+{block name="main"}
+<style type="text/css">
+    .stars{
+        color:red;
+        font-size:8px;
+    }
+</style>
+<div class="layui-card">
+    <div class="layui-card-header">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>发放代金券</legend>
+        </fieldset>
+    </div>
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px;">会员手机号<i class="layui-icon layui-icon-rate-solid stars"></i></label>
+                <div class="layui-input-inline" style="width:326px;">
+                    <input type="text" name="phone" autocomplete="off" lay-verify="required|phone" placeholder="请输入发送代金券的用户手机号" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px;">代金券名称<i class="layui-icon layui-icon-rate-solid stars"></i></label>
+                <div class="layui-input-inline" style="width:210px;">
+                    <input type="text" name="cash_title" id="cash_title" lay-verify="required"  readonly autocomplete="off" placeholder="请在右边按钮选择代金券" class="layui-input">
+                    <input type="hidden" name="cash_id" id="cash_id">
+                </div>
+                <div class="layui-input-inline">
+                    <button class="layui-btn" lay-filter="opt_cash" id="opt_cash">选择代金券</button>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px;">数量<i class="layui-icon layui-icon-rate-solid stars"></i></label>
+                <div class="layui-input-inline" style="width:326px;">
+                    <input type="number" name="num" min="1" autocomplete="off" lay-verify="required|number|manage_number" placeholder="请输入代金券数量" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="L_submit">立即提交</button>
+                    <button class="layui-btn layui-btn-normal" id = "close" style="width:92px;">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    layui.use(["table","layer","form"], function(){
+        var table = layui.table,
+            layer = layui.layer,
+            form  = layui.form;
+        form.on('submit(L_submit)', function(data){
+            var field = data.field;
+            $.ajax({
+                type : "post",
+                url : "/admin/cash/manage_add",
+                data: field,
+                dataType: 'json',
+                success:function(res){
+                    if( res.result){
+                        layer.msg(res.msg,{icon: 6 , time:1000 ,shade:0.6},function(){
+                           window.location.href = '{:url("admin/cash/manage")}';
+                        })
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+            return false;
+        });
+        
+        $("#opt_cash").click(function(data){
+            var cash_id = $("#cash_id").val();
+            if(cash_id !==""){
+                layer.confirm('确认替换当前代金券!', function(index){
+                    opt_cash();
+                    layer.close(index);
+                }); 
+                return false;
+            }else{
+                opt_cash();
+            }
+            return false;
+        })
+        form.verify({
+            manage_number: function(value, item){ //value：表单的值、item：表单的DOM对象
+                if(value<1){
+                    return "填写数量不能小于1";
+                }
+            }
+        })
+        function opt_cash(){
+            layer.open({
+                type:1,
+                title:"请选择代金券",
+                area: ['700px', '680px'],
+                content:`
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                    <form class="layui-form form-horizontal" method="post">
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline">
+                                <input type="text" name="name"  autocomplete="off" class="layui-input" placeholder="代金券名称">
+                            </div>
+                            <div class="layui-input-inline" style="width:100px;margin-left:20px;">
+                                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="item_search">搜索</button>
+                            </div>
+                        </div>
+                        <table id="cash_product" lay-filter="cash_product"></table>
+                        <div class="layui-input-inline layui-btn-group userTable" style="margin-right:40px;float:right">
+                            <button class="layui-btn layui-btn-primary" lay-submit lay-filter="close" >取消</button>
+                            <button class="layui-btn layui-btn-normal" id="add_item" data-type="getCheckData" >确定</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>`,
+                success:function(layero,indexs){
+                    form.render("select");
+                    form.on("submit(item_search)",function(data){
+                        var search = data.field.name;
+                        table.reload('productCash', {
+                            page: {
+                              curr: 1 //重新从第 1 页开始
+                            }
+                            ,where: {                              
+                              search:search,
+                            }
+                        }, 'data');
+                        return false;
+                    })
+                    form.on("submit(close)",function(data){
+                        layer.close(indexs);
+                        return false;
+                    })
+                    active = {
+                        getCheckData: function(){ //获取选中数据
+                          var checkStatus = table.checkStatus('productCash')
+                          ,data = checkStatus.data;
+                          return data;
+                        }   
+                    };
+                    $("#add_item").on("click",function(){
+                        var type = $(this).data('type');
+                        var a_data = active[type] ? active[type].call(this) : '';
+                        var html = "";
+                        if(a_data!=""){
+                            $("#cash_id").val(a_data[0]['id']);
+                            $("#cash_title").val(a_data[0]['title']);
+                            layer.close(indexs);
+                            return false;
+                        }else{
+                            layer.confirm('未选择商品 继续关闭?', {icon: 3, title:'关闭提示'}, function(indexss){
+                                layer.close(indexss);
+                                layer.close(indexs);
+                            });
+                        }
+                        return false;
+                    });
+                    table.render({
+                        elem: '#cash_product',
+                        /*toolbar: '#toolbarDemo',*/
+                        height:465,
+                        skin: 'row', //行边框风格
+                        even: true ,//开启隔行背景
+                        id:"productCash",
+                        url: '{:url("admin/cash/cash_list")}',     
+                        page: true,
+                        cols: [
+                            [
+                                {type: 'radio',width:60, fixed: 'left'},
+                                { field: 'title', title: '产品名称'},
+                                { field: 'o_price', title: '使用限制'},
+                            ]
+                        ],
+                    });
+                },
+                end: function(layero, index){  
+                }
+            })
+        }
+    });
+</script>
+{/block}

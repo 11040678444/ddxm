@@ -1,0 +1,98 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>订单列表</legend>
+        </fieldset>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form"> 
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <!-- <div class="layui-input-inline" style="width:130px;">
+                        <a class="layui-btn"  lay-filter="add" href="{:url('mall/assemble/add')}">添加拼团商品</a>
+                    </div> -->
+                    <div class="layui-input-inline" style="width:250px;">
+                       <input type="text" name="search" class="layui-input" id="search" placeholder="请输入需查询的订单号">
+                    </div>
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">搜索</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </form>
+            <table class="layui-hide" id="order" lay-filter="order"></table>
+            <script type="text/html" id="paySnTool">
+                {{# if(d.pay_sn ==null || d.pay_sn ==""){}}
+                    <a style="cursor:pointer">未支付</a>
+                {{#}else{}}
+                    <a >{{d.pay_sn}}</a>
+                {{#}}}
+            </script>
+            <script type="text/html" id="barTool">
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="details">查看详情</a>
+                <!-- <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a> -->
+            </script>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script>
+layui.use(["table","layer","form"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        form  = layui.form,
+        $ = layui.$;
+    table.render({
+        elem: '#order',
+        /*toolbar: '#toolbarDemo',*/
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"order",
+        url: '{:url("mall/order/index")}',
+        height: 'full-148',
+        page: true,
+        cols: [[
+            {type: 'numbers',width:60},
+            { field: 'sn',align: 'center',width:200,  title: '订单号'},
+            { field: 'mobile',align: 'center',  title: '会员手机号'},  
+            { field: 'pay_status',align: 'center',  title: '支付状态'},
+            { field: 'pay_sn',align: 'center',  title: '付款单号',toolbar: '#paySnTool'},
+            { field: 'pay_way',align: 'center',  title: '付款方式'},
+            { field: 'paytime',align: 'center',width:164,  title: '付款时间'},
+            { field: 'order_status',align: 'center',  title: '订单状态'},
+            { align: 'center', title: '操作', toolbar: '#barTool' }
+        ]],
+    });
+    form.on("submit(formDemo)",function(data){
+        var search = data.field.search;
+        table.reload('order', {
+            page: {
+                curr: 1 //重新从第 1 页开始
+            }
+            ,where: {
+                search:search,
+            }
+        }, 'data');
+        return false;
+    })
+    table.on('tool(order)', function(obj) {
+        var data = obj.data; 
+        if(obj.event === "details"){
+            var id = data.id;
+            layer.open({
+                type:2,
+                title:"订单详情",
+                area: ['720px', '560px'],
+                content :"{:url('mall/order/details')}?id="+id,
+                end: function(layero, index){
+                   table.reload('order', {
+                    });
+                }
+            })
+        }
+    });
+});
+</script>
+{/block}

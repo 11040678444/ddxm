@@ -1,0 +1,186 @@
+---------------------------------------------------------------
+[2020-10-13T09:57:26+08:00] 127.0.0.1 GET localhost:81/
+[运行时间：7.543210s] [吞吐率：0.13req/s] [内存消耗：3,354.98kb] [文件加载：105]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=g1dju1di1e48d5abusdbsoqdr2',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'sec-fetch-dest' => 'document',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'none',
+  'purpose' => 'prefetch',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'sec-ch-ua-mobile' => '?0',
+  'sec-ch-ua' => '"\\\\Not;A\\"Brand";v="99", "Google Chrome";v="85", "Chromium";v="85"',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\index\index.html [ array (
+  0 => 'userInfo',
+  1 => 'SUBMENU_CONFIG',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.318815s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.058695s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.058464s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_menu` [ RunTime:0.058359s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 0  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.057242s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 3  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.057139s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 10  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.057706s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 11  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.057554s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 24  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056940s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 25  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.057340s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 26  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.057424s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 13  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.057352s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 14  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056932s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 27  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056110s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 28  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055900s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 29  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055972s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 23  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055651s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 30  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055649s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 31  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055776s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 15  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056121s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 16  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056208s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 213  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055813s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 17  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055778s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 20  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056030s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 175  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055944s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 176  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056020s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 199  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056059s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 225  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055678s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 353  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055984s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 200  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055664s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 201  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056902s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 202  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056670s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 177  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056128s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 178  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055977s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 183  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055921s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 216  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055773s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 243  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055798s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 501  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055797s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 184  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055772s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 185  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055904s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 186  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055883s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 187  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055726s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 198  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055983s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 188  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056030s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 189  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056084s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 190  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055921s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 191  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055866s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 192  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056215s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 193  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056011s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 194  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055917s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 221  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056317s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 195  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055902s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 196  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055722s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 197  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055942s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 244  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055929s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 245  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055794s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 246  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056325s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 247  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055895s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 248  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055757s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 249  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056108s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 250  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055877s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 260  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055915s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 242  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056038s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 333  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056004s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 334  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056353s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 335  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056288s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 336  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056001s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 337  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055812s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 338  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055923s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 267  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055946s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 203  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056406s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 204  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055696s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 209  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055946s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 210  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055939s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 211  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055957s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 205  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055850s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 206  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055896s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 207  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056027s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 208  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055758s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 214  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055978s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 215  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056007s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 217  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056030s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 220  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056394s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 218  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056173s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 219  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056255s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 223  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056053s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 224  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055848s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 416  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056392s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 417  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055893s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 421  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055818s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 251  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055839s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 252  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056008s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 253  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055816s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 256  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055897s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 257  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056014s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 258  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055674s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 262  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056348s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 293  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055927s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 430  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055865s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 263  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056116s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 264  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056023s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 265  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055811s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 266  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055925s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 284  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056041s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 285  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056104s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 292  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055743s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 282  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055889s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 283  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055834s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 419  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055942s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 420  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055690s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 426  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055853s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 432  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055764s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 286  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055999s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 289  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055989s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 290  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056031s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 291  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.056035s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 428  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055919s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 429  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.055973s ]
+---------------------------------------------------------------
+[2020-10-13T09:57:26+08:00] 127.0.0.1 GET localhost:81/
+[运行时间：0.312981s] [吞吐率：3.20req/s] [内存消耗：3,283.13kb] [文件加载：105]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=g1dju1di1e48d5abusdbsoqdr2',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'sec-fetch-dest' => 'document',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'none',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'sec-ch-ua-mobile' => '?0',
+  'sec-ch-ua' => '"\\\\Not;A\\"Brand";v="99", "Google Chrome";v="85", "Chromium";v="85"',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\index\index.html [ array (
+  0 => 'userInfo',
+  1 => 'SUBMENU_CONFIG',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.097811s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.065643s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.065296s ]

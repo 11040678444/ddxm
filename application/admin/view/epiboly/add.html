@@ -1,0 +1,111 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">添加岗位</div>
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal">
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span> 所属门店</label>
+                <div class="layui-input-inline">
+                    <select name="shop_id" lay-filter="shop_id">
+                        {volist name="shop" id="vo"}
+                        <option value="{$vo['id']}" {if condition="$vo['id'] eq $list['shop_id']"} selected {/if} >{$vo['name']}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span> 所属岗位</label>
+                <div class="layui-input-inline">
+                    <select name="type" lay-filter="type">
+                        <option value="1" {if condition="$list['shop_id'] eq 1"} selected {/if} >商品外包分润</option>
+                        <option value="2" {if condition="$list['shop_id'] eq 2"} selected {/if} >推拿外包分润</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span> 分润金额</label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="price" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}"  autocomplete="off" value="{$list['price']}" placeholder="分润金额" class="layui-input">
+                </div>
+            </div>
+            <!-- <input type=text t_value="" o_value="" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}"> -->
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span>分润时间</label>
+                <div class="layui-input-block w300">
+                    <input type="text" name="time" placeholder="分润时间" autocomplete="off" class="layui-input" value="{$list['time']}" id="end_time">
+                </div>
+            </div>
+
+
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">备注</label>
+                <div class="layui-input-block w300">
+                    <textarea name="remarks" lay-verify="remarks" placeholder="备注" class="layui-textarea">{$list['remarks']}</textarea>
+                </div>
+            </div>
+            <input type="hidden" name="id" value="{$list['id']}">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="L_submit">立即提交</button>
+                    <button class="layui-btn layui-btn-normal" id = "close">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    layui.use('laydate', function(){
+      var laydate = layui.laydate;
+
+      var start_time = "{$list.time}";
+      laydate.render({
+        elem: '#end_time', //指定元素
+        type: 'datetime',
+        value: start_time
+      });
+    });
+
+
+    layui.use(["form"], function(){
+        var layer = layui.layer;
+        form = layui.form;
+        form.on('submit(L_submit)', function(data){
+            var formData = data.field;
+            $.ajax({
+                type : "post",
+                url : "/admin/Epiboly/doPost",
+                data: formData,
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 1 ){
+                        layer.msg(res.msg); 
+                        var index = parent.layer.getFrameIndex(window.name);
+                        setTimeout(function(){
+                            parent.layer.close(index);
+                            parent.location.reload();
+                        }, 1000);  
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+            return false;
+        });
+
+
+        //关闭
+        $("#close").click(function(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            parent.location.reload();
+        })
+    });
+</script>
+{/block}

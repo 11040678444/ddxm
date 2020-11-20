@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理系统</title>
+    <meta name="author" content="YZNCMS">
+    <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/admin.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/ddxm.css">
+    <link rel="stylesheet" href="__STATIC__/admin/font/iconfont.css">
+    <script src="__STATIC__/libs/layui/layui.js"></script>
+    <script src="__STATIC__/libs/jquery/jquery.min.js"></script>
+    <style type="text/css">
+        .layui-table-cell{
+            height:auto !important;
+        }
+        .layui-layer-title{
+            text-align: center;
+            padding: 0 ;
+            font-size:20px;
+
+        }
+        .width150{
+            width:70px;
+        }
+        .width200{
+            width:70px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        //全局变量
+        var GV = {
+            'image_upload_url': '{$image_upload_url ? $image_upload_url : url("attachment/attachments/upload", ["dir" => "images", "module" => request()->module()])}',
+            'file_upload_url': '{$file_upload_url ? $file_upload_url : url("attachment/attachments/upload", ["dir" => "files", "module" => request()->module()])}',
+            'WebUploader_swf': '__STATIC__/webuploader/Uploader.swf',
+            'upload_check_url': '{$upload_check_url ? $upload_check_url : url("attachment/Attachments/check")}',
+            'ueditor_upload_url': '{$ueditor_upload_url ? $ueditor_upload_url : url("attachment/Ueditor/run")}',
+        };
+    </script>
+</head>
+<body class="childrenBody">
+<div class="layui-card">
+    <div class="layui-card-header">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>订单列表</legend>
+        </fieldset>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form">
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-input-inline" style="width:180px;">
+                        <select name="pay_status" lay-verify="" lay-filter="pay_status">
+                            <option value="">支付状态</option>
+                            <option value="0">待支付</option>
+                            <option value="1">已支付</option>
+                            <option value="-1">取消支付</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" style="width:180px;">
+                        <select name="order_status" lay-verify="" lay-filter="order_status">
+                            <option value="">订单状态</option>
+                            <option value="1">待支付</option>
+                            <option value="2">待发货</option>
+                            <option value="3">待收货</option>
+                            <option value="4">已完成</option>
+                            <option value="5">申请退款中</option>
+                            <option value="6">退款成功</option>
+                            <option value="7">退款拒绝</option>
+                            <option value="8">已取消</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" style="width:180px;">
+                        <select name="pay_way" lay-verify="" lay-filter="pay_way">
+                            <option value="">支付方式</option>
+                            <option value="1">微信</option>
+                            <option value="3">余额</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" style="width:180px;">
+                        <select name="order_distinguish" lay-verify="" lay-filter="order_distinguish">
+                            <option value="">订单类型</option>
+                            <option value="0">普通订单</option>
+                            <option value="1">拼团订单</option>
+                            <option value="2">抢购订单</option>
+                            <option value="3">限时抢购</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" style="width:180px;">
+                        <select name="cross_border" lay-verify="" lay-filter="cross_border">
+                            <option value="">订单来源</option>
+                            <option value="1">跨境购</option>
+                            <option value="2">自营</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" style="width:180px;">
+                        <select name="shop_id" lay-verify="" lay-filter="shop_id">
+                            <option value="">选择门店</option>
+                            {volist name="shop" id="shop"}
+                            <option value="{$shop['id']}">{$shop['name']}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                    <div class="layui-inline">
+<!--                        <label class="layui-form-label">下单时间</label>-->
+                        <div class="layui-input-inline">
+                            <input type="text" name="add_time" class="layui-input" id="test6" placeholder="下单时间">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+<!--                        <label class="layui-form-label">支付时间</label>-->
+                        <div class="layui-input-inline">
+                            <input type="text" name="paytime" class="layui-input" id="test7" placeholder="支付时间">
+                        </div>
+                    </div>
+                    <div class="layui-input-inline" style="width:250px;">
+                        <input type="text" name="subtitle" class="layui-input" id="subtitle" placeholder="商品名称">
+                    </div>
+                    <div class="layui-input-inline" style="width:250px;">
+                        <input type="text" name="sn" class="layui-input" id="sn" placeholder="请输入需查询的订单号">
+                    </div>
+                    <div class="layui-input-inline" style="width:250px;">
+                        <input type="text" name="mobile" class="layui-input" id="mobile" placeholder="请输手机号或收货手机号">
+                    </div>
+                    <div class="layui-input-inline" style="width:180px;">
+                        <select name="deliver_type" lay-verify="" lay-filter="cross_border">
+                            <option value="">未发货订单状态</option>
+                            <option value="1">正常</option>
+                            <option value="2">退单中</option>
+                        </select>
+                    </div>
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">搜索</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    <a class="layui-btn layui-btn-sm" lay-submit lay-filter="excel">订单导出</a>
+                    <a class="layui-btn layui-btn-sm" lay-submit lay-filter="excel1">未发货订单导出</a>
+                </div>
+            </form>
+            <table class="layui-hide" id="order" lay-filter="order"></table>
+            <script type="text/html" id="paySnTool">
+                {{# if(d.pay_sn ==null || d.pay_sn ==""){}}
+                    <a style="cursor:pointer">未支付</a>
+                {{#}else{}}
+                    <a >{{d.pay_sn}}</a>
+                {{#}}}
+            </script>
+            <script type="text/html" id="barTool">
+                {{# if(  d.order_status==0 ){}}
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="deliver">发货</a>
+                {{#}}}
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="info">订单详情</a>
+
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="memberInfo">会员信息</a>
+            </script>
+            <script type="text/html" id="statusTool">
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="deliver_goods">发货</a>
+            </script>
+
+            <script type="text/html" id="refundStatusTool">
+                {{# if(  d.refund_status==0 ){}}
+                    正常
+                {{#}else if ( d.refund_status==1 ){}}
+                    退款申请中
+                {{#}else if ( d.refund_status==2 ){}}
+                    退款成功
+                {{#}else if ( d.refund_status==5 ){}}
+                    退款拒绝
+                {{#}else if ( d.refund_status==3 ){}}
+                    退款已关闭
+                {{#}else {}}
+                    退款异常
+                {{#}}}
+            </script>
+        </div>
+    </div>
+
+    <div id="express" style="display:none">
+<!--        <select name="express" lay-verify="express" id="express" >-->
+        <select name="express" id="express" >
+          <option value="">请选择快递公司</option>
+          {volist name="express" id="vo"}
+            <option value="{$vo.id}">{$vo.title}</option>
+          {/volist}
+          <!-- <option value="0571"></option> -->
+        </select>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script>
+layui.use(["table","layer","form",'laydate'], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        form  = layui.form,
+        $ = layui.$;
+    table.render({
+        elem: '#order',
+        /*toolbar: '#toolbarDemo',*/
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"order",
+        url: '{:url("mall/order/deliver_order")}',
+        height: 'full-148',
+        page: true,
+        cols: [[
+            {type: 'numbers',width:60},
+            { field: 'message',align: 'center',width:200,  title: '订单信息'},
+            { field: 'item_list',align: 'center',  title: '商品信息',minWidth:200},
+            { field: 'price_list',align: 'center',  title: '商品金额',maxWidth:70},
+            { field: 'cost_list',align: 'center',  title: '成本',maxWidth:70},
+            { field: 'bar_code',align: 'center',  title: '条形码',maxWidth:70},
+            { field: 'member_info',align: 'center',  title: '会员信息'},
+            { field: 'order_type',align: 'center',  title: '订单类型'},
+            { field: 'remarks',align: 'center',edit: 'text',  title: '订单备注'},
+            { field: 'my_status',align: 'center',  title: '订单状态' },
+            { align: 'center', title: '操作', toolbar: '#barTool',minWidth:210 }
+        ]],
+    });
+
+    //日期范围
+    var laydate = layui.laydate;
+    laydate.render({
+        elem: '#test6'
+        ,range: true
+    });
+    laydate.render({
+        elem: '#test7'
+        ,range: true
+    });
+
+    form.on("submit(excel)",function(data){
+        let field = data.field;
+        const url = `http://localhost:8282/admin/Excel/onlineOrderExcel?
+        sn=${field.sn}&
+        pay_status=${field.pay_status}&
+        order_status=${field.order_status}&
+        mobile=${field.mobile}&
+        subtitle=${field.subtitle}&
+        add_time=${field.add_time}&
+        pay_way=${field.pay_way}&
+        shop_id=${field.shop_id}&
+        express=${field.express}&
+        paytime=${field.paytime}`;        // location.href = url;
+        location.href=url;
+        return false;
+    });
+    form.on("submit(excel1)",function(data){
+        let field = data.field;
+        const url = `http://localhost:8282/admin/Excel/nofahuoOrderExcel?
+        sn=${field.sn}&
+        mobile=${field.mobile}&
+        pay_way=${field.pay_way}&
+        shop_id=${field.shop_id}&
+        deliver_type=${field.deliver_type}&
+        paytime=${field.paytime}`;        // location.href = url;
+        location.href=url;
+        return false;
+    });
+
+    form.on("submit(formDemo)",function(data){
+        var formData = data.field;
+        table.reload('order', {
+            page: {
+                curr: 1 //重新从第 1 页开始
+            }
+            ,where: {
+                sn:formData.sn,
+                pay_status:formData.pay_status,
+                order_status:formData.order_status,
+                mobile:formData.mobile,
+                subtitle:formData.subtitle,
+                add_time:formData.add_time,
+                paytime:formData.paytime,
+                pay_way:formData.pay_way,
+                shop_id:formData.shop_id,
+                order_distinguish:formData.order_distinguish,
+                cross_border:formData.cross_border,
+            }
+        }, 'data');
+        return false;
+    });
+
+    //监听单元格编辑
+    table.on('edit(order)', function(obj){
+        var value = obj.value //得到修改后的值
+            ,data = obj.data //得到所在行所有键值
+            ,field = obj.field; //得到字段
+        $.ajax({
+            type : "post",
+            url : "/mall/order/update_remarks",
+            data: {id:data.id,field:field,value,value},
+            dataType: 'json',
+            success:function(res){
+                if( res.code == 1 ){
+                    layer.msg('编辑成功');
+                }else if( res.code==2 ){
+                    layer.msg(res.msg);
+                }else{
+                    layer.msg('编辑失败,请联系管理员');
+                }
+            }
+        });
+    });
+
+    table.on('tool(order)', function(obj) {
+        var data = obj.data;
+        if(obj.event === "deliver"){
+            var id = data.id;
+            if( (data.order_distinguish == 1) && (data.assemble_status != 1) ){
+                layer.msg("拼团还未成功",{icon:5, time: 1200 ,shade:0.6});
+                return false;
+            }
+            layer.open({
+                type:1,
+                title:"商品发货",
+                area: ['960px', '600px'],
+                content :`
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <fieldset class="layui-elem-field layui-field-title">
+                            <legend>订单商品列表</legend>
+                        </fieldset>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-form">
+                            <form class="layui-form">
+                                <div class="layui-form-item">
+                                    <!--<div class="layui-input-inline" style="width:250px;">
+                                       <input type="text" name="search" class="layui-input" id="search" placeholder="请输入需查询的订单号">
+                                    </div>
+                                    <button class="layui-btn" lay-submit lay-filter="formDemo">搜索</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+                                    <button class="layui-btn" lay-submit lay-filter="batch" data-type="getCheckData" style="margin-left:10px;">批量发货</button>
+                                </div>
+                            </form>
+                            <table class="layui-hide" id="order_goods" lay-filter="order_goods"></table>
+                        </div>
+                    </div>
+                </div>`,
+                success:function(layero,indexxx){
+                    table.render({
+                        elem: '#order_goods',
+                        skin: 'row', //行边框风格
+                        even: true ,//开启隔行背景
+                        id:"order_goods",
+                        url: '{:url("mall/order/deliver_order_goods")}?id='+id,
+                        height: 'full-148',
+                        page: true,
+                        cols: [[
+                            {type: 'checkbox',width:60},
+                            { field: 'subtitle',align: 'center',width:200,  title: '商品名称'},
+                            { field: 'num',align: 'center',  title: '数量'},
+                            { field: 'refund',align: 'center',  title: '退货数量'},
+                            { field: 'real_price',align: 'center',  title: '成交价'},
+                            { field: 'oprice',align: 'center',  title: '成本',edit: 'text'},
+                            { field: 'refund_status',align: 'center',  title: '退货状态',toolbar:'#refundStatusTool'},
+                            { field: 'deliver_status',align: 'center',  title: '发货状态'},
+                            { field: 'pay_sn',align: 'center',  title: '操作',toolbar: '#statusTool'},
+                        ]],
+                    });
+                    //监听单元格编辑
+                    table.on('edit(order_goods)', function(obj){
+                        var value = obj.value //得到修改后的值
+                            ,data = obj.data //得到所在行所有键值
+                            ,field = obj.field; //得到字段
+                        $.ajax({
+                            type : "post",
+                            url : "/mall/Order/update_oprice",
+                            data: {id:data.id,field:field,value,value},
+                            dataType: 'json',
+                            success:function(res){
+                                layer.msg(res.msg);
+                            }
+                        });
+                    });
+                    active = {
+                        getCheckData: function(){ //获取选中数据
+                            var checkStatus = table.checkStatus('order_goods')
+                            ,data = checkStatus.data;
+                            // for (var dataCheck=0;dataCheck<data.length;dataCheck++){
+                            //     if( data[dataCheck].oprice=='' || data[dataCheck].oprice=='0.00' || data[dataCheck].oprice==null ){
+                            //         return 1;
+                            //     }
+                            // }
+                            return data;
+                        }
+                    };
+                    form.on("submit(batch)",function(rdata){
+                        var type = $(this).data('type');
+                        var batch_data = active[type] ? active[type].call(this) : '';
+                        if(batch_data==""){
+                            layer.msg("未选择商品",{icon:5, time: 1200 ,shade:0.6});
+                            return false;
+                        }
+                        for (var dataCheck=0;dataCheck<batch_data.length;dataCheck++){
+                            if( batch_data[dataCheck].oprice=='' || batch_data[dataCheck].oprice=='0.00' || batch_data[dataCheck].oprice==null ){
+                                layer.msg("请先设置成本",{icon:5, time: 1200 ,shade:0.6});
+                                return false;
+                            }
+                        }
+                        var a_html = "";
+                        var goods_id = new Array();
+                        for(var i = 0;i <batch_data.length;i++){
+                            goods_id[i] = batch_data[i]['id'];
+                            a_html += `<a class="layui-btn layui-btn-xs layui-btn-normal">${batch_data[i].subtitle}</a>`;
+                        }
+                        var express = $("#express").html();
+                        layer.open({
+                            type:1,
+                            title:"商品快递信息填写",
+                            area: ['660px', '400px'],
+                            content :`
+                            <form class="layui-form">
+                                <div class="ddxm-content-col" style="margin-top:20px;">
+                                    <div class="layui-form-item">
+<!--                                        <label class="layui-form-label">快递名称<span class="must">*</span></label>-->
+                                        <label class="layui-form-label">快递名称<span class="must">*</span></label>
+                                        <div class="layui-input-inline">
+                                            ${express}
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">快递单号<span class="must">*</span></label>
+                                        <div class="layui-input-inline">
+<!--                                            <input type="text" name="sn" lay-verify="express_sn" autocomplete="off" placeholder="请输入快递单号" class="layui-input number" value="">-->
+                                            <input type="text" name="sn" lay-verify="express_sn" autocomplete="off" placeholder="请输入快递单号" class="layui-input number" value="">
+                                            <input type="hidden" name="id">
+                                            <input type="hidden" name="order_id" value="${data.id}">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item ddxm-content-long">
+                                        <label class="layui-form-label">收货人名字</label>
+                                        <div class="layui-form-mid layui-word-aux" style="width:180px">
+                                            ${data.realname}
+                                        </div>
+                                        <label class="layui-form-label">收货人电话</label>
+                                        <div class="layui-form-mid layui-word-aux" style="width:180px">
+                                            ${data.mobile_address}
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">收货地址</label>
+                                        <div class="layui-form-mid layui-word-aux">
+                                            ${data.detail_address}
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">商品名称</label>
+                                        <div class="layui-form-mid layui-word-aux">
+                                            ${a_html }
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div style="float:right;margin-right:20px;margin-bottom:10px">
+                                    <button class="layui-btn" lay-submit lay-filter="define">确定</button>
+                                    <button class="layui-btn layui-btn-danger" lay-submit lay-filter="cancel">关闭</button>
+                                </div>
+                            </form>`,
+                            success:function(layeroo,indexo){
+                                form.render('select');
+                                form.on("submit(define)",function(data){
+                                    var field = data.field;
+                                    field.id = goods_id;
+                                    $.ajax({
+                                        url: '{:url("mall/order/deliver_order_express")}',
+                                        type: "POST",
+                                        data: {field:field},
+                                        success:function(odata){
+                                            if(odata){
+                                                layer.msg(odata.msg,{icon: 6 , time: 1200 ,shade:0.6},function(){
+
+                                                    if(odata.data==0){
+                                                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                                        layer.close(indexo);
+                                                        parent.layer.close(index); //再执行关闭
+                                                        layer.close(indexxx);
+                                                    }else{
+                                                        layer.close(indexo);
+                                                        table.reload('order_goods', {
+                                                        });
+                                                    }
+
+                                                })
+                                            }else{
+                                                layer.msg(odata.msg,{icon:5});
+                                            }
+                                        }
+                                    })
+                                    return false;
+                                })
+
+                            },
+                            end:function(layeroo,indexo){
+                            }
+                        });
+                        return false;
+                    });
+                    table.on('tool(order_goods)', function(obj) {
+                        var datas = obj.data;
+                        var express = $("#express").html();
+                        if( datas.oprice=='' || datas.oprice=='0.00' || datas.oprice==null ){
+                            layer.msg("请先设置成本",{icon:5, time: 1200 ,shade:0.6});
+                            return false;
+                        }
+                        if(obj.event === "deliver_goods"){
+                            layer.open({
+                                type:1,
+                                title:"商品快递信息填写",
+                                area: ['660px', '400px'],
+                                content :`
+                                <form class="layui-form">
+                                    <div class="ddxm-content-col" style="margin-top:20px;">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">快递名称<span class="must">*</span></label>
+                                            <div class="layui-input-inline">
+                                                ${express}
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">快递单号<span class="must">*</span></label>
+                                            <div class="layui-input-inline">
+<!--                                                <input type="text" name="sn" lay-verify="express_sn" autocomplete="off" placeholder="请输入快递单号" class="layui-input number" value="">-->
+                                                <input type="text" name="sn" autocomplete="off" placeholder="请输入快递单号" class="layui-input number" value="">
+                                                <input type="hidden" name="id" value="${datas.id}">
+                                                <input type="hidden" name="order_id" value="${datas.order_id}">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item ddxm-content-long">
+                                            <label class="layui-form-label">收货人名字</label>
+                                            <div class="layui-form-mid layui-word-aux" style="width:180px">
+                                                ${data.realname}
+                                            </div>
+                                            <label class="layui-form-label">收货人电话</label>
+                                            <div class="layui-form-mid layui-word-aux" style="width:180px">
+                                                ${data.mobile_address}
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">收货地址</label>
+
+                                            <div class="layui-form-mid layui-word-aux">
+                                                ${data.detail_address}
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">商品名称</label>
+
+                                            <div class="layui-form-mid layui-word-aux">
+                                                <a class="layui-btn layui-btn-xs layui-btn-normal">${datas.subtitle}</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div style="float:right;margin-right:20px;margin-bottom:10px">
+                                        <button class="layui-btn" lay-submit lay-filter="define">确定</button>
+                                        <button class="layui-btn layui-btn-danger" lay-submit lay-filter="cancel">关闭</button>
+                                    </div>
+                                </form>`,
+                                success:function(layeroo,indexo){
+                                    form.render('select');
+                                    form.on("submit(define)",function(data){
+                                        var field = data.field;
+                                        var goods_id = new Array();
+                                        $("input[name='id']").each(function(s){
+                                            goods_id[s] = $(this).val();
+                                        });
+                                        field.id = goods_id;
+                                        $.ajax({
+                                            url: '{:url("mall/order/deliver_order_express")}',
+                                            type: "POST",
+                                            data: {field:field},
+                                            success:function(odata){
+                                                if(odata){
+                                                    layer.msg(odata.msg,{icon: 6 , time: 1200 ,shade:0.6},function(){
+                                                        if(odata.data==0){
+                                                            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                                            layer.close(indexo);
+                                                            parent.layer.close(index); //再执行关闭
+                                                            layer.close(indexxx);
+                                                        }else{
+                                                            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                                            layer.close(indexo);
+                                                            parent.layer.close(index); //再执行关闭
+                                                            table.reload('order_goods', {
+                                                            });
+                                                        }
+
+                                                    })
+                                                }else{
+                                                    layer.msg(odata.msg,{icon:5});
+                                                }
+                                            }
+                                        })
+                                        return false;
+                                    })
+
+                                },
+                                end:function(layeroo,indexo){
+
+                                }
+                            })
+                        }
+                    })
+                },
+                end: function(layero, index){
+                   table.reload('order', {
+                    });
+                },
+            });
+        }else if(obj.event === "info"){
+            var id = data.id;
+            layer.open({
+                type:2,
+                title:"订单详情",
+                area:['900px','700px'],
+                content:"{:url('mall/order/details')}?id="+id,
+                end: function(layero, index){
+                    table.reload('tableTest', {
+                    });
+                }
+            })
+        }else if(obj.event === 'memberInfo'){
+            var loadingFlag;
+            $.ajax({
+                url: '{:url("mall/order/memberInfo")}',
+                type: "POST" ,
+                data: {id: data.member_id},
+                beforeSend: function (XMLHttpRequest) {
+                    loadingFlag= layer.msg('正在读取数据，请稍候……',
+                        {icon: 16,
+                            shade: 0.01,
+                            shadeClose:false,
+                            time:60000
+                        });
+                },
+                success:function(data){
+                    layer.close(loadingFlag);
+                    if( data.data.attestation == 1 ){
+                        var cc = `<div class="layui-col-md12">
+                                <label class="layui-form-label">身份证</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.attestation_info.code}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">正面</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    <img style="width:100px;margin-left:10px;" src="http://picture.ddxm661.com/${data.data.attestation_info.front}" alt="">
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">反面</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    <img style="width:100px;margin-left:10px;" src="http://picture.ddxm661.com/${data.data.attestation_info.backl}" alt="">
+                                </div>
+                            </div>`;
+                    }else{
+                        var cc = '';
+                    }
+                    layer.open({
+                        type:1,
+                        title:"会员信息",
+                        area:['400px','400px'],
+                        content:`
+                        <div class="layui-row">
+                            <div class="layui-col-md12 " style="margin-top:10px;">
+                                <label class="layui-form-label">会员昵称</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.nickname}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">手机号码</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.mobile}
+                                </div>
+                            </div>
+                            ${cc}
+                        </div>
+                        `,
+                    });
+                }
+            })
+        }
+    });
+    form.verify({
+      express: function(value, item){ //value：表单的值、item：表单的DOM对象
+        if(value==""){
+            return '请选择快递公司';
+        }
+      },
+      express_sn:function(value,item){
+        if(value==""){
+            return "请输入快递单号";
+        }
+      }
+    });
+});
+
+</script>
+{/block}

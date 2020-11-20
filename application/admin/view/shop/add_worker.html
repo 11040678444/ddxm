@@ -1,0 +1,121 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">添加员工</div>
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal">
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span> 员工姓名</label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="name" autocomplete="off" value="{$list['name']}" placeholder="请输入员工姓名" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span> 所属门店</label>
+                <div class="layui-input-inline">
+                    <select name="sid" lay-filter="roleid">
+                        {volist name="shop" id="vo"}
+                        <option value="{$vo['id']}" {if condition="$vo['id'] eq $list['sid']"} selected {/if} >{$vo['name']}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span> 所属岗位</label>
+                <div class="layui-input-inline">
+                    <select name="post_id" lay-filter="roleid">
+                        {volist name="post" id="vo"}
+                        <option value="{$vo['id']}" {if condition="$vo['id'] eq $list['post_id']"} selected {/if} >{$vo['title']}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span> 手机号码</label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="mobile" autocomplete="off" value="{$list['mobile']}" placeholder="请输入手机号码" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="sex" value="0" title="无" checked>
+                    <input type="radio" name="sex" value="1" title="男">
+                    <input type="radio" name="sex" value="2" title="女">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">入职时间</label>
+                <div class="layui-input-inline w300">
+                    <input type="text" id="test1" name="entry_time" autocomplete="off" placeholder="请选择入职时间" class="layui-input">
+                </div>
+            </div>
+            <script>
+                layui.use('laydate', function(){
+                  var laydate = layui.laydate;
+                  var entry_time = "{$list.entry_time}";
+                  //执行一个laydate实例
+                  laydate.render({
+                    elem: '#test1', //指定元素
+                    value: entry_time,
+                    min:0
+                  });
+                });
+            </script>
+            <div class="layui-form-item">
+                <label class="layui-form-label">备注</label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="remark" autocomplete="off" value="{$list['remark']}" placeholder="请输入备注" class="layui-input">
+                </div>
+            </div>
+            <input type="hidden" name="id" value="{$list['id']}">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="L_submit">立即提交</button>
+                    <button class="layui-btn layui-btn-normal" id = "close">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    layui.use(["form"], function(){
+        var layer = layui.layer;
+        form = layui.form;
+        form.on('submit(L_submit)', function(data){
+            var formData = data.field;
+            $.ajax({
+                type : "post",
+                url : "/admin/Shop/worker_doPost",
+                data: formData,
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 1 ){
+                        layer.msg(res.msg); 
+                        var index = parent.layer.getFrameIndex(window.name);
+                        setTimeout(function(){
+                            parent.layer.close(index);
+                            parent.location.reload();
+                        }, 1000);  
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+            return false;
+        });
+
+
+        //关闭
+        $("#close").click(function(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            parent.location.reload();
+        })
+    });
+</script>
+{/block}

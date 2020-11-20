@@ -1,0 +1,246 @@
+{extend name="index_layout"/}
+{block name="main"}
+
+
+<style>
+    .layui-form-label2 {
+    float: left;
+    display: block;
+    padding: 9px;
+    width: 90%;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: center;
+        background-color: white;
+
+    }
+
+    .layui-form-label3 {
+        float: left;
+        display: block;
+        padding: 9px;
+        width: 90%;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: center;
+        background-color: white;
+
+    }
+    #addspecs{
+        cursor:pointer;
+    }
+    .pushSpecs{
+        float: right;border-color:#1E9FFF;background-color:#1E9FFF;color: #fff;width: 50px;text-align: center;
+    }
+</style>
+
+<div class="layui-card">
+<!--    border: 1px solid red-->
+
+    <form class="layui-form" action="">
+    <div class="layui-card-body" style="height: 90vh;">
+        <div style="height: 90vh;">
+            <div style="width: 19%;float: left; ">
+                <ul  lay-filter="test" style="height: 90vh;overflow-y: scroll;" class="managementPanel" >
+                    <li class="layui-form-label3 search">
+                        <input type="text" placeholder="输入搜索规格值" size="50px" style="width: 70%;height: 200%;float: left;"/>
+                        <a href="/mall/items/selectspecs?ids=-1" class="layui-layer-btn0" target="_self" style="float: right;border-color:#1E9FFF;">搜索</a>
+                    </li>
+                    <li class="layui-form-label3" style="background-color:darkred;color: #ffffff;" id="addspecs" >添加规格</li>
+                    <input type="hidden" name="{$sl.next}" value="" >
+                    {volist name="specslist" id="sl" key="k"}
+                        {if condition="$k eq 1" }
+                            <li class="layui-form-label2" id="{$sl.next}" name="{$sl.id}" value="{$sl.title}"
+                                style="background-color: #0bb20c;color: #ffffff;"  >{$sl.title}</li>
+
+                            {else /}
+                    <li class="layui-form-label2" id="{$sl.next}"  name="{$sl.id}" value="{$sl.title}" >{$sl.title}</li>
+                            {/if}
+                    <hr>
+                    {/volist}
+                </ul>
+            </div>
+            <div style="width: 79%;height: 90vh;float: right;">
+
+                <table class="layui-table">
+                    <colgroup>
+                        <col>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        {if !empty($specslistnet)}
+                        <th>
+                            <input type="checkbox" name="selectall"  id="selectall" value="全选" lay-filter="selectall" lay-skin="primary" title="全选" checked>
+                            <span id="addspecs" data-id="{$specslistnet[0]['pid']}" class="pushSpecs">添加</span>
+                        </th>
+                        {/if}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td id="checkboxid">
+                            {volist name="specslistnet" id="ss"}
+                                 <input type="checkbox"  title="{$ss.title}" name='{$ss.title}' id = "checkser" value="{$ss.id}"  lay-filter="checkser"
+                                        class="checks"  checked>
+                            {/volist}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    </form>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    // 选中的内容
+    var checkAll = null;
+    var checkcurrent = new Object();//当前项 全部数据  用于全选和反选 设置相应数据
+    console.log("**********顶部*********");
+    layui.use('form', function(){
+        var form = layui.form;
+        console.log("**********form*********");
+
+        var strjson = "{$specslistnet_json}";
+        strjson = strjson.replace(/&quot;/g,"\"");
+        strjson= JSON.parse(strjson);
+        checkAll = strjson;
+
+
+        $("[id=addspecs]").click(function(){
+            var url  ="{:url('mall/items/specs_add')}";
+            if($(this).attr('data-id'))
+            {
+                url+='?id='+$(this).attr('data-id');
+            }
+            layer.open({
+                type: 2,
+                title: '添加规格',
+                area: ['600px', '500px'],
+                content: url,
+                yes: function(index){
+                    window.location.reload();
+                },
+            });
+        });
+
+        // 1 点击左边菜单栏---默认全部选中右边所有数据
+        $(".layui-form-label2").click(function(){
+            console.log("**********layui-form-label2*********")
+            var c=$(this).css("background-color");
+            //单项重复选中判断------防止 在已经选中的栏目上面多次点击 而改变数据
+            if(c == "rgb(11, 178, 12)"){
+                return;
+            }
+
+            $(".layui-form-label2").css("background-color",'#ffffff');
+            $(".layui-form-label2").css("color",'#000000');
+
+            $(this).css("background-color","#0bb20c");
+            $(this).css("color","#ffffff");
+
+            // 清空数组
+            checkAll = new Object();
+            var jsonStr = $(this).attr('id');
+            var tid = $(this).attr('name');//一级ID
+            var tname = $(this).attr('value');//一级  title
+            checkAll.tid = tid;
+            checkAll.tname = tname;
+           var  checkvalue = new Array();
+            var jsonObj = $.parseJSON(jsonStr);
+            $("#checkboxid").empty();
+            for(var k in jsonObj){
+                  $("#checkboxid").append("<input type='checkbox' class='checks' name="+jsonObj[k].title+" id='checkser'   " +
+                      "lay-filter='checkser' value="+jsonObj[k].id+ " title="+ jsonObj[k].title+"  checked>");
+
+                  var obg = new Object();
+                  obg.id = jsonObj[k].id;
+                  obg.name = jsonObj[k].title;
+                checkvalue[k] = obg;
+            }
+
+            checkAll.value = checkvalue;
+            checkcurrent = checkAll.value;
+            form.render('checkbox');
+        });
+
+        // 2   多选--全选
+        form.on('checkbox(selectall)', function(data){
+
+            console.log("**********全选*********");
+            var check =  data.elem.checked;
+            if(check){
+                checkAll.value = checkcurrent;
+                $('.checks').prop("checked", true);
+            }else{
+                $('.checks').prop("checked", false);
+                checkAll.value = new Array();
+            }
+            console.log(checkAll);
+            form.render('checkbox');
+        });
+
+        //3   单选
+        form.on('checkbox(checkser)', function(data){
+
+            var check =  data.elem.checked;
+
+            var name = data.elem.name;
+            var value = data.value;
+
+            var checkvalue = new Object();
+            checkvalue.name = name;
+            checkvalue.id = value;
+
+          var obg =  checkAll.value;// 获取 所有已经选中的 数组
+
+            // checkAll.value = obg;
+            var  index = checkAll.value.length;
+            // console.log(checkvalue);
+            // console.log(checkAll);
+            // console.log("***********22222********");
+            // if(index == 1){
+            //     return;
+            // }
+            //删除数组
+            if(check){
+
+                // console.log("*******************");
+                // console.log(checkvalue);
+                // console.log("*******************");
+                // console.log(obg);
+                obg[index] = checkvalue;
+                // obg.add(checkvalue)
+                checkAll.value = obg;
+
+            }else{
+                // 循环查找当前 应该删除的数组坐标
+                for(var k=0;k<checkAll.value.length;k++){
+                    var id = checkAll.value[k].id;
+                    if(id  == value ){
+                        checkAll.value.splice(k, 1);
+                        continue;
+                    }
+                }
+            }
+            form.render('checkbox');
+            console.log(checkAll);
+        });
+    });
+
+    // 下面是 返回的  回调 参数
+    var callbackdata = function () {
+        return checkAll;
+    }
+
+    $('.managementPanel .search').find('input').on('input propertychange',function () {
+        var result = $(this).val();
+        var url = '/mall/items/selectspecs?ids=3295&title='+result;
+        $('.managementPanel .search').find('a').attr('href',url);
+    });
+</script>
+{/block}

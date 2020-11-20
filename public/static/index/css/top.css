@@ -1,0 +1,113 @@
+            *{
+				margin: 0;
+				padding:0;
+				box-sizing: border-box;
+			}
+			html,body{
+				width: 100%;
+				height: 100%;
+				
+			}
+			html{
+				font-size: 100px;
+			}
+			body{
+				font-size: 14px;
+			}
+			.index-top{
+				width: 100%;
+				height: 68px;
+				/*background-image:url(__STATIC__/index/images/index-top-bg.png);*/
+				background-size: cover;
+				display: flex;
+			}
+			.index-top .logo{
+				width: 14.6%;
+				height: 68px;
+				text-align: center;
+				line-height: 68px;
+			}
+			.index-top .logo img{
+				 vertical-align: middle;
+				 width: auto;
+				 height: auto;
+				 max-width: 100%;
+				 max-height: 100%;
+			}
+			.index-top .shop-choice{
+				width: 57.4%;
+				height: 68px;
+				padding-left: 2.5%;
+				line-height: 68px;
+			}
+			.index-top .shop-choice p{
+				font-size:0.18rem;
+				font-family:MicrosoftYaHei-Bold;
+				font-weight:bold;
+				color:rgba(255,255,255,1);
+			}
+			.index-top .other-news{
+				display: flex;
+				height: 68px;
+				width: 28%;
+				line-height: 68px;
+			}
+			.index-top .other-news img{
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+				margin-bottom: -3%;
+			}
+			.index-top .other-news a{
+				font-size:0.14rem;
+				font-family:MicrosoftYaHei;
+				font-weight:400;
+				color:rgba(255,255,255,1);
+				text-decoration: none;
+			}
+			.index-top .other-news .cashRegister,.help,.fullScreen,.personalInfor{
+				margin-right: 9%;
+			}
+			.index-top .other-news .personalInfor{
+				padding-left: 2%;
+				padding-right: 2%;
+				background: #2c8ad5;
+			}
+			.index-top .other-news .personalInfor select{				
+				border:none;
+				background: #2c8ad5;
+				color:white;
+				appearance:none;				
+			}
+			
+			@media screen and (max-device-width: 1280px) {
+			    .index-top .shop-choice{
+			    	width: 5.4%;			    	
+			    }
+			    .index-top .other-news{
+			    	width: 80%;
+			    }  
+			    .index-top .other-news a{
+			    	font-size: 6px;
+			    }
+			}
+			
+			@media screen and (max-device-width: 1440px) {
+			    .index-top .shop-choice{
+			    	width: 35.4%;			    	
+			    }
+			    .index-top .other-news{
+			    	width: 50%;
+			    } 
+			}
+			
+			
+			@media screen and (max-device-width: 1600px) {
+			    .index-top .shop-choice{
+			    	width: 50.4%;			    	
+			    }
+			    .index-top .other-news{
+			    	width: 35%;
+			    }
+			}

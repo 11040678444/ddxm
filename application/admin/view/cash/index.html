@@ -1,0 +1,265 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <!-- <div class="layui-card-header">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>代金券管理</legend>
+        </fieldset>
+    </div> -->
+    <div class="layui-card-body">
+        <div class="layui-form"> 
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-input-inline" style="width:130px;">
+                        <a class="layui-btn"  lay-filter="add" href="{:url('admin/cash/add')}">添加代金券</a>
+                    </div>
+                    <div class="layui-input-inline" style="width:250px;">
+                       <input type="text" name="search" class="layui-input" id="search" placeholder="请输入需查询的代金券名称">
+                    </div>
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">搜索</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </form>
+            <table class="layui-hide" id="ticket" lay-filter="ticket"></table>
+            <script type="text/html" id="itemTool">
+                {{# if(d.item =="0"){}}
+                    <a class="layui-btn layui-btn-danger layui-btn-xs">不可用</a>
+                {{#}else if(d.item=="1"){}}
+                    <a class="layui-btn layui-btn-normal layui-btn-xs"  lay-event="item">部分商品</a>
+                {{#}else if(d.item=="2"){}}
+                    <a class="layui-btn layui-btn-xs" >所有商品</a>
+                {{#}}}
+            </script>
+            <script type="text/html" id="serviceTool">
+                {{# if(d.service =="0"){}}
+                    <a class="layui-btn layui-btn-danger layui-btn-xs">不可用</a>
+                {{#}else if(d.service=="1"){}}
+                    <a class="layui-btn layui-btn-normal layui-btn-xs"  lay-event="service">部分服务</a>
+                {{#}else if(d.service=="2"){}}
+                    <a class="layui-btn layui-btn-xs" >所有服务</a>
+                {{#}}}
+            </script>
+            <script type="text/html" id="ticketTool">
+                {{# if(d.ticket =="0"){}}
+                    <a class="layui-btn layui-btn-danger layui-btn-xs">不可用</a>
+                {{#}else if(d.ticket=="1"){}}
+                    <a class="layui-btn layui-btn-normal layui-btn-xs"  lay-event="ticket">部分服务卡</a>
+                {{#}else if(d.ticket=="2"){}}
+                    <a class="layui-btn layui-btn-xs" >所有服务卡</a>
+                {{#}}}
+            </script>
+            <script type="text/html" id="stateTool">
+                {{# if(d.state =="0"){}}
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" style="cursor:default">已关闭</a>
+                {{#}else if(d.state=="1"){}}
+                    <a class="layui-btn layui-btn-normal layui-btn-xs" style="cursor:default">正常</a>
+                {{#}}}
+            </script>
+            <script type="text/html" id="barTool">
+                <!-- <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="details">查看详情</a> -->
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            </script>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script>
+layui.use(["table","layer","form"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        form  = layui.form,
+        $ = layui.$;
+    table.render({
+        elem: '#ticket',
+        /*toolbar: '#toolbarDemo',*/
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"tableTest",
+        url: '{:url("admin/cash/index")}',
+        height: 'full-148',
+        page: true,
+        cols: [[
+            {type: 'numbers',width:60},
+            { field: 'title',align: 'center',  title: '名称'},
+            { field: 'item',align: 'center',  title: '商品可用',toolbar: '#itemTool'},
+            { field: 'service',align: 'center',  title: '服务可用',toolbar: '#serviceTool'},
+            { field: 'ticket',align: 'center',  title: '服务卡可用',toolbar: '#ticketTool'},
+            { field: 'days',align: 'center', title: '过期时间'},
+            { field: 'price',align: 'center',title: '金额(￥)'},
+            { field: 'create_time',align: 'center',title: '创建时间'},
+            { field: 'o_price',align: 'center',  title: '限制条件(￥)'},
+            { field: 'status',align: 'center',  title: '状态'},
+            { align: 'center', width: 185, title: '操作', toolbar: '#barTool' }
+        ]],
+    });
+    form.on("submit(formDemo)",function(data){
+        var search = data.field.search;
+        table.reload('tableTest', {
+            page: {
+                curr: 1 //重新从第 1 页开始
+            }
+            ,where: {
+                search:search,
+            }
+        }, 'data');
+        return false;
+    })
+    table.on('tool(ticket)', function(obj) {
+        var data = obj.data;
+        if (obj.event === 'item') {
+            var id = data.id;
+            $.ajax({
+                url: "/admin/cash/product_list",    // 提交到controller的url路径
+                type: "post",    // 提交方式
+                data: {data:id,type:'item'},  // data为String类型，必须为 Key/Value 格式。
+                dataType: "json",    // 服务器端返回的数据类型
+                success: function (res) { 
+                    if(res.result){
+                        layer.open({
+                            type:1,
+                            title:"已选商品",
+                            area: ['500px', '300px'],
+                            content:`
+                            <div class="layui-card">
+                                <div class="layui-card-body">
+                                    <div class="layui-form-item" id="item_product_list">
+
+                                    </div>
+                                </div>
+                            </div>`,
+                            success:function(layero,index){
+                                var html ="";
+                                for(var i = 0;i<res.data.length;i++){
+                                    html += `<a class="layui-btn layui-btn-normal layui-btn-xs">`+res.data[i]["title"]+`</a>`;
+                                }
+                                console.log(html);
+                                $("#item_product_list").append(html);
+                            },
+                            end: function(layero, index){  
+
+                            }
+                        })
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                },
+            });
+        }
+        if (obj.event === 'ticket') {
+            var id = data.id;
+            $.ajax({
+                url: "/admin/cash/product_list",    // 提交到controller的url路径
+                type: "post",    // 提交方式
+                data: {data:id,type:'ticket'},  // data为String类型，必须为 Key/Value 格式。
+                dataType: "json",    // 服务器端返回的数据类型
+                success: function (res) { 
+                    if(res.result){
+                        layer.open({
+                            type:1,
+                            title:"已选服务卡",
+                            area: ['500px', '300px'],
+                            content:`
+                            <div class="layui-card">
+                                <div class="layui-card-body">
+                                    <div class="layui-form-item" id="ticket_product_list">
+
+                                    </div>
+                                </div>
+                            </div>`,
+                            success:function(layero,index){
+                                var html ="";
+                                for(var i = 0;i<res.data.length;i++){
+                                    html += `<a class="layui-btn layui-btn-normal layui-btn-xs">`+res.data[i]["title"]+`</a>`;
+                                }
+                                console.log(html);
+                                $("#ticket_product_list").append(html);
+                            },
+                            end: function(layero, index){  
+
+                            }
+                        })
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                },
+            });
+        }
+        if (obj.event === 'service') {
+            var id = data.id;
+            $.ajax({
+                url: "/admin/cash/product_list",    // 提交到controller的url路径
+                type: "post",    // 提交方式
+                data: {data:id,type:'service'},  // data为String类型，必须为 Key/Value 格式。
+                dataType: "json",    // 服务器端返回的数据类型
+                success: function (res) { 
+                    if(res.result){
+                        layer.open({
+                            type:1,
+                            title:"已选服务卡",
+                            area: ['500px', '300px'],
+                            content:`
+                            <div class="layui-card">
+                                <div class="layui-card-body">
+                                    <div class="layui-form-item" id="service_product_list">
+                                    </div>
+                                </div>
+                            </div>`,
+                            success:function(layero,index){
+                                var html ="";
+                                for(var i = 0;i<res.data.length;i++){
+                                    html += `<a class="layui-btn layui-btn-normal layui-btn-xs">`+res.data[i]["title"]+`</a>`;
+                                }
+                                console.log(html);
+                                $("#service_product_list").append(html);
+                            },
+                            end: function(layero, index){  
+
+                            }
+                        })
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                },
+            });
+        }
+        if(obj.event === "details"){
+            var id = data.id;
+        }
+        if(obj.event === "del"){
+            var id = data.id;
+            var title = data.title;
+            var msg = "确认删除“"+title+"”?";
+            layer.confirm(msg, function(index){
+                $.ajax({
+                    url: "/admin/cash/del",    // 提交到controller的url路径
+                    type: "post",    // 提交方式
+                    data: {id:id},  // data为String类型，必须为 Key/Value 格式。
+                    dataType: "json",    // 服务器端返回的数据类型
+                    success: function (res) { 
+                        layer.msg(res.msg,{icon: 6 , time:1000 ,shade:0.6},function(){
+                            $(".layui-laypage-btn")[0].click();
+                            layer.close(index);
+                        })
+                    },
+                });
+            });   
+        }
+        if(obj.event === "edit"){
+            var id = data.id;
+            layer.open({
+                type:2,
+                title:"已选商品",
+                area: ['630px', '700px'],
+                content:`{:url('admin/cash/edit')}?id=`+id,
+                end: function(layero, index){
+                   table.reload('tableTest', {
+                    });
+                }
+            })
+        }
+    });
+});
+</script>
+{/block}

@@ -1,0 +1,4478 @@
+{
+  "modules": [
+    {
+      "name": "ddxmtp5",
+      "chnname": "捣蛋熊猫_MYSQL",
+      "entities": [
+        {
+          "title": "ddxm_addons",
+          "chnname": "插件表",
+          "fields": [
+            {
+              "name": "id",
+              "type": "INT UNSIGNED_10",
+              "chnname": "主键",
+              "remark": "",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true,
+              "defaultValue": ""
+            },
+            {
+              "name": "name",
+              "type": "VARCHAR_40",
+              "chnname": "插件名或标识",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "title",
+              "type": "VARCHAR_20",
+              "chnname": "中文名",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "description",
+              "type": "TEXT",
+              "chnname": "插件描述",
+              "remark": "",
+              "pk": false,
+              "notNull": false,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "status",
+              "type": "BIT_1",
+              "chnname": "状态",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "config",
+              "type": "TEXT",
+              "chnname": "配置",
+              "remark": "",
+              "pk": false,
+              "notNull": false,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "author",
+              "type": "VARCHAR_40",
+              "chnname": "作者",
+              "remark": "",
+              "pk": false,
+              "notNull": false,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "version",
+              "type": "VARCHAR_20",
+              "chnname": "版本号",
+              "remark": "",
+              "pk": false,
+              "notNull": false,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "create_time",
+              "type": "INT UNSIGNED_10",
+              "chnname": "安装时间",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "has_adminlist",
+              "type": "TINYINT UNSIGNED_1",
+              "chnname": "是否有后台列表",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "ceshi",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "测试"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ]
+        },
+        {
+          "title": "ddxm_admin",
+          "chnname": "管理员表",
+          "fields": [
+            {
+              "name": "userid",
+              "type": "SMALLINT UNSIGNED_5",
+              "chnname": "用户ID",
+              "remark": "",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true,
+              "defaultValue": ""
+            },
+            {
+              "name": "username",
+              "type": "VARCHAR_20",
+              "chnname": "管理账号",
+              "remark": "",
+              "pk": false,
+              "notNull": false,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "password",
+              "type": "VARCHAR_32",
+              "chnname": "管理密码",
+              "remark": "",
+              "pk": false,
+              "notNull": false,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "roleid",
+              "type": "TINYINT UNSIGNED_3",
+              "chnname": "",
+              "remark": "",
+              "pk": false,
+              "notNull": false,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "encrypt",
+              "type": "VARCHAR_6",
+              "chnname": "加密因子",
+              "remark": "",
+              "pk": false,
+              "notNull": false,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "nickname",
+              "type": "CHAR_16",
+              "chnname": "昵称",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "last_login_time",
+              "type": "INT UNSIGNED_10",
+              "chnname": "最后登录时间",
+              "remark": "",
+              "pk": false,
+              "notNull": false,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "last_login_ip",
+              "type": "BIGINT UNSIGNED_20",
+              "chnname": "最后登录IP",
+              "remark": "",
+              "pk": false,
+              "notNull": false,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "email",
+              "type": "VARCHAR_40",
+              "chnname": "",
+              "remark": "",
+              "pk": false,
+              "notNull": false,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "status",
+              "type": "BIT_1",
+              "chnname": "会员状态",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "title": "ddxm_adminlog",
+          "chnname": "操作日志",
+          "fields": [
+            {
+              "name": "id",
+              "type": "INT UNSIGNED_10",
+              "chnname": "日志ID",
+              "remark": "",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true,
+              "defaultValue": ""
+            },
+            {
+              "name": "status",
+              "type": "BIT_1",
+              "chnname": "",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "uid",
+              "type": "SMALLINT_5",
+              "chnname": "操作者ID",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "info",
+              "type": "TEXT",
+              "chnname": "说明",
+              "remark": "",
+              "pk": false,
+              "notNull": false,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "create_time",
+              "type": "INT UNSIGNED_10",
+              "chnname": "",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "ip",
+              "type": "BIGINT UNSIGNED_20",
+              "chnname": "",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "get",
+              "type": "VARCHAR_255",
+              "chnname": "",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ]
+        },
+        {
+          "title": "ddxm_attachment",
+          "chnname": "附件表",
+          "fields": [
+            {
+              "name": "id",
+              "type": "INT UNSIGNED_10",
+              "chnname": "",
+              "remark": "",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true,
+              "defaultValue": ""
+            },
+            {
+              "name": "uid",
+              "type": "MEDIUMINT UNSIGNED_8",
+              "chnname": "用户id",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "name",
+              "type": "CHAR_50",
+              "chnname": "文件名",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "module",
+              "type": "CHAR_15",
+              "chnname": "模块名，由哪个模块上传的",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "path",
+              "type": "VARCHAR_255",
+              "chnname": "文件路径",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "thumb",
+              "type": "VARCHAR_255",
+              "chnname": "缩略图路径",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "url",
+              "type": "VARCHAR_255",
+              "chnname": "文件链接",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "mime",
+              "type": "VARCHAR_64",
+              "chnname": "文件mime类型",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "ext",
+              "type": "CHAR_4",
+              "chnname": "文件类型",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "size",
+              "type": "INT UNSIGNED_10",
+              "chnname": "文件大小",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "md5",
+              "type": "CHAR_32",
+              "chnname": "文件md5",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "sha1",
+              "type": "CHAR_40",
+              "chnname": "sha1 散列值",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "driver",
+              "type": "VARCHAR_16",
+              "chnname": "上传驱动",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "create_time",
+              "type": "INT UNSIGNED_10",
+              "chnname": "上传时间",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "update_time",
+              "type": "INT UNSIGNED_10",
+              "chnname": "更新时间",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "listorders",
+              "type": "INT_10",
+              "chnname": "排序",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "status",
+              "type": "TINYINT UNSIGNED_1",
+              "chnname": "状态",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "title": "ddxm_auth_group",
+          "chnname": "权限组表",
+          "fields": [
+            {
+              "name": "id",
+              "type": "MEDIUMINT UNSIGNED_8",
+              "chnname": "用户组id,自增主键",
+              "remark": "",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true,
+              "defaultValue": ""
+            },
+            {
+              "name": "module",
+              "type": "VARCHAR_20",
+              "chnname": "用户组所属模块",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "type",
+              "type": "TINYINT_3",
+              "chnname": "组类型",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "title",
+              "type": "CHAR_20",
+              "chnname": "用户组中文名称",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "description",
+              "type": "VARCHAR_80",
+              "chnname": "描述信息",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "status",
+              "type": "BIT_1",
+              "chnname": "用户组状态：为1正常，为0禁用,-1为删除",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "rules",
+              "type": "VARCHAR_500",
+              "chnname": "用户组拥有的规则id，多个规则 , 隔开",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ]
+        },
+        {
+          "title": "ddxm_auth_rule",
+          "chnname": "规则表",
+          "fields": [
+            {
+              "name": "id",
+              "type": "MEDIUMINT UNSIGNED_8",
+              "chnname": "规则id,自增主键",
+              "remark": "",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true,
+              "defaultValue": ""
+            },
+            {
+              "name": "module",
+              "type": "VARCHAR_20",
+              "chnname": "规则所属module",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "type",
+              "type": "TINYINT_3",
+              "chnname": "1-url;2-主菜单",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "name",
+              "type": "CHAR_80",
+              "chnname": "规则唯一英文标识",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "title",
+              "type": "CHAR_20",
+              "chnname": "规则中文描述",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "status",
+              "type": "BIT_1",
+              "chnname": "是否有效(0:无效,1:有效)",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "condition",
+              "type": "VARCHAR_300",
+              "chnname": "规则附加条件",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "title": "ddxm_cache",
+          "chnname": "缓存列队表",
+          "fields": [
+            {
+              "name": "id",
+              "type": "INT_10",
+              "chnname": "",
+              "remark": "",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true,
+              "defaultValue": ""
+            },
+            {
+              "name": "key",
+              "type": "CHAR_100",
+              "chnname": "缓存KEY值",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "name",
+              "type": "CHAR_100",
+              "chnname": "名称",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "module",
+              "type": "CHAR_20",
+              "chnname": "模块名称",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "model",
+              "type": "CHAR_30",
+              "chnname": "模型名称",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "action",
+              "type": "CHAR_30",
+              "chnname": "方法名",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "system",
+              "type": "BIT_1",
+              "chnname": "是否系统",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "title": "ddxm_config",
+          "chnname": "网站配置",
+          "fields": [
+            {
+              "name": "id",
+              "type": "INT UNSIGNED_10",
+              "chnname": "配置ID",
+              "remark": "",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true,
+              "defaultValue": ""
+            },
+            {
+              "name": "name",
+              "type": "VARCHAR_30",
+              "chnname": "配置名称",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "type",
+              "type": "VARCHAR_32",
+              "chnname": "配置类型",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "title",
+              "type": "VARCHAR_50",
+              "chnname": "配置说明",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "group",
+              "type": "VARCHAR_32",
+              "chnname": "配置分组",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "type": "VARCHAR_255",
+              "chnname": "配置项",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "remark",
+              "type": "VARCHAR_100",
+              "chnname": "配置说明",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "create_time",
+              "type": "INT UNSIGNED_10",
+              "chnname": "创建时间",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "update_time",
+              "type": "INT UNSIGNED_10",
+              "chnname": "更新时间",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "status",
+              "type": "BIT_1",
+              "chnname": "状态",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "type": "TEXT",
+              "chnname": "配置值",
+              "remark": "",
+              "pk": false,
+              "notNull": false,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "listorder",
+              "type": "SMALLINT UNSIGNED_5",
+              "chnname": "排序",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "title": "ddxm_field_type",
+          "chnname": "字段类型表",
+          "fields": [
+            {
+              "name": "name",
+              "type": "VARCHAR_32",
+              "chnname": "字段类型",
+              "remark": "",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "title",
+              "type": "VARCHAR_64",
+              "chnname": "中文类型名",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "listorder",
+              "type": "INT_10",
+              "chnname": "排序",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "default_define",
+              "type": "VARCHAR_128",
+              "chnname": "默认定义",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "ifoption",
+              "type": "TINYINT UNSIGNED_1",
+              "chnname": "是否需要设置选项",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "ifstring",
+              "type": "TINYINT UNSIGNED_1",
+              "chnname": "是否自由字符",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "vrule",
+              "type": "VARCHAR_256",
+              "chnname": "验证规则",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "title": "ddxm_hooks",
+          "chnname": "插件钩子",
+          "fields": [
+            {
+              "name": "id",
+              "type": "INT UNSIGNED_10",
+              "chnname": "主键",
+              "remark": "",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true,
+              "defaultValue": ""
+            },
+            {
+              "name": "name",
+              "type": "VARCHAR_40",
+              "chnname": "钩子名称",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "description",
+              "type": "TEXT",
+              "chnname": "描述",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "type",
+              "type": "TINYINT UNSIGNED_1",
+              "chnname": "类型",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "update_time",
+              "type": "INT UNSIGNED_10",
+              "chnname": "更新时间",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "addons",
+              "type": "VARCHAR_255",
+              "chnname": "钩子挂载的插件 '，'分割",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "title": "ddxm_menu",
+          "chnname": "后台菜单表",
+          "fields": [
+            {
+              "name": "id",
+              "type": "INT UNSIGNED_10",
+              "chnname": "菜单ID",
+              "remark": "",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true,
+              "defaultValue": ""
+            },
+            {
+              "name": "title",
+              "type": "VARCHAR_50",
+              "chnname": "标题",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "icon",
+              "type": "VARCHAR_64",
+              "chnname": "图标",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "parentid",
+              "type": "INT UNSIGNED_10",
+              "chnname": "上级分类ID",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "app",
+              "type": "CHAR_20",
+              "chnname": "应用标识",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "controller",
+              "type": "CHAR_20",
+              "chnname": "控制器标识",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "action",
+              "type": "CHAR_20",
+              "chnname": "方法标识",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "parameter",
+              "type": "CHAR_255",
+              "chnname": "附加参数",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "status",
+              "type": "TINYINT UNSIGNED_1",
+              "chnname": "状态",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "tip",
+              "type": "VARCHAR_255",
+              "chnname": "提示",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "is_dev",
+              "type": "TINYINT UNSIGNED_1",
+              "chnname": "是否开发者可见",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "listorder",
+              "type": "SMALLINT UNSIGNED_5",
+              "chnname": "排序ID",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "title": "ddxm_module",
+          "chnname": "已安装模块列表",
+          "fields": [
+            {
+              "name": "module",
+              "type": "VARCHAR_15",
+              "chnname": "模块",
+              "remark": "",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "name",
+              "type": "VARCHAR_20",
+              "chnname": "模块名称",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "sign",
+              "type": "VARCHAR_255",
+              "chnname": "签名",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "iscore",
+              "type": "TINYINT UNSIGNED_1",
+              "chnname": "内置模块",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "disabled",
+              "type": "TINYINT UNSIGNED_1",
+              "chnname": "是否可用",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "version",
+              "type": "VARCHAR_50",
+              "chnname": "版本",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "setting",
+              "type": "MEDIUMTEXT",
+              "chnname": "设置信息",
+              "remark": "",
+              "pk": false,
+              "notNull": false,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "installtime",
+              "type": "INT_10",
+              "chnname": "安装时间",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "updatetime",
+              "type": "INT_10",
+              "chnname": "更新时间",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            },
+            {
+              "name": "listorder",
+              "type": "TINYINT UNSIGNED_3",
+              "chnname": "排序",
+              "remark": "",
+              "pk": false,
+              "notNull": true,
+              "autoIncrement": false,
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "title": "admin",
+          "fields": [
+            {
+              "name": "REVISION",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "乐观锁"
+            },
+            {
+              "name": "CREATED_BY",
+              "type": "IdOrKey",
+              "remark": "",
+              "chnname": "创建人"
+            },
+            {
+              "name": "CREATED_TIME",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "创建时间"
+            },
+            {
+              "name": "UPDATED_BY",
+              "type": "IdOrKey",
+              "remark": "",
+              "chnname": "更新人"
+            },
+            {
+              "name": "UPDATED_TIME",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "更新时间"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "admin"
+        }
+      ],
+      "graphCanvas": {
+        "nodes": [],
+        "edges": []
+      },
+      "associations": []
+    },
+    {
+      "name": "xm",
+      "chnname": "熊猫",
+      "entities": [
+        {
+          "title": "voucher",
+          "fields": [
+            {
+              "name": "id",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "card_id",
+              "type": "VARCHAR_20",
+              "remark": "card_name中主键id",
+              "chnname": "卷类id"
+            },
+            {
+              "name": "card_name",
+              "type": "Name",
+              "remark": "",
+              "chnname": "卡名",
+              "notNull": true
+            },
+            {
+              "name": "price",
+              "type": "Money",
+              "remark": "",
+              "chnname": "金额",
+              "notNull": true
+            },
+            {
+              "name": "cover",
+              "type": "Intro",
+              "remark": "",
+              "chnname": "封面"
+            },
+            {
+              "name": "cirtulation",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "发行量",
+              "notNull": true
+            },
+            {
+              "name": "restrict_num",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "限制数量",
+              "notNull": true
+            },
+            {
+              "name": "exchange_num",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "已经兑换的数量",
+              "notNull": true
+            },
+            {
+              "name": "start_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "开始时间"
+            },
+            {
+              "name": "end_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "结束时间"
+            },
+            {
+              "name": "restrict_time",
+              "type": "BIT_1",
+              "remark": "",
+              "chnname": "无限制"
+            },
+            {
+              "name": "integral_price",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "兑换积分(暂无)"
+            },
+            {
+              "name": "shop_id",
+              "type": "LongText",
+              "remark": "",
+              "chnname": "所属门店id"
+            },
+            {
+              "name": "service_id",
+              "type": "LongText",
+              "remark": "",
+              "chnname": "服务id"
+            },
+            {
+              "name": "goods_id",
+              "type": "LongText",
+              "remark": "",
+              "chnname": "商品id"
+            },
+            {
+              "name": "restrict_money",
+              "type": "Money",
+              "remark": "",
+              "chnname": "满多少可用(满减限制)",
+              "notNull": true
+            },
+            {
+              "name": "create_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "创建时间",
+              "notNull": true
+            },
+            {
+              "name": "status",
+              "type": "YesNo",
+              "remark": "",
+              "chnname": "是否开启",
+              "notNull": true
+            },
+            {
+              "name": "del",
+              "type": "YesNo",
+              "remark": "",
+              "chnname": "是否删除",
+              "notNull": true
+            },
+            {
+              "name": "creator_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "创建者id"
+            },
+            {
+              "name": "update_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "修改时间"
+            },
+            {
+              "name": "modifier",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "修改人"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "卷类",
+          "remark": "活动卷类(代金券/打折卡...)"
+        },
+        {
+          "title": "ticket_card",
+          "fields": [
+            {
+              "name": "id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "主键",
+              "notNull": true,
+              "pk": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "card_id",
+              "type": "VARCHAR_20",
+              "remark": "card_name中主键id",
+              "chnname": "卡类id"
+            },
+            {
+              "name": "card_name",
+              "type": "Name",
+              "remark": "",
+              "chnname": "卡名"
+            },
+            {
+              "name": "price",
+              "type": "Money",
+              "remark": "",
+              "chnname": "金额(购买金额)"
+            },
+            {
+              "name": "cover",
+              "type": "Intro",
+              "remark": "",
+              "chnname": "封面"
+            },
+            {
+              "name": "critulation",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "发行量",
+              "notNull": true
+            },
+            {
+              "name": "exchange_num",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "剩余兑换数量",
+              "notNull": true
+            },
+            {
+              "name": "restrict_num",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "限制数量",
+              "notNull": true
+            },
+            {
+              "name": "buy_start_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "购卡开始时间",
+              "notNull": true
+            },
+            {
+              "name": "buy_end_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "购卡结束时间",
+              "notNull": true
+            },
+            {
+              "name": "restrict_time",
+              "type": "BIT_1",
+              "remark": "",
+              "chnname": "时间限制(0不限)"
+            },
+            {
+              "name": "integral_price",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "兑换积分"
+            },
+            {
+              "name": "shop_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "所属门店id"
+            },
+            {
+              "name": "service_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "服务id"
+            },
+            {
+              "name": "type",
+              "type": "Integer",
+              "remark": "次卡（1），月卡（2），年卡（3）（选择票卡的类型）",
+              "chnname": "票卡类型"
+            },
+            {
+              "name": "card_number",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "次数"
+            },
+            {
+              "name": "other",
+              "type": "LongText",
+              "remark": "type类型(0-不限制,1-日限制,2-月限制,3-年限制,自定义)  number次数(限制次数)  start_time开始时间 end_time结束时间\n开始时间结束时间即限制这种卡类在某段时间不能使用",
+              "chnname": "其他要求"
+            },
+            {
+              "name": "create_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "创建时间"
+            },
+            {
+              "name": "status",
+              "type": "BIT_1",
+              "remark": "1为上架，0为不上架",
+              "chnname": "上架"
+            },
+            {
+              "name": "del",
+              "type": "YesNo",
+              "remark": "",
+              "chnname": "删除状态"
+            },
+            {
+              "name": "creator_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "创建者id"
+            },
+            {
+              "name": "update_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "修改时间"
+            },
+            {
+              "name": "modifier",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "修改人"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "票卡",
+          "remark": "服务卡类(服务卷、服务卡)"
+        },
+        {
+          "title": "card_name",
+          "fields": [
+            {
+              "name": "id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "CREATED_BY",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "创建人"
+            },
+            {
+              "name": "CREATED_TIME",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "创建时间"
+            },
+            {
+              "name": "UPDATED_BY",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "更新人"
+            },
+            {
+              "name": "UPDATED_TIME",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "更新时间"
+            },
+            {
+              "name": "name",
+              "type": "CHAR_50",
+              "remark": "",
+              "chnname": "卷类名称"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "卷卡类名称"
+        },
+        {
+          "title": "vocher_list",
+          "fields": [
+            {
+              "name": "id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "vocher_list",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "卷类列表id",
+              "notNull": true
+            },
+            {
+              "name": "card_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "卷类id"
+            },
+            {
+              "name": "price",
+              "type": "Money",
+              "remark": "",
+              "chnname": "金额"
+            },
+            {
+              "name": "start_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "开始时间"
+            },
+            {
+              "name": "end_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "结束时间"
+            },
+            {
+              "name": "restrict_time",
+              "type": "BIT_1",
+              "remark": "",
+              "chnname": "时间限制"
+            },
+            {
+              "name": "shop",
+              "type": "Name",
+              "remark": "",
+              "chnname": "门店"
+            },
+            {
+              "name": "service_id",
+              "type": "LongText",
+              "remark": "",
+              "chnname": "可用服务id"
+            },
+            {
+              "name": "use_service_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "使用服务id"
+            },
+            {
+              "name": "goods_id",
+              "type": "LongText",
+              "remark": "",
+              "chnname": "可用商品id"
+            },
+            {
+              "name": "use_goods_id",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "使用商品id"
+            },
+            {
+              "name": "restict_money",
+              "type": "Money",
+              "remark": "满减消费",
+              "chnname": "限制金额"
+            },
+            {
+              "name": "status",
+              "type": "BIT_1",
+              "remark": "",
+              "chnname": "是否使用"
+            },
+            {
+              "name": "user_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "使用人id"
+            },
+            {
+              "name": "user",
+              "type": "Name",
+              "remark": "",
+              "chnname": "使用人"
+            },
+            {
+              "name": "use_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "使用时间"
+            },
+            {
+              "name": "get_user_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "获取人id"
+            },
+            {
+              "name": "get_user_name",
+              "type": "Name",
+              "remark": "",
+              "chnname": "获取人名称"
+            },
+            {
+              "name": "get_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "获取时间"
+            },
+            {
+              "name": "operator_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "操作人id"
+            },
+            {
+              "name": "operator",
+              "type": "Name",
+              "remark": "",
+              "chnname": "操作人"
+            },
+            {
+              "name": "operation_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "操作时间"
+            },
+            {
+              "name": "del",
+              "type": "BIT_1",
+              "remark": "后端删除操作",
+              "chnname": "删除状态"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "卷类列表"
+        },
+        {
+          "title": "ticket_card_list",
+          "fields": [
+            {
+              "name": "id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "creator_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "创建人id"
+            },
+            {
+              "name": "creator",
+              "type": "Name",
+              "remark": "",
+              "chnname": "创建人"
+            },
+            {
+              "name": "create_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "创建时间"
+            },
+            {
+              "name": "user_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "用户"
+            },
+            {
+              "name": "user_name",
+              "type": "Name",
+              "remark": "",
+              "chnname": "用户名"
+            },
+            {
+              "name": "card_name",
+              "type": "Name",
+              "remark": "",
+              "chnname": "卡名"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "票卡列表",
+          "remark": "购买票卡的列表"
+        },
+        {
+          "title": "ddxm_order",
+          "fields": [
+            {
+              "name": "id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "shop_id",
+              "type": "Integer",
+              "remark": "默认为总店",
+              "chnname": "店铺id",
+              "notNull": true
+            },
+            {
+              "name": "member_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "会员id",
+              "notNull": false
+            },
+            {
+              "name": "card_id",
+              "type": "Integer",
+              "remark": "只在用熊猫卡支付和买卡是添加",
+              "chnname": "熊猫卡id"
+            },
+            {
+              "name": "yy_id",
+              "type": "Integer",
+              "remark": "预约服务时添加",
+              "chnname": "预约服务id"
+            },
+            {
+              "name": "sn",
+              "type": "VARCHAR_30",
+              "remark": "",
+              "chnname": "订单号",
+              "notNull": true
+            },
+            {
+              "name": "type",
+              "type": "Integer",
+              "remark": "1:商品购买\n2:预约服务\n3:充值购卡\n4:收银台收款\n5:购买卷卡（服务劵，服务卡...）\n6:兑换券",
+              "chnname": "订单类型",
+              "notNull": true
+            },
+            {
+              "name": "pay_sn",
+              "type": "VARCHAR_30",
+              "remark": "",
+              "chnname": "付款单号"
+            },
+            {
+              "name": "realname",
+              "type": "VARCHAR_20",
+              "remark": "",
+              "chnname": "收货人名字",
+              "defaultValue": "匿名用户"
+            },
+            {
+              "name": "detail_address",
+              "type": "VARCHAR_255",
+              "remark": "",
+              "chnname": "收货地址",
+              "defaultValue": "无（线下收银台操作结账）"
+            },
+            {
+              "name": "mobile",
+              "type": "VARCHAR_15",
+              "remark": "",
+              "chnname": "收货人电话"
+            },
+            {
+              "name": "voucher_ids",
+              "type": "VARCHAR_255",
+              "remark": "",
+              "chnname": "卷类id"
+            },
+            {
+              "name": "ticket_id",
+              "type": "CHAR_20",
+              "remark": "",
+              "chnname": "票卡id"
+            },
+            {
+              "name": "number",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "总数量"
+            },
+            {
+              "name": "discount",
+              "type": "Money",
+              "remark": "",
+              "chnname": "折扣金额"
+            },
+            {
+              "name": "postage",
+              "type": "Money",
+              "remark": "",
+              "chnname": "邮费"
+            },
+            {
+              "name": "amount",
+              "type": "Money",
+              "remark": "",
+              "chnname": "总金额"
+            },
+            {
+              "name": "pay_status",
+              "type": "BIT_1",
+              "remark": "0=待付款\n1= 付款\n1= 取消订单",
+              "chnname": "支付状态"
+            },
+            {
+              "name": "send_way",
+              "type": "BIT_1",
+              "remark": "0 = 门店快递\n1 = 门店自提\n2 = 总店（仓库）发货",
+              "chnname": "发货方式"
+            },
+            {
+              "name": "pay_way",
+              "type": "BIT_1",
+              "remark": "1=微信支付\n2=支付宝\n3=余额\n4=银行卡\n5=现金\n6=美团\n7=赠送\n8=门店自用\n9=兑换\n10=包月服务\n11=定制疗程\n99=管理员充值",
+              "chnname": "支付方式"
+            },
+            {
+              "name": "paytime",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "支付时间"
+            },
+            {
+              "name": "sendtime",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "发货时间"
+            },
+            {
+              "name": "fixtime",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "预约送达时间"
+            },
+            {
+              "name": "overtime",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "完成时间"
+            },
+            {
+              "name": "returntime",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "退款时间"
+            },
+            {
+              "name": "dealwithtime",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "门店处理时间"
+            },
+            {
+              "name": "canceltime",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "取消时间"
+            },
+            {
+              "name": "order_status",
+              "type": "BIT_1",
+              "remark": "0=待发货\n1=待收货\n-1=申请退货\n-2=退货完成\n-5=申请退款\n-6=退款完成\n-7=门店取消\n8=配送中\n9=待处理",
+              "chnname": "订单状态"
+            },
+            {
+              "name": "evaluate",
+              "type": "BIT_1",
+              "remark": "0=未评价1=评价完",
+              "chnname": "是否评价",
+              "defaultValue": "0"
+            },
+            {
+              "name": "isdel",
+              "type": "BIT_1",
+              "remark": "0=否1=是",
+              "chnname": "是否删除",
+              "defaultValue": "0"
+            },
+            {
+              "name": "add_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "创建时间"
+            },
+            {
+              "name": "is_online",
+              "type": "BIT_1",
+              "remark": "默认为1，收银台等为0",
+              "chnname": "是否线上商城支付"
+            },
+            {
+              "name": "waiter",
+              "type": "VARCHAR_50",
+              "remark": "",
+              "chnname": "操作人员"
+            },
+            {
+              "name": "check_status",
+              "type": "BIT_1",
+              "remark": "0未对账\n1已对账",
+              "chnname": "财务对账状态",
+              "defaultValue": "0"
+            },
+            {
+              "name": "order_type",
+              "type": "BIT_1",
+              "remark": "1普通订单2预定订单",
+              "chnname": "订单种类"
+            },
+            {
+              "name": "old_amount",
+              "type": "Money",
+              "remark": "商品原价+服务又会价",
+              "chnname": "订单原价"
+            },
+            {
+              "name": "integral_amount",
+              "type": "Integer",
+              "remark": "积分抵扣一部分货全部的情况",
+              "chnname": "本次订单付的积分数"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "订单表"
+        },
+        {
+          "title": "ddxm_order_goods",
+          "fields": [
+            {
+              "name": "id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "order_id",
+              "type": "CHAR_30",
+              "remark": "订单的主键",
+              "chnname": "订单id"
+            },
+            {
+              "name": "type_id",
+              "type": "Integer",
+              "remark": "tf_item_cate",
+              "chnname": "商品一级分类"
+            },
+            {
+              "name": "category_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "商品分类id"
+            },
+            {
+              "name": "subtitle",
+              "type": "Name",
+              "remark": "tf_item(title)",
+              "chnname": "商品名称"
+            },
+            {
+              "name": "item_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "商品id"
+            },
+            {
+              "name": "num",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "数量"
+            },
+            {
+              "name": "refund",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "退货数量"
+            },
+            {
+              "name": "wait_num",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "待取数量"
+            },
+            {
+              "name": "price",
+              "type": "Money",
+              "remark": "",
+              "chnname": "单价"
+            },
+            {
+              "name": "oprice",
+              "type": "Money",
+              "remark": "",
+              "chnname": "成本价"
+            },
+            {
+              "name": "real_price",
+              "type": "Money",
+              "remark": "",
+              "chnname": "实际支付价格"
+            },
+            {
+              "name": "status",
+              "type": "BIT_1",
+              "remark": "1为正常2为退货",
+              "chnname": "状态"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "订单明细表"
+        },
+        {
+          "title": "ddxm_order_refund",
+          "fields": [
+            {
+              "name": "id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "主键",
+              "notNull": true,
+              "autoIncrement": true,
+              "pk": true
+            },
+            {
+              "name": "order_id",
+              "type": "VARCHAR_30",
+              "remark": "",
+              "chnname": "退货订单id",
+              "notNull": true
+            },
+            {
+              "name": "r_sn",
+              "type": "VARCHAR_30",
+              "remark": "",
+              "chnname": "退款单号"
+            },
+            {
+              "name": "r_number",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "退款商品总数量"
+            },
+            {
+              "name": "r_amount",
+              "type": "Money",
+              "remark": "",
+              "chnname": "总金额"
+            },
+            {
+              "name": "r_status",
+              "type": "BIT_1",
+              "remark": "0申请中，1完成，2取消退货",
+              "chnname": "状态"
+            },
+            {
+              "name": "reason",
+              "type": "VARCHAR_50",
+              "remark": "",
+              "chnname": "退货原因"
+            },
+            {
+              "name": "remarks",
+              "type": "LongText",
+              "remark": "",
+              "chnname": "退货备注"
+            },
+            {
+              "name": "type",
+              "type": "BIT_1",
+              "remark": "0退货，1退款",
+              "chnname": "退货种类"
+            },
+            {
+              "name": "add_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "添加时间"
+            },
+            {
+              "name": "dealwith_time",
+              "type": "INT UNSIGNED_10",
+              "remark": "",
+              "chnname": "处理时间"
+            },
+            {
+              "name": "shop_id",
+              "type": "CHAR_100",
+              "remark": "",
+              "chnname": "门店id"
+            },
+            {
+              "name": "order_type",
+              "type": "BIT_1",
+              "remark": "1为商品2为服务",
+              "chnname": "订单类型"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "退货订单"
+        },
+        {
+          "title": "ddxm_order_refund_goods",
+          "fields": [
+            {
+              "name": "id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "主键"
+            },
+            {
+              "name": "refund_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "退款订单"
+            },
+            {
+              "name": "og_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "商品明细表id"
+            },
+            {
+              "name": "r_subtitle",
+              "type": "IdOrKey",
+              "remark": "",
+              "chnname": "商品"
+            },
+            {
+              "name": "r_attr_pic",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "商品型号图片"
+            },
+            {
+              "name": "r_attr_name",
+              "type": "VARCHAR_30",
+              "remark": "",
+              "chnname": "型号名称"
+            },
+            {
+              "name": "r_num",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "数量"
+            },
+            {
+              "name": "r_price",
+              "type": "Money",
+              "remark": "",
+              "chnname": "单价"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "退货单子明细表"
+        },
+        {
+          "title": "ddxm_service_goods",
+          "fields": [
+            {
+              "name": "主键",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "id"
+            },
+            {
+              "name": "用户id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "member_id"
+            },
+            {
+              "name": "订单id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "order_id"
+            },
+            {
+              "name": "门店id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "sid"
+            },
+            {
+              "name": "会员服务卡id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "user_card_id"
+            },
+            {
+              "name": "会员号",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "cardid"
+            },
+            {
+              "name": "订单号",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "sn"
+            },
+            {
+              "name": "付款时间",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "paytime"
+            },
+            {
+              "name": "预约时间",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "yytime"
+            },
+            {
+              "name": "状态",
+              "type": "Integer",
+              "remark": "0:预约，1:服务，2:过期，3:取消",
+              "chnname": "status"
+            },
+            {
+              "name": "服务人员工号",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "workid"
+            },
+            {
+              "name": "服务人员id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "workerid"
+            },
+            {
+              "name": "服务人员姓名",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "name"
+            },
+            {
+              "name": "删除",
+              "type": "Integer",
+              "remark": "0:是，1:否",
+              "chnname": "isdel"
+            },
+            {
+              "name": "创建时间",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "addtime"
+            },
+            {
+              "name": "服务类型",
+              "type": "Integer",
+              "remark": "0:游泳，1:推拿，2:成人推拿",
+              "chnname": "type"
+            },
+            {
+              "name": "支付锁定时间",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "locktime"
+            },
+            {
+              "name": "推送消息",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "is_push"
+            },
+            {
+              "name": "服务数量",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "num"
+            },
+            {
+              "name": "服务价格",
+              "type": "Money",
+              "remark": "",
+              "chnname": "price"
+            },
+            {
+              "name": "付款金额",
+              "type": "Money",
+              "remark": "",
+              "chnname": "real_price"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "服务详情表"
+        },
+        {
+          "title": "ddxm_member_service_money",
+          "fields": [
+            {
+              "name": "id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "主键"
+            },
+            {
+              "name": "member",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "会员id"
+            },
+            {
+              "name": "mobile",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "会员手机号"
+            },
+            {
+              "name": "money",
+              "type": "Money",
+              "remark": "",
+              "chnname": "余额"
+            },
+            {
+              "name": "type",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "限购类型"
+            },
+            {
+              "name": "status",
+              "type": "BIT_1",
+              "remark": "0 禁用 1正常",
+              "chnname": "状态"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "会员服务余额"
+        },
+        {
+          "title": "ddxm_member",
+          "fields": [
+            {
+              "name": "id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "主键"
+            },
+            {
+              "name": "pid",
+              "type": "IdOrKey",
+              "remark": "",
+              "chnname": "支推人"
+            },
+            {
+              "name": "no",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "用户会员编号"
+            },
+            {
+              "name": "mobile",
+              "type": "IdOrKey",
+              "remark": "",
+              "chnname": "手机号"
+            },
+            {
+              "name": "shop_code",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "门店编号"
+            },
+            {
+              "name": "realname",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "真实姓名"
+            },
+            {
+              "name": "level_id",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "会员等级id"
+            },
+            {
+              "name": "openid",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": ""
+            },
+            {
+              "name": "pic",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "头像"
+            },
+            {
+              "name": "nickname",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "昵称"
+            },
+            {
+              "name": "regtime",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "注册时间"
+            },
+            {
+              "name": "is_staff",
+              "type": "DefaultString",
+              "remark": "0:否\n1:是",
+              "chnname": "是否员工"
+            },
+            {
+              "name": "status",
+              "type": "DefaultString",
+              "remark": "0:关闭\n1:开启",
+              "chnname": "状态"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "会员表"
+        },
+        {
+          "title": "ddxm_member_data",
+          "fields": [
+            {
+              "name": "id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "主键"
+            },
+            {
+              "name": "member_id",
+              "type": "IdOrKey",
+              "remark": "",
+              "chnname": "会员id"
+            },
+            {
+              "name": "mobile",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "会员手机号"
+            },
+            {
+              "name": "profit",
+              "type": "IdOrKey",
+              "remark": "",
+              "chnname": "分润收益"
+            },
+            {
+              "name": "paypwd",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "支付密码"
+            },
+            {
+              "name": "logintime",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "最后登录时间"
+            },
+            {
+              "name": "platform",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "设备型号"
+            },
+            {
+              "name": "declare",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "是否填写过申报"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "会员资料"
+        },
+        {
+          "title": "ddxm_member_money",
+          "fields": [
+            {
+              "name": "member_id",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "会员id"
+            },
+            {
+              "name": "mobile",
+              "type": "IdOrKey",
+              "remark": "",
+              "chnname": "手机号"
+            },
+            {
+              "name": "money",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "余额"
+            },
+            {
+              "name": "score_item",
+              "type": "IdOrKey",
+              "remark": "",
+              "chnname": "商品积分"
+            },
+            {
+              "name": "score_server",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "服务积分"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "会员余额"
+        }
+      ],
+      "graphCanvas": {
+        "nodes": [
+          {
+            "shape": "table",
+            "title": "ddxm_order",
+            "moduleName": false,
+            "x": 280,
+            "y": 410,
+            "id": "d3115e0b"
+          },
+          {
+            "shape": "table",
+            "title": "ddxm_order_refund_goods",
+            "moduleName": false,
+            "x": 1130,
+            "y": 410,
+            "id": "df38a850"
+          },
+          {
+            "shape": "table",
+            "title": "ddxm_order_refund",
+            "moduleName": false,
+            "x": 740,
+            "y": 540,
+            "id": "9eea0cb2"
+          },
+          {
+            "shape": "table",
+            "title": "ddxm_order_goods",
+            "moduleName": false,
+            "x": 710,
+            "y": 190,
+            "id": "8c90cd96"
+          }
+        ],
+        "edges": [
+          {
+            "shape": "erdRelation",
+            "relation": "0,n:1",
+            "source": "d3115e0b",
+            "target": "8c90cd96",
+            "id": "dd72b0fc",
+            "controlPoints": [
+              {
+                "x": 474.802734375,
+                "y": 82.07467532467533
+              },
+              {
+                "x": 571.20703125,
+                "y": 102.19827586206897
+              }
+            ],
+            "sourceAnchor": 3,
+            "targetAnchor": 2
+          },
+          {
+            "shape": "erdRelation",
+            "relation": "0,n:1",
+            "source": "d3115e0b",
+            "target": "9eea0cb2",
+            "id": "1e65ba8f",
+            "controlPoints": [
+              {
+                "x": 474.802734375,
+                "y": 162.17857142857144
+              },
+              {
+                "x": 563.5400390625,
+                "y": 452.19827586206895
+              }
+            ],
+            "sourceAnchor": 11,
+            "targetAnchor": 2
+          },
+          {
+            "shape": "erdRelation",
+            "relation": "0,n:1",
+            "source": "9eea0cb2",
+            "target": "df38a850",
+            "id": "bfcba8d6",
+            "controlPoints": [
+              {
+                "x": 916.4599609375,
+                "y": 472.26724137931035
+              },
+              {
+                "x": 994.7470703125,
+                "y": 372.3026315789474
+              }
+            ],
+            "sourceAnchor": 5,
+            "targetAnchor": 2
+          }
+        ]
+      },
+      "associations": [
+        {
+          "relation": "0,n:1",
+          "from": {
+            "entity": "ddxm_order",
+            "field": "shop_id"
+          },
+          "to": {
+            "entity": "ddxm_order_goods",
+            "field": "order_id"
+          }
+        },
+        {
+          "relation": "0,n:1",
+          "from": {
+            "entity": "ddxm_order",
+            "field": "sn"
+          },
+          "to": {
+            "entity": "ddxm_order_refund",
+            "field": "order_id"
+          }
+        },
+        {
+          "relation": "0,n:1",
+          "from": {
+            "entity": "ddxm_order_refund",
+            "field": "r_sn"
+          },
+          "to": {
+            "entity": "ddxm_order_refund_goods",
+            "field": "refund_id"
+          }
+        }
+      ]
+    }
+  ],
+  "dataTypeDomains": {
+    "datatype": [
+      {
+        "name": "默认字串",
+        "code": "DefaultString",
+        "apply": {
+          "JAVA": {
+            "type": "String"
+          },
+          "MYSQL": {
+            "type": "VARCHAR(32)"
+          },
+          "ORACLE": {
+            "type": "NVARCHAR2(32)"
+          },
+          "SQLServer": {
+            "type": "NVARCHAR(32)"
+          },
+          "PostgreSQL": {
+            "type": "VARCHAR(32)"
+          }
+        }
+      },
+      {
+        "name": "标识号",
+        "code": "IdOrKey",
+        "apply": {
+          "JAVA": {
+            "type": "String"
+          },
+          "ORACLE": {
+            "type": "VARCHAR2(32)"
+          },
+          "MYSQL": {
+            "type": "VARCHAR(32)"
+          },
+          "SQLServer": {
+            "type": "VARCHAR(32)"
+          },
+          "PostgreSQL": {
+            "type": "VARCHAR(32)"
+          }
+        }
+      },
+      {
+        "name": "标识号-长",
+        "code": "LongKey",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(64)"
+          },
+          "ORACLE": {
+            "type": "VARCHAR2(64)"
+          },
+          "JAVA": {
+            "type": "String"
+          },
+          "SQLServer": {
+            "type": "VARCHAR(64)"
+          },
+          "PostgreSQL": {
+            "type": "VARCHAR(64)"
+          }
+        }
+      },
+      {
+        "name": "名称",
+        "code": "Name",
+        "apply": {
+          "JAVA": {
+            "type": "String"
+          },
+          "MYSQL": {
+            "type": "VARCHAR(128)"
+          },
+          "ORACLE": {
+            "type": "NVARCHAR2(128)"
+          },
+          "SQLServer": {
+            "type": "NVARCHAR(128)"
+          },
+          "PostgreSQL": {
+            "type": "VARCHAR(128)"
+          }
+        }
+      },
+      {
+        "name": "备注说明",
+        "code": "Intro",
+        "apply": {
+          "JAVA": {
+            "type": "String"
+          },
+          "MYSQL": {
+            "type": "VARCHAR(512)"
+          },
+          "ORACLE": {
+            "type": "NVARCHAR2(512)"
+          },
+          "SQLServer": {
+            "type": "NVARCHAR(512)"
+          },
+          "PostgreSQL": {
+            "type": "VARCHAR(512)"
+          }
+        }
+      },
+      {
+        "name": "字串-短",
+        "code": "ShortString",
+        "apply": {
+          "JAVA": {
+            "type": "String"
+          },
+          "MYSQL": {
+            "type": "VARCHAR(128)"
+          },
+          "ORACLE": {
+            "type": "NVARCHAR2(128)"
+          },
+          "SQLServer": {
+            "type": "NVARCHAR(128)"
+          },
+          "PostgreSQL": {
+            "type": "VARCHAR(128)"
+          }
+        }
+      },
+      {
+        "name": "字串-中",
+        "code": "MiddleString",
+        "apply": {
+          "JAVA": {
+            "type": "String"
+          },
+          "MYSQL": {
+            "type": "VARCHAR(1024)"
+          },
+          "ORACLE": {
+            "type": "NVARCHAR2(1024)"
+          },
+          "SQLServer": {
+            "type": "NVARCHAR(1024)"
+          },
+          "PostgreSQL": {
+            "type": "VARCHAR(1024)"
+          }
+        }
+      },
+      {
+        "name": "字串-长",
+        "code": "LongString",
+        "apply": {
+          "JAVA": {
+            "type": "String"
+          },
+          "ORACLE": {
+            "type": "NVARCHAR2(3072)"
+          },
+          "MYSQL": {
+            "type": "VARCHAR(3072)"
+          },
+          "SQLServer": {
+            "type": "NVARCHAR(3072)"
+          },
+          "PostgreSQL": {
+            "type": "VARCHAR(3072)"
+          }
+        }
+      },
+      {
+        "name": "大文本",
+        "code": "LongText",
+        "apply": {
+          "JAVA": {
+            "type": "String"
+          },
+          "MYSQL": {
+            "type": "TEXT"
+          },
+          "ORACLE": {
+            "type": "CLOB"
+          },
+          "SQLServer": {
+            "type": "NTEXT"
+          },
+          "PostgreSQL": {
+            "type": "TEXT"
+          }
+        }
+      },
+      {
+        "name": "小数",
+        "code": "Double",
+        "apply": {
+          "JAVA": {
+            "type": "Double"
+          },
+          "MYSQL": {
+            "type": "DECIMAL(32,10)"
+          },
+          "ORACLE": {
+            "type": "NUMBER(32,10)"
+          },
+          "SQLServer": {
+            "type": "DECIMAL(32,10)"
+          },
+          "PostgreSQL": {
+            "type": "DECIMAL(32,10)"
+          }
+        }
+      },
+      {
+        "name": "比例",
+        "code": "Ratio",
+        "apply": {
+          "MYSQL": {
+            "type": "DECIMAL(4,2)"
+          },
+          "JAVA": {
+            "type": "Double"
+          },
+          "ORACLE": {
+            "type": "NUMBER(4,2)"
+          },
+          "SQLServer": {
+            "type": "DECIMAL(4,2)"
+          },
+          "PostgreSQL": {
+            "type": "DECIMAL(4,2)"
+          }
+        }
+      },
+      {
+        "name": "整数",
+        "code": "Integer",
+        "apply": {
+          "JAVA": {
+            "type": "Integer"
+          },
+          "MYSQL": {
+            "type": "INT"
+          },
+          "ORACLE": {
+            "type": "INT"
+          },
+          "SQLServer": {
+            "type": "INT"
+          },
+          "PostgreSQL": {
+            "type": "INT"
+          }
+        }
+      },
+      {
+        "name": "大整数",
+        "code": "BigInt",
+        "apply": {
+          "MYSQL": {
+            "type": "BIGINT"
+          },
+          "JAVA": {
+            "type": "Long"
+          },
+          "ORACLE": {
+            "type": "NUMBER"
+          },
+          "SQLServer": {
+            "type": "BIGINT"
+          },
+          "PostgreSQL": {
+            "type": "BIGINT"
+          }
+        }
+      },
+      {
+        "name": "金额",
+        "code": "Money",
+        "apply": {
+          "JAVA": {
+            "type": "Double"
+          },
+          "MYSQL": {
+            "type": "DECIMAL(32,8)"
+          },
+          "ORACLE": {
+            "type": "NUMBER(32,8)"
+          },
+          "SQLServer": {
+            "type": "DECIMAL(32,8)"
+          },
+          "PostgreSQL": {
+            "type": "DECIMAL(32,8)"
+          }
+        }
+      },
+      {
+        "name": "是否",
+        "code": "YesNo",
+        "apply": {
+          "JAVA": {
+            "type": "String"
+          },
+          "MYSQL": {
+            "type": "VARCHAR(1)"
+          },
+          "ORACLE": {
+            "type": "VARCHAR2(1)"
+          },
+          "SQLServer": {
+            "type": "VARCHAR(1)"
+          },
+          "PostgreSQL": {
+            "type": "VARCHAR(1)"
+          }
+        }
+      },
+      {
+        "name": "数据字典",
+        "code": "Dict",
+        "apply": {
+          "JAVA": {
+            "type": "String"
+          },
+          "MYSQL": {
+            "type": "VARCHAR(32)"
+          },
+          "ORACLE": {
+            "type": "VARCHAR2(32)"
+          },
+          "SQLServer": {
+            "type": "VARCHAR(32)"
+          },
+          "PostgreSQL": {
+            "type": "VARCHAR(32)"
+          }
+        }
+      },
+      {
+        "name": "日期",
+        "code": "Date",
+        "apply": {
+          "JAVA": {
+            "type": "Date"
+          },
+          "MYSQL": {
+            "type": "DATE"
+          },
+          "ORACLE": {
+            "type": "DATE"
+          },
+          "SQLServer": {
+            "type": "DATE"
+          },
+          "PostgreSQL": {
+            "type": "DATE"
+          }
+        }
+      },
+      {
+        "name": "日期时间",
+        "code": "DateTime",
+        "apply": {
+          "JAVA": {
+            "type": "Date"
+          },
+          "MYSQL": {
+            "type": "DATETIME"
+          },
+          "ORACLE": {
+            "type": "DATE"
+          },
+          "SQLServer": {
+            "type": "DATE"
+          },
+          "PostgreSQL": {
+            "type": "DATE"
+          }
+        }
+      },
+      {
+        "name": "单字符",
+        "code": "Char",
+        "apply": {
+          "MYSQL": {
+            "type": "CHAR(1)"
+          },
+          "ORACLE": {
+            "type": "CHAR(1)"
+          },
+          "JAVA": {
+            "type": "String"
+          },
+          "SQLServer": {
+            "type": "CHAR(1)"
+          },
+          "PostgreSQL": {
+            "type": "CHAR(1)"
+          }
+        }
+      },
+      {
+        "name": "BIGINT UNSIGNED_20",
+        "code": "BIGINT UNSIGNED_20",
+        "apply": {
+          "MYSQL": {
+            "type": "BIGINT UNSIGNED(20)"
+          }
+        }
+      },
+      {
+        "name": "BIT_1",
+        "code": "BIT_1",
+        "apply": {
+          "MYSQL": {
+            "type": "BIT(1)"
+          }
+        }
+      },
+      {
+        "name": "CHAR_100",
+        "code": "CHAR_100",
+        "apply": {
+          "MYSQL": {
+            "type": "CHAR(100)"
+          }
+        }
+      },
+      {
+        "name": "CHAR_15",
+        "code": "CHAR_15",
+        "apply": {
+          "MYSQL": {
+            "type": "CHAR(15)"
+          }
+        }
+      },
+      {
+        "name": "CHAR_16",
+        "code": "CHAR_16",
+        "apply": {
+          "MYSQL": {
+            "type": "CHAR(16)"
+          }
+        }
+      },
+      {
+        "name": "CHAR_20",
+        "code": "CHAR_20",
+        "apply": {
+          "MYSQL": {
+            "type": "CHAR(20)"
+          }
+        }
+      },
+      {
+        "name": "CHAR_255",
+        "code": "CHAR_255",
+        "apply": {
+          "MYSQL": {
+            "type": "CHAR(255)"
+          }
+        }
+      },
+      {
+        "name": "CHAR_30",
+        "code": "CHAR_30",
+        "apply": {
+          "MYSQL": {
+            "type": "CHAR(30)"
+          }
+        }
+      },
+      {
+        "name": "CHAR_32",
+        "code": "CHAR_32",
+        "apply": {
+          "MYSQL": {
+            "type": "CHAR(32)"
+          }
+        }
+      },
+      {
+        "name": "CHAR_4",
+        "code": "CHAR_4",
+        "apply": {
+          "MYSQL": {
+            "type": "CHAR(4)"
+          }
+        }
+      },
+      {
+        "name": "CHAR_40",
+        "code": "CHAR_40",
+        "apply": {
+          "MYSQL": {
+            "type": "CHAR(40)"
+          }
+        }
+      },
+      {
+        "name": "CHAR_50",
+        "code": "CHAR_50",
+        "apply": {
+          "MYSQL": {
+            "type": "CHAR(50)"
+          }
+        }
+      },
+      {
+        "name": "CHAR_80",
+        "code": "CHAR_80",
+        "apply": {
+          "MYSQL": {
+            "type": "CHAR(80)"
+          }
+        }
+      },
+      {
+        "name": "INT UNSIGNED_10",
+        "code": "INT UNSIGNED_10",
+        "apply": {
+          "MYSQL": {
+            "type": "INT UNSIGNED(10)"
+          }
+        }
+      },
+      {
+        "name": "INT_10",
+        "code": "INT_10",
+        "apply": {
+          "MYSQL": {
+            "type": "INT(10)"
+          }
+        }
+      },
+      {
+        "name": "MEDIUMINT UNSIGNED_8",
+        "code": "MEDIUMINT UNSIGNED_8",
+        "apply": {
+          "MYSQL": {
+            "type": "MEDIUMINT UNSIGNED(8)"
+          }
+        }
+      },
+      {
+        "name": "MEDIUMTEXT",
+        "code": "MEDIUMTEXT",
+        "apply": {
+          "MYSQL": {
+            "type": "MEDIUMTEXT"
+          }
+        }
+      },
+      {
+        "name": "SMALLINT UNSIGNED_5",
+        "code": "SMALLINT UNSIGNED_5",
+        "apply": {
+          "MYSQL": {
+            "type": "SMALLINT UNSIGNED(5)"
+          }
+        }
+      },
+      {
+        "name": "SMALLINT_5",
+        "code": "SMALLINT_5",
+        "apply": {
+          "MYSQL": {
+            "type": "SMALLINT(5)"
+          }
+        }
+      },
+      {
+        "name": "TEXT",
+        "code": "TEXT",
+        "apply": {
+          "MYSQL": {
+            "type": "TEXT"
+          }
+        }
+      },
+      {
+        "name": "TINYINT UNSIGNED_1",
+        "code": "TINYINT UNSIGNED_1",
+        "apply": {
+          "MYSQL": {
+            "type": "TINYINT UNSIGNED(1)"
+          }
+        }
+      },
+      {
+        "name": "TINYINT UNSIGNED_3",
+        "code": "TINYINT UNSIGNED_3",
+        "apply": {
+          "MYSQL": {
+            "type": "TINYINT UNSIGNED(3)"
+          }
+        }
+      },
+      {
+        "name": "TINYINT_3",
+        "code": "TINYINT_3",
+        "apply": {
+          "MYSQL": {
+            "type": "TINYINT(3)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_100",
+        "code": "VARCHAR_100",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(100)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_128",
+        "code": "VARCHAR_128",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(128)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_15",
+        "code": "VARCHAR_15",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(15)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_16",
+        "code": "VARCHAR_16",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(16)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_20",
+        "code": "VARCHAR_20",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(20)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_255",
+        "code": "VARCHAR_255",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(255)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_256",
+        "code": "VARCHAR_256",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(256)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_30",
+        "code": "VARCHAR_30",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(30)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_300",
+        "code": "VARCHAR_300",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(300)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_32",
+        "code": "VARCHAR_32",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(32)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_40",
+        "code": "VARCHAR_40",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(40)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_50",
+        "code": "VARCHAR_50",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(50)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_500",
+        "code": "VARCHAR_500",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(500)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_6",
+        "code": "VARCHAR_6",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(6)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_64",
+        "code": "VARCHAR_64",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(64)"
+          }
+        }
+      },
+      {
+        "name": "VARCHAR_80",
+        "code": "VARCHAR_80",
+        "apply": {
+          "MYSQL": {
+            "type": "VARCHAR(80)"
+          }
+        }
+      }
+    ],
+    "database": [
+      {
+        "code": "MYSQL",
+        "template": "DROP TABLE {{=it.entity.title}};\n$blankline\nCREATE TABLE {{=it.entity.title}}(\n{{ pkList = [] ; }}\n{{~it.entity.fields:field:index}}\n    {{? field.pk }}{{ pkList.push(field.name) }}{{?}}\n    {{=field.name}} {{=field.type}} {{= field.pk ? 'NOT NULL' : '' }} COMMENT '{{=it.func.join(field.chnname,field.remark,';')}}' {{= index < it.entity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}\n{{? pkList.length >0 }}\n    PRIMARY KEY ({{~pkList:pkName:i}}{{= pkName }}{{= i<pkList.length-1 ? ',' : '' }}{{~}})\n{{?}}\n) COMMENT = '{{=it.func.join(it.entity.chnname,it.entity.remark,';') }}'",
+        "fileShow": true,
+        "defaultDatabase": true,
+        "createTableTemplate": "CREATE TABLE {{=it.entity.title}}(\n{{ pkList = [] ; }}\n{{~it.entity.fields:field:index}}\n    {{? field.pk }}{{ pkList.push(field.name) }}{{?}}\n    {{=field.name}} {{=field.type}} {{= field.notNull ? 'NOT NULL' : '' }} {{= field.autoIncrement ? 'AUTO_INCREMENT' : '' }} {{= field.defaultValue ? it.func.join('DEFAULT',field.defaultValue,' ') : '' }} COMMENT '{{=it.func.join(field.chnname,field.remark,' ')}}' {{= index < it.entity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}\n{{? pkList.length >0 }}\n    PRIMARY KEY ({{~pkList:pkName:i}}{{= pkName }}{{= i<pkList.length-1 ? ',' : '' }}{{~}})\n{{?}}\n) COMMENT = '{{=it.func.join(it.entity.chnname,it.entity.remark,' ') }}';{{=it.separator}}\n$blankline\n",
+        "deleteTableTemplate": "DROP TABLE {{=it.entity.title}};{{=it.separator}}/*SkipError*/",
+        "rebuildTableTemplate": "create table PDMAN_UP_{{=it.oldEntity.title}}\nas select * from {{=it.oldEntity.title}};{{=it.separator}}\n$blankline\n\ndrop table {{=it.oldEntity.title}};{{=it.separator}}\n$blankline\n\nCREATE TABLE {{=it.newEntity.title}}(\n{{ pkList = [] ; }}\n{{~it.newEntity.fields:field:index}}\n    {{? field.pk }}{{ pkList.push(field.name) }}{{?}}\n    {{=field.name}} {{=field.type}} {{= field.notNull ? 'NOT NULL' : '' }} COMMENT '{{=it.func.join(field.chnname,field.remark,';')}}' {{= index < it.newEntity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}\n{{? pkList.length >0 }}\n    PRIMARY KEY ({{~pkList:pkName:i}}{{= pkName }}{{= i<pkList.length-1 ? ',' : '' }}{{~}})\n{{?}}\n) COMMENT = '{{=it.func.join(it.newEntity.chnname,it.newEntity.remark,';') }}';{{=it.separator}}\n$blankline\n\n{{ sameCols = it.func.intersect(it.newEntity.fields,it.oldEntity.fields) ;}}\ninsert into {{=it.newEntity.title}}(\n{{~sameCols:field:index}}\n    {{=field.name}}{{? index<sameCols.length-1}},{{?}}\n{{~}}\n) \nselect \n{{~sameCols:field:index}}\n    {{=field.name}}{{? index<sameCols.length-1}},{{?}}\n{{~}}\nfrom PDMAN_UP_{{=it.oldEntity.title}};{{=it.separator}}\n$blankline\n\ndrop table PDMAN_UP_{{=it.oldEntity.title}};{{=it.separator}}\n$blankline\n{{~it.newEntity.indexs:index}}\nALTER TABLE {{=it.newEntity.title}} ADD {{? index.isUnique}}UNIQUE{{??}}INDEX{{?}} {{=index.name}}({{=it.func.join(...index.fields,',')}});{{=it.separator}}\n{{~}}",
+        "createFieldTemplate": "ALTER TABLE {{=it.entity.title}} ADD COLUMN {{=it.field.name}} {{=it.field.type}} {{? it.field.notNull}}NOT NULL{{?}} {{? it.field.defaultValue}}DEFAULT {{? null==it.field.defaultValue}}NULL{{??}}'{{=it.field.defaultValue}}'{{?}}{{?}} {{? it.field.autoIncrement}}AUTO_INCREMENT{{?}} {{? it.field.pk}}PRIMARY KEY{{?}} {{? it.field.chnname}}COMMENT '{{=it.field.chnname}}'{{?}} {{? it.field.addAfter}}AFTER {{=it.field.addAfter}}{{?}};{{=it.separator}}",
+        "updateFieldTemplate": "ALTER TABLE {{=it.entity.title}} MODIFY COLUMN {{=it.field.name}} {{=it.field.type}} {{? it.field.notNull}}NOT NULL{{?}} {{? it.field.defaultValue}}DEFAULT {{? null==it.field.defaultValue}}NULL{{??}}'{{=it.field.defaultValue}}'{{?}}{{?}} {{? it.field.autoIncrement}}AUTO_INCREMENT{{?}} {{? it.field.chnname}}COMMENT '{{=it.field.chnname}}'{{?}};{{=it.separator}}",
+        "deleteFieldTemplate": "ALTER TABLE {{=it.entity.title}} DROP {{=it.field.name}};{{=it.separator}}",
+        "deleteIndexTemplate": "ALTER TABLE {{=it.entity.title}} DROP INDEX {{=it.index.name}};{{=it.separator}}",
+        "createIndexTemplate": "ALTER TABLE {{=it.entity.title}} ADD {{? it.index.isUnique}}UNIQUE{{??}}INDEX{{?}} {{=it.index.name}}({{=it.func.join(...it.index.fields,',')}});{{=it.separator}}",
+        "updateTableComment": "ALTER TABLE {{=it.entity.title}} COMMENT '{{=it.entity.chnname}}';{{=it.separator}}"
+      },
+      {
+        "code": "ORACLE",
+        "template": "DROP TABLE {{=it.entity.title}};{{=it.separator}}\n$blankline\nCREATE TABLE {{=it.entity.title}}(\n{{ pkList = [] ; }}\n{{~it.entity.fields:field:index}}\n    {{? field.pk }}{{ pkList.push(field.name) }}{{?}}\n    {{=field.name}} {{=field.type}}  {{= field.pk ? 'NOT NULL' : '' }} {{= index < it.entity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}\n{{? pkList.length >0 }}\n    PRIMARY KEY ({{~pkList:pkName:i}}{{= pkName }}{{= i<pkList.length-1 ? ',' : '' }}{{~}})\n{{?}}\n);{{=it.separator}}\n$blankline\nCOMMENT ON TABLE {{=it.entity.title}} IS '{{=it.func.join(it.entity.chnname,it.entity.remark,';') }}';{{=it.separator}}\n{{~it.entity.fields:field:index}}\nCOMMENT ON COLUMN {{=it.entity.title}}.{{=field.name}} IS '{{=it.func.join(field.chnname,field.remark,';')}}';{{=it.separator}}\n{{~}}",
+        "createTableTemplate": "CREATE TABLE {{=it.entity.title}}(\n{{ pkList = [] ; }}\n{{~it.entity.fields:field:index}}\n    {{? field.pk }}{{ pkList.push(field.name) }}{{?}}\n    {{=field.name}} {{=field.type}}{{? field.defaultValue}} DEFAULT {{=field.defaultValue}}{{?}}{{= field.notNull ? ' NOT NULL' : '' }}{{= index < it.entity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}\n{{? pkList.length >0 }}\n    PRIMARY KEY ({{~pkList:pkName:i}}{{= pkName }}{{= i<pkList.length-1 ? ',' : '' }}{{~}})\n{{?}}\n);{{=it.separator}}\n$blankline\n{{? it.entity.chnname || it.entity.remark}}COMMENT ON TABLE {{=it.entity.title}} IS {{? it.entity.remark}}'{{=it.entity.remark}}'{{??}}'{{=it.entity.chnname}}'{{?}};{{=it.separator}}{{?}}\n{{~it.entity.fields:field:index}}\n{{? field.chnname || field.remark}}COMMENT ON COLUMN {{=it.entity.title}}.{{=field.name}} IS {{? field.remark}}'{{=field.remark}}'{{??}}'{{=field.chnname}}'{{?}};{{=it.separator}}{{?}}\n{{~}}",
+        "deleteTableTemplate": "DROP TABLE {{=it.entity.title}};{{=it.separator}}/*SkipError*/\r\n$blankline",
+        "rebuildTableTemplate": "CREATE TABLE PDMAN_UP_{{=it.oldEntity.title}}\nAS SELECT * FROM {{=it.oldEntity.title}};{{=it.separator}}\n$blankline\nDROP TABLE {{=it.oldEntity.title}};{{=it.separator}}\n$blankline\nCREATE TABLE {{=it.newEntity.title}}(\n{{ pkList = [] ; }}{{~it.newEntity.fields:field:index}}{{? field.pk }}{{ pkList.push(field.name) }}{{?}}    {{=field.name}} {{=field.type}}{{? field.defaultValue}} DEFAULT {{=field.defaultValue}}{{?}}{{= field.notNull ? ' NOT NULL' : '' }}{{= index < it.newEntity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}{{? pkList.length >0 }}    PRIMARY KEY ({{~pkList:pkName:i}}{{= pkName }}{{= i<pkList.length-1 ? ',' : '' }}{{~}}){{?}}\n);{{=it.separator}}\n$blankline\n{{? it.newEntity.chnname || it.newEntity.remark}}COMMENT ON TABLE {{=it.newEntity.title}} IS {{? it.newEntity.remark}}'{{=it.entity.remark}}'{{??}}'{{=it.newEntity.chnname}}'{{?}};{{?}}{{=it.separator}}\n{{~it.newEntity.fields:field:index}}\n{{? field.chnname || field.remark}}COMMENT ON COLUMN {{=it.newEntity.title}}.{{=field.name}} IS {{? field.remark}}'{{=field.remark}}'{{??}}'{{=field.chnname}}'{{?}};{{?}}{{=it.separator}}\n{{~}}\n{{ sameCols = it.func.intersect(it.newEntity.fields,it.oldEntity.fields) ;}}\n$blankline\nINSERT INTO {{=it.newEntity.title}}(\n{{~sameCols:field:index}}   {{=field.name}}{{? index<sameCols.length-1}},{{?}}\n{{~}}) \nSELECT\n{{~sameCols:field:index}}   {{=field.name}}{{? index<sameCols.length-1}},{{?}}\n{{~}}FROM PDMAN_UP_{{=it.oldEntity.title}};{{=it.separator}}\n\nDROP TABLE PDMAN_UP_{{=it.oldEntity.title}};{{=it.separator}}\n{{~it.newEntity.indexs:index}}\nCREATE{{? index.isUnique}} UNIQUE{{?}} INDEX {{=index.name}} ON {{=it.newEntity.title}}({{=it.func.join(index.fields,',')}});{{=it.separator}}\n{{~}}",
+        "createFieldTemplate": "ALTER TABLE {{=it.entity.title}} ADD({{=it.field.name}} {{=it.field.type}}{{? it.field.defaultValue}} DEFAULT {{=it.field.defaultValue}}{{?}}{{? it.field.notNull}} NOT NULL{{?}});{{=it.separator}}\r\n{{? it.field.chnname || it.field.remark}}COMMENT ON COLUMN {{=it.entity.title}}.{{=it.field.name}} IS {{? it.field.remark}}'{{=it.field.remark}}'{{??}}'{{=it.field.chnname}}'{{?}};{{=it.separator}}{{?}}\r\n$blankline",
+        "updateFieldTemplate": "ALTER TABLE {{=it.entity.title}} MODIFY({{=it.field.name}} {{=it.field.type}}{{? it.field.defaultValue}} DEFAULT {{=it.field.defaultValue}}{{?}}{{? it.field.notNull}} NOT NULL{{?}});{{=it.separator}}\r\n{{? it.field.chnname || it.field.remark}}COMMENT ON COLUMN {{=it.entity.title}}.{{=it.field.name}} IS {{? it.field.remark}}'{{=it.field.remark}}'{{??}}'{{=it.field.chnname}}'{{?}};{{=it.separator}}{{=it.separator}}{{?}}\r\n$blankline",
+        "deleteFieldTemplate": "ALTER TABLE {{=it.entity.title}} DROP({{=it.field.name}});{{=it.separator}}\r\n$blankline",
+        "deleteIndexTemplate": "DROP INDEX {{=it.entity.title}}.{{=it.index.name}};{{=it.separator}}\r\n$blankline",
+        "createIndexTemplate": "CREATE{{? it.index.isUnique}} UNIQUE{{?}} INDEX {{=it.index.name}} ON {{=it.entity.title}}({{=it.func.join(it.index.fields,',')}});{{=it.separator}}\r\n$blankline",
+        "updateTableComment": "{{? it.entity.chnname || it.entity.remark}}COMMENT ON TABLE {{=it.entity.title}} IS {{? it.entity.remark}}'{{=it.entity.remark}}'{{??}}'{{=it.entity.chnname}}'{{?}};{{=it.separator}}{{?}}\r\n$blankline"
+      },
+      {
+        "code": "SQLServer",
+        "createTableTemplate": "CREATE TABLE {{=it.entity.title}}(\n{{ pkList = [] ; }}\n{{~it.entity.fields:field:index}}\n    {{? field.pk }}{{ pkList.push(field.name) }}{{?}}\n    {{=field.name}} {{=field.type}} {{= field.notNull ? 'NOT NULL' : '' }} {{= field.autoIncrement ? 'IDENTITY(1,1)' : '' }} {{= field.defaultValue ? it.func.join('DEFAULT',field.defaultValue,' ') : '' }}  {{= index < it.entity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}\n{{? pkList.length >0 }}\n    CONSTRAINT PK_{{=it.entity.title}} PRIMARY KEY CLUSTERED ({{~pkList:pkName:i}}{{= pkName }} ASC {{= i<pkList.length-1 ? ',' : '' }}{{~}}) ON [PRIMARY] \n{{?}}\n) ;{{=it.separator}}\n\n$blankline\nEXECUTE sp_addextendedproperty N'MS_Description', '{{= it.entity.chnname || it.entity.remark}}', N'user', N'dbo', N'table', N'{{=it.entity.title}}', NULL, NULL;{{=it.separator}}\n{{~it.entity.fields:field:index}}\n{{? field.chnname || field.remark}}EXECUTE sp_addextendedproperty N'MS_Description', {{? field.remark}}'{{=field.remark}}'{{??}}'{{=field.chnname}}'{{?}}, N'user', N'dbo', N'table', N'{{=it.entity.title}}', N'column', N'{{=field.name}}';{{=it.separator}}{{?}}\n{{~}}\n",
+        "deleteTableTemplate": "",
+        "rebuildTableTemplate": "",
+        "createFieldTemplate": "",
+        "updateFieldTemplate": "",
+        "deleteFieldTemplate": "",
+        "deleteIndexTemplate": "",
+        "createIndexTemplate": "",
+        "updateTableComment": ""
+      },
+      {
+        "code": "PostgreSQL",
+        "template": "DROP TABLE {{=it.entity.title}};\n$blankline\nCREATE TABLE {{=it.entity.title}}(\n{{ pkList = [] ; }}\n{{~it.entity.fields:field:index}}\n    {{? field.pk }}{{ pkList.push(field.name) }}{{?}}\n    {{=field.name}} {{=field.type}} {{= field.pk ? 'NOT NULL' : '' }} COMMENT '{{=it.func.join(field.chnname,field.remark,';')}}' {{= index < it.entity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}\n{{? pkList.length >0 }}\n    PRIMARY KEY ({{~pkList:pkName:i}}{{= pkName }}{{= i<pkList.length-1 ? ',' : '' }}{{~}})\n{{?}}\n) COMMENT = '{{=it.func.join(it.entity.chnname,it.entity.remark,';') }}'",
+        "createTableTemplate": "CREATE TABLE {{=it.entity.title}}(\n{{ pkList = [] ; }}\n{{~it.entity.fields:field:index}}\n    {{? field.pk }}{{ pkList.push(field.name) }}{{?}}\n    {{=field.name}} {{=field.type}}{{? field.defaultValue}} DEFAULT {{=field.defaultValue}}{{?}}{{= field.notNull ? ' NOT NULL' : '' }}{{= index < it.entity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}\n{{? pkList.length >0 }}\n    PRIMARY KEY ({{~pkList:pkName:i}}{{= pkName }}{{= i<pkList.length-1 ? ',' : '' }}{{~}})\n{{?}}\n);{{=it.separator}}\n$blankline\n{{? it.entity.chnname || it.entity.remark}}COMMENT ON TABLE {{=it.entity.title}} IS {{? it.entity.remark}}'{{=it.entity.remark}}'{{??}}'{{=it.entity.chnname}}'{{?}};{{=it.separator}}{{?}}\n{{~it.entity.fields:field:index}}\n{{? field.chnname || field.remark}}COMMENT ON COLUMN {{=it.entity.title}}.{{=field.name}} IS {{? field.remark}}'{{=field.remark}}'{{??}}'{{=field.chnname}}'{{?}};{{=it.separator}}{{?}}\n{{~}}",
+        "deleteTableTemplate": "DROP TABLE {{=it.entity.title}};{{=it.separator}}/*SkipError*/",
+        "rebuildTableTemplate": "create table PDMAN_UP_{{=it.oldEntity.title}}\nas select * from {{=it.oldEntity.title}};{{=it.separator}}\n$blankline\n\ndrop table {{=it.oldEntity.title}};{{=it.separator}}\n$blankline\n\nCREATE TABLE {{=it.newEntity.title}}(\n{{ pkList = [] ; }}\n{{~it.newEntity.fields:field:index}}\n    {{? field.pk }}{{ pkList.push(field.name) }}{{?}}\n    {{=field.name}} {{=field.type}} {{= field.notNull ? 'NOT NULL' : '' }} COMMENT '{{=it.func.join(field.chnname,field.remark,';')}}' {{= index < it.newEntity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}\n{{? pkList.length >0 }}\n    PRIMARY KEY ({{~pkList:pkName:i}}{{= pkName }}{{= i<pkList.length-1 ? ',' : '' }}{{~}})\n{{?}}\n) COMMENT = '{{=it.func.join(it.newEntity.chnname,it.newEntity.remark,';') }}';{{=it.separator}}\n$blankline\n\n{{ sameCols = it.func.intersect(it.newEntity.fields,it.oldEntity.fields) ;}}\ninsert into {{=it.newEntity.title}}(\n{{~sameCols:field:index}}\n    {{=field.name}}{{? index<sameCols.length-1}},{{?}}\n{{~}}\n) \nselect \n{{~sameCols:field:index}}\n    {{=field.name}}{{? index<sameCols.length-1}},{{?}}\n{{~}}\nfrom PDMAN_UP_{{=it.oldEntity.title}};{{=it.separator}}\n$blankline\n\ndrop table PDMAN_UP_{{=it.oldEntity.title}};{{=it.separator}}",
+        "createFieldTemplate": "ALTER TABLE {{=it.entity.title}} ADD COLUMN {{=it.field.name}} {{=it.field.type}} {{? it.field.notNull}}NOT NULL{{?}} {{? it.field.defaultValue}}DEFAULT {{? null==it.field.defaultValue}}NULL{{??}}'{{=it.field.defaultValue}}'{{?}}{{?}} {{? it.field.autoIncrement}}AUTO_INCREMENT{{?}} {{? it.field.pk}}PRIMARY KEY{{?}} {{? it.field.chnname}}COMMENT '{{=it.field.chnname}}'{{?}} {{? it.field.addAfter}}AFTER {{=it.field.addAfter}}{{?}};{{=it.separator}}",
+        "updateFieldTemplate": "ALTER TABLE {{=it.entity.title}} MODIFY COLUMN {{=it.field.name}} {{=it.field.type}} {{? it.field.notNull}}NOT NULL{{?}} {{? it.field.defaultValue}}DEFAULT {{? null==it.field.defaultValue}}NULL{{??}}'{{=it.field.defaultValue}}'{{?}}{{?}} {{? it.field.autoIncrement}}AUTO_INCREMENT{{?}} {{? it.field.chnname}}COMMENT '{{=it.field.chnname}}'{{?}};{{=it.separator}}",
+        "deleteFieldTemplate": "ALTER TABLE {{=it.entity.title}} DROP {{=it.field.name}};{{=it.separator}}",
+        "deleteIndexTemplate": "ALTER TABLE {{=it.entity.title}} DROP INDEX {{=it.index.name}};{{=it.separator}}",
+        "createIndexTemplate": "ALTER TABLE {{=it.entity.title}} ADD {{? it.index.isUnique}}UNIQUE{{??}}INDEX{{?}} {{=it.index.name}}({{=it.func.join(...it.index.fields,',')}});{{=it.separator}}",
+        "updateTableComment": "ALTER TABLE {{=it.entity.title}} COMMENT '{{=it.entity.chnname}}';{{=it.separator}}"
+      },
+      {
+        "code": "JAVA",
+        "template": "package group.rober.pdman.{{=it.module.name}}.entity;\n$blankline\nimport javax.persistence.*;\nimport java.io.Serializable;\nimport java.util.Date;\n$blankline\n$blankline\n\n/** {{=it.entity.chnname}} */\n@Table(name=\"{{=it.entity.title}}\")\npublic class {{=it.func.camel(it.entity.title,true) }} implements Serializable,Cloneable{\n{{~it.entity.fields:field:index}}\n    /** {{=it.func.join(field.chnname,field.remark,';')}} */\n    {{? field.pk }}\n    @Id\n    @GeneratedValue\n    {{?}}\n    private {{=field.type}} {{=it.func.camel(field.name,false)}} ;\n{{~}}\n$blankline\n{{~it.entity.fields:field:index}}\n    /** {{=it.func.join(field.chnname,field.remark,';')}} */\n    public {{=field.type}} get{{=it.func.camel(field.name,true)}}(){\n        return this.{{=it.func.camel(field.name,false)}};\n    }\n    /** {{=it.func.join(field.chnname,field.remark,';')}} */\n    public void set{{=it.func.camel(field.name,true)}}({{=field.type}} {{= it.func.camel(field.name,false) }}){\n        this.{{=it.func.camel(field.name,false)}} = {{= it.func.camel(field.name,false) }};\n    }\n{{~}}\n}",
+        "createTableTemplate": "package group.rober.pdman.{{=it.module.name}}.entity;\n$blankline\nimport javax.persistence.*;\nimport java.io.Serializable;\nimport java.util.Date;\n$blankline\n$blankline\n@Table(name=\"{{=it.entity.title}}\")\npublic class {{=it.func.camel(it.entity.title,true) }} implements Serializable,Cloneable{\n{{~it.entity.fields:field:index}}\n    /** {{=it.func.join(field.chnname,field.remark,';')}} */\n    {{? field.pk }}\n    @Id\n    @GeneratedValue\n    {{?}}\n    private {{=field.type}} {{=it.func.camel(field.name,false)}} ;\n{{~}}\n$blankline\n{{~it.entity.fields:field:index}}\n    /** {{=it.func.join(field.chnname,field.remark,';')}} */\n    public {{=field.type}} get{{=it.func.camel(field.name,true)}}(){\n        return this.{{=it.func.camel(field.name,false)}};\n    }\n    /** {{=it.func.join(field.chnname,field.remark,';')}} */\n    public void set{{=it.func.camel(field.name,true)}}({{=field.type}} {{= it.func.camel(field.name,false) }}){\n        this.{{=it.func.camel(field.name,false)}} = {{= it.func.camel(field.name,false) }};\n    }\n{{~}}\n}",
+        "deleteTableTemplate": "",
+        "rebuildTableTemplate": "",
+        "createFieldTemplate": "",
+        "updateFieldTemplate": "",
+        "deleteFieldTemplate": "",
+        "deleteIndexTemplate": "",
+        "createIndexTemplate": "",
+        "updateTableComment": ""
+      }
+    ]
+  },
+  "profile": {
+    "defaultFields": [
+      {
+        "name": "REVISION",
+        "type": "Integer",
+        "remark": "",
+        "chnname": "乐观锁"
+      },
+      {
+        "name": "CREATED_BY",
+        "type": "IdOrKey",
+        "remark": "",
+        "chnname": "创建人"
+      },
+      {
+        "name": "CREATED_TIME",
+        "type": "DateTime",
+        "remark": "",
+        "chnname": "创建时间"
+      },
+      {
+        "name": "UPDATED_BY",
+        "type": "IdOrKey",
+        "remark": "",
+        "chnname": "更新人"
+      },
+      {
+        "name": "UPDATED_TIME",
+        "type": "DateTime",
+        "remark": "",
+        "chnname": "更新时间"
+      }
+    ],
+    "defaultFieldsType": "1",
+    "javaConfig": {
+      "JAVA_HOME": "C:\\Program Files\\Java\\jdk1.8.0_91",
+      "DB_DRIVE": []
+    },
+    "sqlConfig": ";",
+    "dbs": [
+      {
+        "name": "",
+        "defaultDB": true,
+        "properties": {
+          "driver_class_name": "com.mysql.jdbc.Driver",
+          "url": "jdbc:mysql://127.0.0.1:3306/ddxmtp5?characterEncoding=UTF-8&useSSL=false&useUnicode=true&serverTimezone=UTC",
+          "password": "root",
+          "username": "root"
+        }
+      }
+    ],
+    "wordTemplateConfig": ""
+  }
+}

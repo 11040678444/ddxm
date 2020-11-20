@@ -1,0 +1,91 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal" action="{:url('mall/overtime_set/index')}" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label">待付款超时</label>
+                <div class="layui-input-inline w300">
+                    <input type="number" name="set_waitpay_time" lay-verify="set_waitpay_time" autocomplete="off"
+                           class="layui-input" value="{$data.set_waitpay_time}">
+                </div>
+                <div class="layui-form-mid layui-word-aux">小时（只针对普通订单）</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">拼团待付款超时</label>
+                <div class="layui-input-inline w300">
+                    <input type="number" name="set_group_waitpay_time" lay-verify="set_group_waitpay_time" autocomplete="off"
+                           class="layui-input" value="{$data.set_group_waitpay_time}">
+                </div>
+                <div class="layui-form-mid layui-word-aux">小时（只针对拼团订单）</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">抢购待付款超时</label>
+                <div class="layui-input-inline w300">
+                    <input type="number" name="set_rob_waitpay_time" lay-verify="set_rob_waitpay_time" autocomplete="off"
+                           class="layui-input" value="{$data.set_rob_waitpay_time}">
+                </div>
+                <div class="layui-form-mid layui-word-aux">分钟（只针对抢购订单）</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">自动收货超时</label>
+                <div class="layui-input-inline w300">
+                    <input type="number" name="set_takedelivery_time" lay-verify="set_takedelivery_time" autocomplete="off"
+                           class="layui-input" value="{$data.set_takedelivery_time}">
+                </div>
+                <div class="layui-form-mid layui-word-aux">天（商城自营）</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">跨境购-自动收货超时</label>
+                <div class="layui-input-inline w300">
+                    <input type="number" name="set_ca_takedelivery_time" lay-verify="set_ca_takedelivery_time" autocomplete="off"
+                           class="layui-input" value="{$data.set_ca_takedelivery_time}">
+                </div>
+                <div class="layui-form-mid layui-word-aux">天（跨境购）</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">自动评论超时</label>
+                <div class="layui-input-inline w300">
+                    <input type="number" name="set_comment_time" lay-verify="set_comment_time" autocomplete="off"
+                           class="layui-input" value="{$data.set_comment_time}">
+                </div>
+                <div class="layui-form-mid layui-word-aux">天（确认收货后开始计时）</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">未成团成功超时</label>
+                <div class="layui-input-inline w300">
+                    <input type="number" name="set_assemble_fail_time" lay-verify="set_assemble_fail_time" autocomplete="off"
+                           class="layui-input" value="{$data.set_assemble_fail_time}">
+                </div>
+                <div class="layui-form-mid layui-word-aux">小时</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">自动拼团</label>
+                <div class="layui-input-inline w300">
+                    <input type="number" name="set_assemble_success_time" lay-verify="set_assemble_success_time" autocomplete="off"
+                           class="layui-input" value="{$data.set_assemble_success_time}">
+                </div>
+                <div class="layui-form-mid layui-word-aux">分（从拼团结束时间--倒计时时间）</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">分销结算</label>
+                <div class="layui-input-inline w300">
+                    <input type="number" name="set_retai_order_time" lay-verify="set_retai_order_time" autocomplete="off"
+                           class="layui-input" value="{$data.set_retai_order_time}">
+                </div>
+                <div class="layui-form-mid layui-word-aux">天 （完成收货之后多少天结算）</div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn ajax-post" lay-submit="" lay-filter="*" target-form="form-horizontal">保存更改</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+</script>
+{/block}

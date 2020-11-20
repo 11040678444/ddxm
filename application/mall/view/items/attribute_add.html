@@ -1,0 +1,126 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">编辑</div>
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal">    <!-- action="{:url('admin/Member/level_doPost')}" method="post" -->
+            {if condition="$pid eq 0"}
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span>分类</label>
+                <div class="layui-input-inline">
+                    <select id="category" lay-filter="category">
+                        <option value="0">请选择</option>
+                        {volist name="category" id="vo"}
+                        <option value="{$vo['id']}" {if condition="$vo['id'] eq $list['type_id']"} selected="selected" {/if} >{$vo['cname']}</option>
+                        {/volist}
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="category_id" lay-filter="category_id" id="category_id">
+                        <option value="0">请先选择一级分类</option>
+                        {volist name="type" id="tt"}
+                        <option {if condition="$tt['id'] eq $list['category_id']"} selected="selected" {/if} value="{$tt.id}">{$tt.cname}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            {/if}
+
+            {if condition="isset($category_name)"}
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span>所属分类 </label>
+                <div class="layui-input-inline w300">
+                    <input type="text" readonly="readonly" value="{$category_name}" class="layui-input" >
+                </div>
+            </div>
+            {/if}
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span>名称 </label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="title"  autocomplete="title"  placeholder="筛选分类名称" value="{$list['title']}" class="layui-input" >
+                </div>
+            </div>
+            <input type="hidden" name="pid" value="{$pid}">
+            <input type="hidden" name="id" value="{$list['id']}">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="L_submit">立即提交</button>
+                    <button class="layui-btn layui-btn-normal" id = "close">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    layui.use(["form"], function(){
+        var layer = layui.layer;
+        form = layui.form;
+        //筛选分类
+        form.on('select(category)', function(data){
+            var val=data.value;
+            if( val == 0 ){
+                $('#category_id').empty();
+                $('#category_id').append("<option value=''>请先选择一级分类</option>");
+                form.render("select");
+                return false;
+            }
+            $.ajax({
+                type : "post",
+                url : "/mall/Items/category_select",
+                data: {pid:val},
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 1 ){
+                        var category = res.data;
+                        console.log(category);
+                        var option = '';
+                        $('#category_id').empty();
+                        $('#category_id').append("<option value=''>请选择</option>");
+                        for( var k in category){
+                            $("#category_id").append("<option value=" + category[k].id + ">" + category[k].cname + "</option>");
+                        }
+                        form.render("select");
+                    }else{
+                        layer.msg(res.msg);
+                        $('#category_id').empty();
+                        $('#category_id').append("<option value=''>请先选择一级分类</option>");
+                        form.render("select");
+                    }
+                }
+            });
+        });
+        form.on('submit(L_submit)', function(data){
+            var formData = data.field;
+            $.ajax({
+                type : "post",
+                url : "/mall/Items/attribute_doPost",
+                data: formData,
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 1 ){
+                        layer.msg(res.msg); 
+                        var index = parent.layer.getFrameIndex(window.name);
+                        setTimeout(function(){
+                            parent.layer.close(index);
+                            parent.location.reload();
+                        }, 1000);  
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+            return false;
+        });
+
+        //关闭
+        $("#close").click(function(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            // parent.location.reload();
+        })
+    });
+</script>
+{/block}

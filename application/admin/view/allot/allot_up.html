@@ -1,0 +1,482 @@
+{extend name="index_layout"/}
+{block name="main"}
+<body class="childrenBody">
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px;">调出仓库</label>
+                <div class="layui-input-inline">
+                    <select name="allot_out" lay-verify="" lay-filter="allot_out" id="allot_out" disabled="disabled">
+                        <option value="{$data.out_shop_id}">{$data.out_shop}</option>
+                    </select>
+                </div>
+                <!--                        <option value="{$data.in_shop_id}" >{$data.in_shop}</option>-->
+                <label class="layui-form-label" style="width:100px;">调入仓库</label>
+                <div class="layui-input-inline">
+                    <select name="allot_in" lay-verify="" lay-filter="allot_in" id='allot_in'>
+                        <option value="">请选择调入仓库</option>
+                        {volist name="data.shop" id ="vo"}
+                                 <option value="{$vo.id}" {if condition="$vo['id'] eq $data['in_shop_id']"} selected {/if} >{$vo.name}</option>
+                        {/volist}
+
+                    </select>  
+                </div>
+                <!-- <input type="hidden" id="supplier"> -->
+            </div>
+            <input type="hidden" name="count" value="{$data.countAll}" id="count">
+            <input type="hidden"   id="item_id" value="{$item_id}">
+            <table id="ddxm-table" cellspacing="1" cellpadding="1" border="1">
+                <tr >
+                    <th width="60px">序号</th>
+                    <th width="200px">商品名称</th>
+                    <th width="160px">条纹码</th>
+                    <th width="80px">当前库存</th>
+                    <th width="80px">调拨库存</th>
+                    <th>备注</th>
+                    <th width="80px">操作</th>
+                </tr>
+
+                {volist name="data.item" id="vo" key="k"}
+                <tr><td data="{$vo.id}" class="count">{$k}</td>
+                    <td style=""><input name="item_name" type="text" readonly title="{$vo.item}" value="{$vo.item}"style="width:200px;" class="purchase-table">
+                        <input type="hidden" name="item_id" value="{$vo.item_id}"></td>
+                    <td><input name="bar_code" type="text" readonly value="{$vo.barcode}" class="purchase-table" style="width:140px;"></td>
+                    <td><input type="text" name="stock" readonly style="width:80px" class="purchase-table number" value="{$vo.sto}" lay-verify="required|number" ></td>
+                    <td><input type="number" name="purchase_number" style="width:80px" class="purchase-table purchase_number" placeholder="调拨数量"
+                               lay-verify="required" min="1" max="{$vo.sto}" value="{$vo.num}"></td>
+                    <td><input type="text" name="remake" style="width:138px" class="purchase-table" value="{$vo.remark}" placeholder="请输入商品备注"></td>
+                    <td><button  class="layui-btn layui-btn-xs layui-btn-danger del_item">删除</button></td></tr>
+                {/volist}
+
+
+
+                <tr id="add_tr">
+                    <td>
+
+
+                    </td>
+                    <td id="add" style="color:#1E9FFF">点击此处选择商品</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px;">合计调拨数量</label>
+                <div class="layui-input-inline">                    
+                    <label class="layui-form-label" id="item_num">{$data.count}</label>
+                    <input type="hidden" name="item_number" id="item_number" value="0">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px;">备注</label>
+                <div class="layui-input-inline">
+                    <textarea name="remarks" placeholder="请输入内容" class="layui-textarea" style="resize:none;" >{$data.remark}</textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="hidden" name="allot_id" value="{$allot_id}">
+                    <button class="layui-btn ajax-post" lay-submit lay-filter="purchase_add" target-form="form-horizontal" id="purchase_add">立即提交</button>
+                    <button class="layui-btn layui-btn-primary" lay-submit lay-filter="return" >返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="parentitem" style="display:none">
+    {volist name="data.item" id="v"}
+        <option value="{$v.id}">{$v.cname}</option>
+    {/volist}
+</div>
+{/block}
+{block name="script"}
+<script>
+$(this).keydown( function(e) {
+    var key = window.event?e.keyCode:e.which;
+    if(key.toString() == "13"){
+        return false;
+    }
+});
+layui.use(['table',"form","layer"],function(){
+    var table = layui.table,
+        layer = layui.layer,
+        form = layui.form,
+        $ = layui.$;
+
+    form.render("select");
+    form.on("submit(return)",function(data){
+        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+        parent.layer.close(index); //再执行关闭
+        return false;
+    })
+    $(document).on("click",'#add',function(){
+
+        var allot_out = $("#allot_out").val();
+
+        var item_id = $("#item_id").val();
+        var count = $("#count").val();
+        var item = $(".parentitem").html();
+        layer.open({
+            type:1,
+            title:"商品选择",
+            area: ['1000px', '700px'],
+            content:`
+            <div class="layui-card">
+                <div class="layui-card-body">
+                <form class="layui-form form-horizontal" method="post">
+                    <div class="layui-form-item">
+                        <div class="layui-input-inline">
+                            <input type="text" name="name"  autocomplete="off" class="layui-input" placeholder="商品名称">
+                        </div>
+                        <div class="layui-input-inline">
+                            <input type="text" name="code"  autocomplete="off" class="layui-input" placeholder="条形码">
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="parent" lay-verify="" lay-filter="parent">
+                                <option value="">请选择一级</option>
+                                ${item}
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="child" lay-verify="" id="child">
+                                <option value="">请先选择一级</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline" style="width:100px;margin-left:20px;">
+                            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="item_search">搜索</button>
+                        </div>
+                    </div>
+                    <table id="purchase_item" lay-filter="purchase_item"></table>
+                    <div class="layui-input-inline layui-btn-group userTable" style="margin-right:40px;float:right">
+                        <button class="layui-btn layui-btn-primary" lay-submit lay-filter="close" >取消</button>
+                        <button class="layui-btn layui-btn-normal" id="add_item" data-type="getCheckData">确定</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+            `,
+            success:function(layero,index){
+                form.render("select");
+                form.on('select(parent)', function(data){
+                    var id = data.value;
+                    $.ajax({
+                        url: '{:url("admin/purchase/item_category")}',
+                        type: "POST" ,
+                        data: {id:id},
+                        success:function(data){
+                            if(data.result){
+                                var option = "";
+                                $(".child").remove();
+                                for(var i =0;i<data.count;i++){
+                                    option += `<option value="`+data.data[i]["id"]+`" class="child">`+data.data[i]["cname"]+`</option>`;
+                                }
+                                $("#child").append(option);
+                                form.render("select");
+                            }
+                        }
+                    })
+                });
+                form.on("submit(item_search)",function(data){
+                    var data = data.field;
+                    table.reload('tableItem', {
+                        page: {
+                          curr: 1 //重新从第 1 页开始
+                        }
+                        ,where: {
+                          data
+                        }
+                    }, 'data');
+                    return false;
+                })
+                form.on("submit(close)",function(data){
+                    layer.close(index);
+                    return false;
+                })
+                table.render({
+                    elem: '#purchase_item',
+                   /* toolbar: '#toolbarDemo',*/
+                    skin: 'row', //行边框风格
+                    even: true ,//开启隔行背景
+                    id:"tableItem",
+                    url: '{:url("admin/allot/allot_item")}',
+                    where:{                        
+                        id:item_id,
+                        shop:allot_out,
+                    }              ,      
+                    page: true,
+                    cols: [
+                        [
+                            {type: 'checkbox',width:60, fixed: 'left'},
+                            { field: 'title', width:300, title: '商品名称'},
+                            { field: 'bar_code',width:140,  title: '条形码'},
+                            /*{ field: 'price', title: '单价' },*/
+                            { field: 'stock', title: '库存' },
+                        ]
+                    ],
+                });
+                form.on('submit(search)', function(data){
+                    return false;
+                });
+                active = {
+                    getCheckData: function(){ //获取选中数据
+                      var checkStatus = table.checkStatus('tableItem')
+                      ,data = checkStatus.data;
+                      return data;
+                    }
+                    
+                };
+                $("#add_item").on("click",function(){
+                    var type = $(this).data('type');
+                    var data = active[type] ? active[type].call(this) : '';
+
+                    console.log(data);
+                    if(data!=""){
+                        var html ="";
+                        var add_tr = $("#add_tr").prop("outerHTML");
+                        var count = $("#count").val();
+                       
+                        for(var i = 0; i<data.length;i++){                            
+                            count ++;
+                            if(item_id==""){
+                                item_id += data[i]["id"];
+                            }else{
+                                item_id += ","+data[i]["id"];
+                            }
+
+
+                            var num = i+1;
+                            html += `<tr><td data="`+data[i]["id"]+` " class="count">`+count+`</td>
+                                    <td style=""><input name="item_name" type="text" readonly title="`+data[i]["title"]+`" value="`+data[i]["title"]+`"style="width:200px;" class="purchase-table">
+                                    <input type="hidden" name="item_id" value="`+data[i]['id']+`"></td>
+                                    <td><input name="bar_code" type="text" readonly value="`+data[i]["bar_code"]+`" class="purchase-table" style="width:140px;"></td>
+                                    <td><input type="text" name="stock" readonly style="width:80px" class="purchase-table number" value="`+data[i]["stock"]+`" lay-verify="required|number" ></td>
+                                    <td><input type="number" name="purchase_number" style="width:80px" class="purchase-table purchase_number" placeholder="调拨数量" lay-verify="required" min="1" max="`+data[i]["stock"]+`"></td>
+                                    <td><input type="text" name="remake" style="width:138px" class="purchase-table" placeholder="请输入商品备注"></td>
+                                    <td><button  class="layui-btn layui-btn-xs layui-btn-danger del_item">删除</button></td></tr>
+                                    `;
+                        }
+                        html += add_tr;
+                        $("#add_tr").detach();
+                        $("#count").val(count);
+                        $("#ddxm-table").append(html);
+                        $("#item_id").val(item_id);
+                        $('#allot_out').attr('disabled', "disabled");
+                        form.render('select'); 
+                       /* layer.close(indexs);*/
+                        layer.close(index);
+                        return false;
+                    }else{
+                        layer.confirm('未选择商品 继续关闭?', {icon: 3, title:'关闭提示'}, function(indexs){
+                            layer.close(indexs);
+                            layer.close(index);
+                        });
+                    }
+                    return false;
+                });               
+            },
+            end: function(layero, index){                
+            }
+        })
+    })
+    form.on("select(allot_in)",function(data){
+        var allot_out = $("#allot_out").val();
+        if(data.value==""){
+            return false;
+        }
+        if(data.value == allot_out){
+            layer.msg("调出仓库与调入仓库相同",{icon:5});
+        }
+    })
+    form.on("select(allot_out)",function(data){
+        var allot_in = $("#allot_in").val();
+        if(data.value==""){
+            return false;
+        }
+        if(data.value == allot_in){
+            layer.msg("调出仓库与调入仓库相同",{icon:5});
+        }
+    })
+   /* $(document).on("keyup",'.price',function () {
+        var number = $(this).parent().prev().children(".number").val();
+        var reg = $(this).val().match(/\d+\.?\d{0,2}/);
+        var txt = '';
+        if (reg != null) {
+            txt = reg[0];
+        }
+        var amount = 0;
+        if(txt!= "" && txt!=0 && number!=0 && number !=""){
+            amount = number * txt;
+            amount =amount.toFixed(2);
+        }
+        $(this).parent().next().children(".money").val(amount);
+         var money = 0;
+        $("input[name='money']").each(function(m){
+            if( $(this).val() !=""){
+                money += parseFloat($(this).val());
+            }
+        })
+        money =money.toFixed(2);
+        $(".amount").html(money);
+        $("#amount").val(money);
+        $(this).val(txt);
+    });
+   $(document).on("change",'.price',function () {
+        $(this).keypress();
+        var v = $(this).val();
+        if (/\.$/.test(v))
+        {
+            $(this).val(v.substr(0, v.length - 1));
+        }
+    });*/
+   $(document).on('change','.purchase_number',function(data){
+        var number = $(this).parent().prev().children(".number").val();
+        var num = $(this).val();
+        if(parseInt(number) < parseInt(num)){
+            layer.msg("调拨大于库存",{icon:5});
+            $(this).val(number);
+            num = number;
+        }
+        var numb = 0;
+        $("input[name='purchase_number']").each(function(m){
+            if( $(this).val() !=""){
+                numb += parseInt($(this).val());
+            }
+        })
+        $("#item_num").html(numb);
+        $("#item_number").val(numb);
+    })
+    $(document).on("click",'.del_item',function(){
+        var count = $("#count").val();
+        $(this).parent().parent().detach();
+        $(".count").each(function(ii,vv){
+            
+            $(".count").eq(ii).html(ii+1); 
+        });
+        $("#count").val(count-1);
+        var id = $(this).parent().parent("tr").children("td").eq(1).children("input[name='item_id']").val();
+        var item_id = $("#item_id").val();
+        var item = new Array();
+        item = item_id.split(",");
+        var array = "";
+        for(var i=0;i<item.length;i++){
+            if(item[i] ==id){
+            }else{
+                if(array==""){
+                    array += item[i];
+                }else{
+                    array += ","+item[i];
+                }
+            }
+        }
+        var money = 0;
+        $("input[name='purchase_number']").each(function(m){
+            if( $(this).val() !=""){
+                money += parseInt($(this).val());
+            }
+        })
+        $("#item_num").html(money);
+        $("#item_number").val(money);
+        $("#item_id").val(array);
+        if(count == 1){
+            $('#allot_out').removeAttr("disabled");
+            form.render('select'); 
+        }
+        return false;
+    });
+
+   // 立即 提交
+    form.on('submit(purchase_add)', function(data){
+        var data = data.field;
+
+        if(data.count == 0){
+            layer.msg('未选择商品', {icon: 5});
+            return false;
+        }
+        // data.allot_id  = data.allot_id;
+
+
+        if(data.allot_in ===""){
+            layer.msg('请选择调入仓库', {icon: 5});
+            return false;
+        }
+        if(data.allot_in === data.allot_out){
+            layer.msg('调入仓库等于调出仓库', {icon: 5});
+            return false;
+        }
+
+        var item_id = new Array();
+        $("input[name='item_id']").each(function(id){
+            item_id[id] = $(this).val();
+        });
+        data.item_id = item_id;
+        var bar_code = new Array();
+        $("input[name='bar_code']").each(function(code){
+            bar_code[code] = $(this).val();
+        })
+        data.bar_code = bar_code;
+        var cname = new Array();
+        $("input[name='cname']").each(function(c){
+            cname[c] = $(this).val();
+        })
+        data.cname = cname;
+        var item_name = new Array();
+        $("input[name='item_name']").each(function(name){
+            item_name[name] = $(this).val();
+        })
+        data.item_name = item_name;
+        var p_type = new Array();
+        $("input[name='p_type']").each(function(type){
+            p_type[type] = $(this).val();
+        })
+        data.p_type = p_type;
+        var price = new Array();
+        $("input[name='stock']").each(function(p){
+            price[p] = $(this).val();
+        })
+        data.stock = price;
+        var remake = new Array();
+        $("input[name='remake']").each(function(r){
+            remake[r] = $(this).val();
+        })
+        data.remake = remake;
+        var purchase_number = new Array();
+        $("input[name='purchase_number']").each(function(n){
+            purchase_number[n] = $(this).val();
+        })
+        data.purchase_number = purchase_number;
+        // var level_id = new Array();
+        // $("input[name='level_id']").each(function(l){
+        //     level_id[l] = $(this).val();
+        // })
+        // data.level_id = level_id;
+        // var levels_id = new Array();
+        // $("input[name='levels_id']").each(function(ls){
+        //     levels_id[ls] = $(this).val();
+        // })
+        // data.levels_id = levels_id;
+        $("#purchase_add").hide();
+        $.ajax({
+            url: '{:url("admin/allot/allot_up")}',
+            type: "POST" ,
+            data: {data:data},
+            success:function(data){
+                if(data.result){
+                    layer.msg(data.msg,{icon: 6 , time: 2000 ,shade:0.6},function(){
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index); //再执行关闭
+                    })
+                }else{
+                    $("#purchase_add").show();
+                    layer.msg(data.msg, {icon: 5 , time: 2000 ,shade:0.6});
+                }
+            }
+        })
+        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    });
+})
+</script>
+{/block}

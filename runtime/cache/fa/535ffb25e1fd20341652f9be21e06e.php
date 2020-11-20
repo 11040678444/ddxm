@@ -1,0 +1,4 @@
+<?php
+//000000000000
+ exit();?>
+think_serialize:a:13:{s:12:"config_group";a:4:{s:4:"base";s:6:"基础";s:6:"system";s:6:"系统";s:6:"upload";s:6:"上传";s:7:"develop";s:6:"开发";}s:16:"upload_image_ext";s:20:"gif,jpg,jpeg,bmp,png";s:5:"theme";s:7:"default";s:12:"web_site_icp";s:0:"";s:17:"upload_image_size";s:1:"0";s:16:"upload_file_size";s:1:"0";s:15:"upload_file_ext";s:56:"doc,docx,xls,xlsx,ppt,pptx,pdf,wps,txt,rar,zip,gz,bz2,7z";s:18:"upload_thumb_water";s:1:"0";s:22:"upload_thumb_water_pic";s:0:"";s:27:"upload_thumb_water_position";a:2:{s:3:"key";s:1:"9";s:5:"value";s:9:"右下角";}s:24:"upload_thumb_water_alpha";s:2:"50";s:13:"upload_driver";a:2:{s:3:"key";s:5:"local";s:5:"value";s:6:"本地";}s:19:"web_site_statistics";s:1:"1";}

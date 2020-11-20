@@ -1,0 +1,426 @@
+{extend name="index_layout"/}
+{block name="main"}
+<style type="text/css">
+    .upload-pre-item{
+        position: relative;
+    }
+    .upload-pre-item i {
+        position: absolute;
+        cursor: pointer;
+        top: -5px;
+        background: #2F4056;
+        /*padding: 2px;*/
+        line-height: 15px;
+        text-align: center;
+        color: #fff;
+       /* margin-left: -10px;*/
+        /* float: left; */
+        filter: alpha(opacity=80);
+        -moz-opacity: .8;
+        -khtml-opacity: .8;
+        opacity: .8;
+        transition: 1s;
+    }
+    .upload-pre-item{
+        float:left;
+        margin-top:10px;
+        margin-left:5px;
+    }
+    .upload-img-box{
+        width:326px;
+        margin-top:10px;
+        padding-bottom:10px;
+        background-color:#f2f2f2;
+        display:none;
+    }
+</style>
+<div class="layui-card">
+    <div class="layui-card-header">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>添加代金券</legend>
+        </fieldset>
+    </div>
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px;">代金券名称</label>
+                <div class="layui-input-inline" style="width:326px;">
+                    <input type="text" name="title" autocomplete="off" placeholder="请输入代金券名称" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px;">金额</label>
+                <div class="layui-input-inline" style="width:326px;">
+                    <input type="text" name="price" autocomplete="off" placeholder="请输入金额" class="layui-input price">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px;">使用张数</label>
+                <div class="layui-input-inline" style="width:326px;">  
+                    <input type="number" name="num" autocomplete="off" placeholder="同时可使用张数" class="layui-input">
+                </div> 
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px;">过期时间</label>
+                <div class="layui-input-block">
+                    <div class="layui-input-inline" style="width:120px">
+                        <select name="days" lay-filter="days">
+                            <option value="day">天</option>
+                            <option value="month">月</option>
+                        </select>
+                    </div> 
+                    <div class="layui-input-inline other" style="width:170px">
+                        <input type="number" name="time_num" autocomplete="off" placeholder="" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux" id="days">天</div>
+                </div> 
+            </div>
+            <div class="layui-form-item" style="margin-top:10px;">
+                <label class="layui-form-label" style="width:100px;">其他要求</label>
+                <div class="layui-input-block">
+                    <div class="layui-input-inline" style="width:120px">
+                        <select name="other" lay-filter="other">
+                            <option value="1">满多少可用</option>
+                            <option value="0">无限制</option>
+                        </select>
+                    </div> 
+                    <div class="layui-input-inline other" style="width:196px">
+                        <input type="text" name="other_price" autocomplete="off" placeholder="请输入满多少金额可用" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item" style="margin-top:10px;">
+                <label class="layui-form-label" style="width:100px;">是否可退</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="refund" value="1" title="可退" >
+                    <input type="radio" name="refund" value="0" title="不可退" checked="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width:100px;">所属项目</label>
+                <div class="layui-input-block" style="margin-left:130px;">
+                    <div>
+                        <div class="layui-input-inline" style="width:80px">
+                            <input type="checkbox" name="product" value="item" lay-skin="primary" title="商品" lay-filter="product">
+                        </div>
+                        <div class="layui-input-inline" style="width:120px">
+                            <select name="item_select" lay-filter="product_select" id="item_select" disabled  data-id="item">
+                                <option value="2" data-id="item">所有商品</option>
+                                <option value="1" data-id="item">部分商品</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <a class="layui-btn layui-btn-disabled product" id ="item" data="item" style="width:108px;">选择商品</a>
+                        </div>
+                        <div style="clear:both"></div>
+                    </div>
+                    <div class="upload-img-box">
+                        <div class="upload-icon-img" id="item_list" data='item'>
+                        </div>
+                        <div style="clear:both"></div>
+                    </div>
+                    <div style="margin-top:10px;">
+                        <div class="layui-input-inline" style="width:80px">
+                            <input type="checkbox" name="product" value="service" lay-skin="primary" title="服务" lay-filter="product">
+                        </div>
+                        <div class="layui-input-inline" style="width:120px">
+                            <select name="service_select" lay-filter="product_select" id="service_select" disabled  data-id="service">
+                                <option value="2">所有服务</option>
+                                <option value="1">部分服务</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <a class="layui-btn layui-btn-disabled product" id ="service" data="service" style="width:108px;">选择服务</a>
+                        </div>
+                        <div style="clear:both"></div>
+                    </div>
+                    <div class="upload-img-box">
+                        <div class="upload-icon-img" id="service_list" data="service">
+                        </div>
+                        <div style="clear:both" ></div>
+                    </div>
+                    <div style="margin-top:10px;">
+                        <div class="layui-input-inline" style="width:80px">
+                            <input type="checkbox" name="product" value="ticket" lay-skin="primary" title="服务卡" lay-filter="product">
+                        </div>
+                        <div class="layui-input-inline" style="width:120px">
+                            <select name="ticket_select" lay-filter="product_select" id="ticket_select" disabled data-id="ticket">
+                                <option value="2">所有服务卡</option>
+                                <option value="1">部分服务卡</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <a class="layui-btn layui-btn-disabled product" id ="ticket" data="ticket">选择服务卡</a>
+                        </div>
+                        <div style="clear:both"></div>
+                    </div>
+                    <div class="upload-img-box">
+                        <div class="upload-icon-img" id="ticket_list" data="ticket">
+                        </div>
+                        <div style="clear:both"></div>
+                    </div>
+                </div>   
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="L_submit">立即提交</button>
+                    <button class="layui-btn layui-btn-normal" id = "close" style="width:92px;">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    layui.use(["table","layer","form"], function(){
+        var table = layui.table,
+            layer = layui.layer,
+            form  = layui.form;
+        form.on('submit(L_submit)', function(data){
+            var formData = data.field;
+            var item = new Array();
+            $("input[name='item']").each(function(i){
+                item[i] = $(this).val();
+            });
+            formData.item = item;
+            var service = new Array();
+            $("input[name='service']").each(function(s){
+                service[s] = $(this).val();
+            });
+            formData.service = service;
+            var ticket = new Array();
+            $("input[name='ticket']").each(function(t){
+                ticket[t] = $(this).val();
+            });
+            formData.ticket = ticket;
+            var product = new Array();
+            $("input[name='product']:checked").each(function(p){
+                product[p] = $(this).val();
+            });
+            formData.product = product;
+            if(formData.product.length==0){
+                layer.msg("请选择所属项目");
+                return false;
+            }
+            for(var le = 0;le<formData.product.length;le++){
+                var array = formData.product[le];
+                var title = array=="item"?"商品":(array=="ticket"?"服务卡":"服务");
+                if(formData[array+"_select"] =="1" && formData[array].length==0){
+                    layer.msg("请选择"+title);
+                    return false;
+                }
+            }
+            $.ajax({
+                type : "post",
+                url : "/admin/cash/add",
+                data: formData,
+                dataType: 'json',
+                success:function(res){
+                    if( res.result){
+                        layer.msg(res.msg,{icon: 6 , time:1000 ,shade:0.6},function(){
+                           window.location.href = '{:url("admin/cash/index")}';
+                        })
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+            return false;
+        });
+        form.on('checkbox(product)', function(data){
+            var checked = data.elem.checked;//选中的值
+            var value = data.value;// 
+            var len = $("#"+value+"_list").find(".upload-pre-item").length;
+            if(!checked){
+                $('#'+value+'_select').attr('disabled', "disabled");
+                /*$("#"+value).toggleClass('layui-btn-disabled').toggleClass('layui-btn-normal');*/
+                $("#"+value+"_list").parent(".upload-img-box").hide();
+                form.render('select'); 
+            }else{
+                if(len>0){
+                    $("#"+value+"_list").parent(".upload-img-box").show();
+                }
+                $('#'+value+'_select').removeAttr("disabled");
+                /*$("#"+value).toggleClass('layui-btn-disabled').toggleClass('layui-btn-normal');*/
+                form.render('select'); 
+            }
+        });
+        form.on("select(product_select)",function(data){
+            var html = $(this).parent().parent().parent().parent().next(".upload-img-box").children(".upload-icon-img").empty();
+            var attr = $(this).parent().parent().parent().parent().next(".upload-img-box").children(".upload-icon-img").attr("data");
+            $(this).parent().parent().parent().parent().next(".upload-img-box").hide();
+            if(data.value==1){
+                if($("#"+attr).hasClass("layui-btn-disabled")){
+                    $("#"+attr).toggleClass('layui-btn-disabled').toggleClass('layui-btn-normal');
+                }
+            }else if(data.value==2){
+                if(!$("#"+attr).hasClass("layui-btn-disabled")){
+                    $("#"+attr).toggleClass('layui-btn-disabled').toggleClass('layui-btn-normal');
+                }
+            }
+           /* console.log(html);*/
+        })
+        $(document).on("click",'.del_close',function(){
+            var len = $(this).parent().parent(".upload-icon-img").find(".upload-pre-item").length;
+            if(len==1){
+                $(this).parent().parent(".upload-icon-img").parent(".upload-img-box").hide();
+            }
+            $(this).parent(".upload-pre-item").remove();
+        })
+        $(".product").click(function(data){
+            var  product = $(this).attr("data");
+            if($(this).hasClass("layui-btn-disabled")){
+                return false;
+            }
+            var item_array = new Array();
+            $("input[name='"+product+"']").each(function(t){
+                item_array[t] = $(this).val();
+            });
+            var product_val =$("#"+product+"_select").val();
+            if(product_val =="2"){
+                layer.msg("仅部分产品时可选");
+                return false;
+            }
+            layer.open({
+                type:1,
+                title:"产品选择",
+                area: ['500px', '700px'],
+                content:`
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                    <form class="layui-form form-horizontal" method="post">
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline">
+                                <input type="text" name="name"  autocomplete="off" class="layui-input" placeholder="产品名称">
+                            </div>
+                            <div class="layui-input-inline" style="width:100px;margin-left:20px;">
+                                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="item_search">搜索</button>
+                            </div>
+                        </div>
+                        <table id="cash_product" lay-filter="cash_product"></table>
+                        <div class="layui-input-inline layui-btn-group userTable" style="margin-right:40px;float:right">
+                            <button class="layui-btn layui-btn-primary" lay-submit lay-filter="close" >取消</button>
+                            <button class="layui-btn layui-btn-normal" id="add_item" data-type="getCheckData" >确定</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+                `,
+                success:function(layero,index){
+                    form.render("select");
+                    form.on("submit(item_search)",function(data){
+                        var search = data.field.name;
+                        table.reload('productCash', {
+                            page: {
+                              curr: 1 //重新从第 1 页开始
+                            }
+                            ,where: {
+                              data:product,
+                              search:search,
+                              item:item_array
+                            }
+                        }, 'data');
+                        return false;
+                    })
+                    form.on("submit(close)",function(data){
+                        layer.close(index);
+                        return false;
+                    })
+                    /*form.on("submit(closse)",function(data){
+                        var arr = ['a','b','c','d'];
+                        arr.splice($.inArray('c',arr),1);
+                        alert(arr);
+                    })*/
+                    table.render({
+                        elem: '#cash_product',
+                       /* toolbar: '#toolbarDemo',*/
+                        height:465,
+                        skin: 'row', //行边框风格
+                        even: true ,//开启隔行背景
+                        id:"productCash",
+                        url: '{:url("admin/cash/product")}',
+                        where:{                        
+                            data:product,
+                            item:item_array
+                        },      
+                        page: true,
+                        cols: [
+                            [
+                                {type: 'checkbox',width:60, fixed: 'left'},
+                                { field: 'title', title: '产品名称'},
+                            ]
+                        ],
+                    });
+                    /*form.on('submit(search)', function(data){
+                        return false;
+                    });*/
+                    active = {
+                        getCheckData: function(){ //获取选中数据
+                          var checkStatus = table.checkStatus('productCash')
+                          ,data = checkStatus.data;
+                          return data;
+                        }   
+                    };
+                    
+                    $("#add_item").on("click",function(){
+                        var type = $(this).data('type');
+                        var a_data = active[type] ? active[type].call(this) : '';
+                        var html = "";
+                        if(a_data!=""){
+                            for(var i = 0; i<a_data.length;i++){
+                                html += `
+                                <div class="upload-pre-item">
+                                    <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal">`+a_data[i]["title"]+`</a>
+                                    <i class="layui-icon  layui-icon-close del_close"></i>
+                                    <input type="hidden" name="`+product+`" class="img_val" value="`+a_data[i]["id"]+`" />
+                                </div>
+                            `;
+                            }
+                            if(i>0){
+
+                            }
+                            $("#"+product+"_list").parent(".upload-img-box").show();
+                            $("#"+product+"_list").append(html);
+                            layer.close(index);
+                            return false;
+                        }else{
+                            layer.confirm('未选择商品 继续关闭?', {icon: 3, title:'关闭提示'}, function(indexs){
+                                layer.close(indexs);
+                                layer.close(index);
+                            });
+                        }
+                        return false;
+                    });               
+                },
+                end: function(layero, index){                
+                }
+            })
+        })
+        form.on('select(days)', function(data){
+            var val = data.value;
+            if(val=="day"){
+                $("#days").html("天");
+            }else{
+                $("#days").html("月");
+            }
+        });
+        $(".price").keyup(function () {
+            var reg = $(this).val().match(/\d+\.?\d{0,2}/);
+            var txt = '';
+            if (reg != null) {
+                txt = reg[0];
+            }
+            $(this).val(txt);
+        }).change(function () {
+            $(this).keypress();
+            var v = $(this).val();
+            if (/\.$/.test(v))
+            {
+                $(this).val(v.substr(0, v.length - 1));
+            }
+        });
+    });
+</script>
+{/block}

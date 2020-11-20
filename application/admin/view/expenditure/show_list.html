@@ -1,0 +1,272 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <!-- <div class="layui-card-header">营业支出</div> -->
+    <!-- <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <a class="layui-btn layui-btn-sm " href="{:url('admin/Expenditure/add1')}">新增</a>
+        </div>
+    </script> -->
+    <div class="layui-card-body">
+        <div class="layui-btn-container">
+            <a class="layui-btn layui-btn-sm" id="AddShop">添加</a>
+            <a class="layui-btn layui-btn-sm">导出</a>
+            <a class="layui-btn layui-btn-sm" id="duizhang">批量对账</a><!-- href="{:url('admin/manager/add')}" -->
+        </div>
+        <div class="layui-form">
+                <div class="layui-input-inline">
+                    <select name="type_id" id="shop_id" lay-filter="shop_id">
+                        <option value="0">请选择门店</option>
+                        {volist name="shop" id="vo"}
+                            <option value="{$vo['id']}">{$vo['name']}</option>
+                        {/volist} 
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="type_id" id="type_id" lay-filter="shop_id">
+                        <option value="0">请选择类型</option>
+                        {volist name="type" id="vo"}
+                        <option value="{$vo['id']}">{$vo['title']}</option>
+                        {/volist}
+                    </select>
+                </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="remarks" name="remarks" placeholder="备注" autocomplete="off">
+            </div>
+                <div class="layui-input-inline">
+                    <select name="status" lay-verify="" id="status" lay-filter="status">
+                        <option value="">对账状态</option>
+                        <option value="0">未对账</option>
+                        <option value="1">已对账</option>
+                    </select>  
+                </div>
+                <div class="layui-input-inline">
+                    <input class="layui-input" id="time" name="time" placeholder="开始时间" autocomplete="off">
+                </div>
+                <div class="layui-input-inline">
+                    <input class="layui-input" id="end_time" name="end_time" placeholder="结束时间" autocomplete="off">
+                </div>
+                <div class="layui-input-inline " style="width: 90px">
+                    <button class="layui-btn" id="searchEmailCompany" data-type="reload">
+                        <i class="layui-icon" style="font-size: 20px; "></i> 搜索
+                    </button>
+                </div>
+        </div>
+        <table class="layui-hide" id="table" lay-filter="table"></table>
+        <script type="text/html" id="barTool">
+            {{#  if(d.status == 1){ }}
+            <div class="layui-btn layui-btn-xs" style="cursor:default" lay-event="quxiao">已对账</div>
+            {{#  } else { }}
+            <div class="layui-btn layui-btn-xs  layui-btn-normal" style="cursor:default" lay-event="duizhang">未对账</div>
+            
+            {{#  } }}
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </script>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script>
+    layui.use('laydate', function(){
+      var laydate = layui.laydate;
+      //执行第一个laydate实例
+      laydate.render({
+        elem: '#time', //指定元素
+        type: 'date'
+      });
+      //执行第二个laydate实例
+      laydate.render({
+        elem: '#end_time', //指定元素
+        type: 'date'
+      });
+    });
+</script>
+<script type="text/javascript">
+layui.use(["table","layer"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        $ = layui.$;
+    table.render({
+        elem: '#table',
+        toolbar: '#toolbarDemo',
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"tableTset",
+        url: '{:url("admin/Expenditure/show_list")}',
+        height: 'full-128',
+        /*limit:1,
+        limits:[1,2,30,40,50,60,70,80,90],*/
+        page: true,
+        cols: [
+            [
+                {type:'checkbox'},
+                { field: 'id', /*width: 80,*/ title: 'ID'},
+                { field: 'shop_id', /*width: 80,*/ title: '所属门店'},
+                { field: 'type', /*width: 80,*/ title: '类型名称'},
+                { field: 'price', /*width: 80,*/ title: '金额'},
+                { field: 'remarks', /*width: 80,*/ title: '备注'},
+                { field: 'user_id', /*width: 80,*/ title: '操作人'},
+                { field: 'time', /*width: 80,*/ title: '支出时间'},
+                { field: 'create_time', /*width: 80,*/ title: '新增时间'},
+                // { field: 'status'/*,width: 200*/, title: '对账',toolbar: '#statusTool'},
+                { fixed: 'right', /*width: 160,*/ title: '操作', toolbar: '#barTool' }
+            ]
+        ],
+    });
+
+    //添加门店
+    $("#AddShop").on("click",function(){
+        var url  ="{:url('admin/Expenditure/add1')}";
+        layer.open({
+            type: 2,
+            title: '添加',
+            area: ['600px', '650px'],
+            content: url,
+            end: function(layero, index){
+                table.reload('table', {
+                });
+            }
+        });
+    });
+
+    //搜索
+    $("#searchEmailCompany").on("click",function(){
+        var shop_id = $('#shop_id').val();
+        var time = $('#time').val();
+        var end_time = $('#end_time').val();
+        var status = $('#status').val();
+        var remarks = $('#remarks').val();
+        var type_id = $('#type_id').val();
+        table.reload('tableTset', {
+          url: '/admin/Expenditure/show_list',
+          where:{  
+                    shop_id:shop_id,
+                    start_time:time,
+                    end_time:end_time,
+                    status:status,
+                    remarks:remarks,
+                    type_id:type_id,
+                } //设定异步数据接口的额外参数
+        });
+    });
+
+    $('#duizhang').on("click",function(){
+        var tt = layui.table.checkStatus('tableTset').data;
+        let data = [];
+        tt.map(item => {
+            data.push(item.id);
+        })
+        if( data.length == 0 ){
+            return false;
+        }
+        $.ajax({
+            url: "/admin/Expenditure/edit_status",    // 提交到controller的url路径
+            type: "post",    // 提交方式
+            data: {ids:data},  // data为String类型，必须为 Key/Value 格式。
+            dataType: "json",    // 服务器端返回的数据类型
+            success: function (data) { 
+                console.log(data) 
+                if( data.code == 1 ){
+                    layer.msg(data.msg, {time: 3000});
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1000); 
+                    
+                }else{
+                    layer.msg(data.msg);
+                }
+            },
+        });
+    });
+
+
+    //监听行工具事件
+    table.on('tool(table)', function(obj) {
+        var data = obj.data;
+        //console.log(obj);
+        if (obj.event === 'del') {
+            var url = '{:url("admin/Expenditure/del1")}' + "?id=" + data.id;
+            layer.open({
+                type: 2,
+                title: '在线调试',
+                area: ['800px', '650px'],
+                content: url,
+                end: function(layero, index){
+                   table.reload('tableTset', {
+                    });
+                }
+            });
+        }else if (obj.event === 'edit') {
+            var url = '{:url("admin/Expenditure/add1")}' + "?id=" + data.id;
+            layer.open({
+                type: 2,
+                title: '编辑支出',
+                area: ['800px', '650px'],
+                content: url,
+                end: function(layero, index){
+                   table.reload('tableTset', {
+                    });
+                }
+            });
+        }else if (obj.event === 'quxiao') {
+            layer.confirm('确认此条数据改为未对账？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/Expenditure/quxiao")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }else if (obj.event === 'duizhang') {
+            layer.confirm('确定这条数据已对账？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/Expenditure/duizhang")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }
+    });
+});
+</script>
+{/block}

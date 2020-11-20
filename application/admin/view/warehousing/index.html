@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理系统</title>
+    <meta name="author" content="YZNCMS">
+    <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/admin.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/ddxm.css">
+    <link rel="stylesheet" href="__STATIC__/admin/font/iconfont.css">
+    <script src="__STATIC__/libs/layui/layui.js"></script>
+    <script src="__STATIC__/libs/jquery/jquery.min.js"></script>
+    <style type="text/css">
+        .layui-table-cell{
+            height:auto !important;
+        }
+        .layui-layer-title{
+            text-align: center;
+            padding: 0 ;
+            font-size:20px;
+        
+        }
+        .width150{
+            width:70px;
+        }
+        .width200{
+            width:70px;
+        }
+    </style>
+    
+<script type="text/javascript">
+//全局变量
+var GV = {
+    'image_upload_url': '{$image_upload_url ? $image_upload_url : url("attachment/attachments/upload", ["dir" => "images", "module" => request()->module()])}',
+    'file_upload_url': '{$file_upload_url ? $file_upload_url : url("attachment/attachments/upload", ["dir" => "files", "module" => request()->module()])}',
+    'WebUploader_swf': '__STATIC__/webuploader/Uploader.swf',
+    'upload_check_url': '{$upload_check_url ? $upload_check_url : url("attachment/Attachments/check")}',
+    'ueditor_upload_url': '{$ueditor_upload_url ? $ueditor_upload_url : url("attachment/Ueditor/run")}',
+};
+</script>
+</head>
+<body class="childrenBody">
+<div class="layui-card">
+    <div class="layui-card-header">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>直接入库单</legend>
+        </fieldset>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-btn-container">
+            <a class="layui-btn layui-btn-sm">导出</a>
+            <a class="layui-btn layui-btn-sm" id="add">直接入库</a><!-- href="{:url('admin/manager/add')}" -->
+        </div>
+        <div class="layui-form">
+            <div class="layui-input-inline">
+                <select name="shop_id" id="shop_id" lay-filter="shop_id">
+                    <option value="0">请选择所入仓库</option>
+                    {volist name="shop" id="vo"}
+                        <option value="{$vo['id']}">{$vo['name']}</option>
+                    {/volist} 
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="supplier_id" id="supplier_id" lay-filter="supplier_id">
+                    <option value="0">请选择供应商</option>
+                    {volist name="sup" id="sup"}
+                        <option value="{$sup['id']}">{$sup['supplier_name']}</option>
+                    {/volist} 
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="status" id="status" lay-filter="status">
+                    <option value="0">请选择状态</option>
+                    <option value="1">已入库</option>
+                    <option value="2">已取消</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="name" name="name" placeholder="订单号/商品名称" autocomplete="off">
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="time" name="time" placeholder="开始时间" autocomplete="off">
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="end_time" name="end_time" placeholder="结束时间" autocomplete="off">
+            </div>
+            <div class="layui-input-inline " style="width: 90px">
+                <button class="layui-btn" id="searchEmailCompany" data-type="reload">
+                    <i class="layui-icon" style="font-size: 20px; "></i> 搜索
+                </button>
+            </div>
+            <table class="layui-hide" id="table" lay-filter="table"></table> 
+        </div>
+        <script type="text/html" id="statusTool">
+            {{# if(d.status ==1){}}
+                已入库
+            {{#}else if(d.status==2){}}
+                已取消
+            {{#}}}
+        </script>
+        <script type="text/html" id="barTool">
+            {{# if(d.status ==1){}}
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="quxiao" style="width:68px;background-color:#5ba4f2">取消入库</a>
+            {{#}else if(d.status==2){}}
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="record" style="background-color:#81bdfa">无</a>
+            {{#}}}
+        </script>
+    </div>
+</div>
+
+<script type="text/javascript">
+layui.use(["table","layer","form"], function() {
+    var table = layui.table,
+        form  = layui.form,
+        layer = layui.layer,
+        $ = layui.$;
+    table.render({
+        elem: '#table',
+       /* toolbar: '#toolbarDemo',*/
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"tableTest",
+        url: '{:url("admin/Warehousing/index")}',
+        height: 'full-148',
+        page: true,
+        cols: [[
+            { field: 'id',width:80, title: 'ID'},
+            { field: 'message',minWidth:280, title: '采购信息',style:"vertical-align:text-top;"},
+            { field: 'item_list', minWidth:260,title: '商品信息',style:"vertical-align:text-top;"},
+            { field: 'barcode_list', minWidth:260,title: '条形码',style:"vertical-align:text-top;"},
+            { field: 'price_list', title: '入库单价',style:"vertical-align:text-top;"},
+            { field: 'num_list', title: '入库量',style:"vertical-align:text-top;"},
+            { field: 'allprice_list', title: '合计金额',style:"vertical-align:text-top;"},
+            { align: 'status', title: '状态',toolbar: '#statusTool'},
+            { align: 'center',minWidth:260, title: '操作',toolbar: '#barTool'},
+        ]],
+    });
+
+    //搜索
+    $("#searchEmailCompany").on("click",function(){
+        console.log(12321321);
+        var name = $('#name').val();
+        var shop_id = $('#shop_id').val();
+        var supplier_id = $('#supplier_id').val();
+        var status = $('#status').val();
+        var time = $('#time').val();
+        var end_time = $('#end_time').val();
+        table.reload('tableTest', {
+          url: '/admin/Warehousing/index',
+          where:{  name:name,
+                    shop_id:shop_id,
+                    supplier_id:supplier_id,
+                    status:status,
+                    start_time:time,
+                    end_time:end_time
+                } //设定异步数据接口的额外参数
+        });
+    });
+
+    $("#add").click(function(){
+        layer.open({
+            type:2,
+            title: '<strong>直接入库</strong>',
+            area: ['1200px', '740px'],
+            content: '{:url("admin/Warehousing/add")}',
+            end: function(layero, index){
+                table.reload('tableTest', {
+                });
+            }
+        })
+    })
+    table.on('tool(table)', function(obj) {
+        var data = obj.data;
+        //取消入库
+        if (obj.event === 'quxiao') {
+            layer.confirm('确定取消这条数据？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/Warehousing/quxiao")}', { 'id': data.id }, function(data) {
+
+                    if(typeof(data) == 'string')
+                    {
+                        data = JSON.parse(data);
+                    }
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }
+    });
+});
+</script>
+<script>
+    layui.use('laydate', function(){
+      var laydate = layui.laydate;
+      //执行第一个laydate实例
+      laydate.render({
+        elem: '#time', //指定元素
+        type: 'datetime'
+      });
+      //执行第二个laydate实例
+      laydate.render({
+        elem: '#end_time', //指定元素
+        type: 'datetime'
+      });
+    });
+</script>
+</body>
+
+</html>

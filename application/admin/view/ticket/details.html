@@ -1,0 +1,179 @@
+<!--{extend name="index_layout"/}-->
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-row layui-col-md12">
+        <div class="layui-card-header ddxm-title-bg"><strong>服务卡详情</strong></div>
+        <div class='ddxm-content-bg'>
+            <form class="layui-form">
+                <div class="ddxm-content-col">
+                    <div class="layui-card-header"><strong>服务内容</strong></div>
+                    <div class="ddxm-form-item" >
+                        <label class="layui-form-label">服务卡名</label>
+                        <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                        {$data.card_name}
+                        </div>
+                        <label class="layui-form-label">卡卷类型</label>
+                        <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                        {if condition='$data.type eq 1'}
+                            次卡
+                        {elseif condition='$data.type eq 2'/}
+                            月卡
+                        {elseif condition="$data.type eq 3"/}
+                            季卡
+                        {else/}
+                            年卡
+                        {/if}
+                        </div>
+                    </div>
+                    <div class="ddxm-form-item" >
+                        <label class="layui-form-label">发行数量</label>
+                        <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                        {$data.critulation}
+                        </div>
+                        <label class="layui-form-label">限制数量</label>
+                        <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                        {$data.restrict_num}
+                        </div>
+                    </div>
+                    <div class="ddxm-form-item ddxm-content-long" >
+                        <label class="layui-form-label">开始时间</label>
+                        <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                        {$data.start_time}
+                        </div>
+                        <label class="layui-form-label">结束时间</label>
+                        <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                        {$data.end_time}
+                        </div>
+                    </div>
+                    <div class="ddxm-form-item ddxm-content-long" >
+                        <label class="layui-form-label">创建时间</label>
+                        <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                        {$data.create_time|date="Y-m-d H:i:s"}
+                        </div>
+                        <label class="layui-form-label">创建人员</label>
+                        <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                        {$data.creator}
+                        </div>
+                    </div>
+                    <div class="ddxm-form-item ddxm-content-long" >
+                        <label class="layui-form-label">修改时间</label>
+                        <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                        {if condition="$data.update==0"}
+                            未修改
+                        {else/}
+                            {$data.update_time|date="Y-m-d H:i:s"}
+                        {/if}
+                        </div>
+                        <label class="layui-form-label">修改人员</label>
+                        <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                        {$data.modifier}
+                        </div>
+                    </div>
+                    <div class="layui-form-item ddxm-content-long" >
+                        <label class="layui-form-label">能否赠送</label>
+                        <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                            {$data.give==0?"不能赠送":"可以赠送"}
+                        </div>
+                    </div>
+                    <div class="layui-form-item ddxm-content-long" >
+                        <label class="layui-form-label">已选门店</label>
+                        <div class="layui-input-block">
+                            {volist name="data.shop" id="vo"}
+                                <input type="checkbox" name="shop_name" lay-skin="primary" title="{$vo.shop_name}" class="shop_id"  checked disabled="disabled">
+                            {/volist}
+                        </div>
+                    </div>
+                    <hr>  
+                    <div class="layui-card-header"><strong>服务项目</strong></div>                  
+                    {volist name="data.service" id="s"}
+                    
+                    <div class="ddxm-bottom-bg">
+                        <div class="ddxm-content-col">
+                            <div class="ddxm-card-header"><strong>服务</strong></div>
+                            <div class="layui-form-item ddxm-content-long" >                                     
+                                <label class="layui-form-label">服务名称</label>
+                                <div class="layui-form-mid layui-word-aux ddxm-col-mid ddxm-col">
+                                {$s.service_name}
+                                </div>
+                                <label class="layui-form-label">服务次数</label>
+                                <div class="layui-form-mid layui-word-aux ddxm-col-mid ddxm-col">
+                                {$s.num}
+                                </div>
+                                {volist name="$s.money" id= "m"}
+                                <label class="layui-form-label">{$m.level_name}</label>
+                                <div class="layui-form-mid layui-word-aux ddxm-col-mid ddxm-col">
+                                {$m.price}
+                                </div>
+                                {/volist}
+                                <label class="layui-form-label">每日限制</label>
+                                <div class="layui-form-mid layui-word-aux ddxm-col-mid ddxm-col">
+                                    {$s.day==0?"无限制":$s.day}
+                                </div>
+                                <label class="layui-form-label">每月限制</label>
+                                <div class="layui-form-mid layui-word-aux ddxm-col-mid ddxm-col">
+                                    {$s.month==0?"无限制":$s.month}
+                                </div>
+                                <label class="layui-form-label">每年限制</label>
+                                <div class="layui-form-mid layui-word-aux ddxm-col-mid ddxm-col">
+                                    {$s.year==0?"无限制":$s.year}
+                                </div>
+                                
+                                <div class="layui-form-item ddxm-content-long"style="margin-bottom:0px;"  >    
+                                    <label class="layui-form-label"><strong>其他限制:</strong></label>
+                                </div>                                                               
+                                <div class="layui-form-item ddxm-content-long" style="margin-left:20px;margin-top:0px;" >   
+                                    {volist name="$s.other" id="o" empty="<label class='layui-form-label'>暂无数据</label>"} 
+                                    <label class="layui-form-label">起始时间</label>
+                                    <div class="layui-form-mid layui-word-aux ddxm-col-mid ddxm-col-mad">
+                                        {$o.start_time ==0?"无限制":$o.start_time }{$o.start_time ==0?"":"~"}{$o.end_time==0?"":$o.end_time}
+                                    </div>
+                                    <label class="layui-form-label">限制次数</label>
+                                    <div class="layui-form-mid layui-word-aux ddxm-col-mid ddxm-col-mad">
+                                        {$o.num==0?"无限制":$o.num}
+                                    </div>
+                                    {/volist}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/volist}
+                    <div class="layui-card-header"><strong>卡卷金额</strong></div>
+                    {volist name="data.money" id="p"}
+                    <div class="ddxm-form-item ddxm-content-long" >
+                        <label class="layui-form-label">{$p.level_name}</label>
+                        <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                            {$p.price}
+                        </div>
+                        <label class="layui-form-label">销售价格</label>
+                        <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                            {$p.mprice}
+                        </div>
+                    </div> 
+                    {/volist}                      
+                </div>
+                <hr>
+                <div style="float:right;margin-right:20px;margin-bottom:10px">
+                    <button class="layui-btn  layui-btn-normal" lay-submit lay-filter="cancel">关闭</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+{/block}
+{block name="script" }
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+layui.use(["table","layer","form"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        form  = layui.form,
+        $ = layui.$;
+    form.render("checkbox");
+    form.on('submit(cancel)', function(data){
+        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+        parent.layer.close(index); //再执行关闭
+    })
+});
+</script>
+{/block}

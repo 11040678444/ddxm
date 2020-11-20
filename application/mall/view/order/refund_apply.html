@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理系统</title>
+    <meta name="author" content="YZNCMS">
+    <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/admin.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/ddxm.css">
+    <link rel="stylesheet" href="__STATIC__/admin/font/iconfont.css">
+    <script src="__STATIC__/libs/layui/layui.js"></script>
+    <script src="__STATIC__/libs/jquery/jquery.min.js"></script>
+    <style type="text/css">
+        .layui-table-cell{
+            height:auto !important;
+        }
+        .layui-layer-title{
+            text-align: center;
+            padding: 0 ;
+            font-size:20px;
+
+        }
+        .width150{
+            width:70px;
+        }
+        .width200{
+            width:70px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        //全局变量
+        var GV = {
+            'image_upload_url': '{$image_upload_url ? $image_upload_url : url("attachment/attachments/upload", ["dir" => "images", "module" => request()->module()])}',
+            'file_upload_url': '{$file_upload_url ? $file_upload_url : url("attachment/attachments/upload", ["dir" => "files", "module" => request()->module()])}',
+            'WebUploader_swf': '__STATIC__/webuploader/Uploader.swf',
+            'upload_check_url': '{$upload_check_url ? $upload_check_url : url("attachment/Attachments/check")}',
+            'ueditor_upload_url': '{$ueditor_upload_url ? $ueditor_upload_url : url("attachment/Ueditor/run")}',
+        };
+    </script>
+</head>
+<body class="childrenBody">
+<div class="layui-card">
+    <div class="layui-card-header">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>订单列表</legend>
+        </fieldset>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form"> 
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-input-inline" style="width:180px;">
+                        <select name="pay_way" lay-verify="" lay-filter="pay_way">
+                            <option value="">支付方式</option>
+                            <option value="1">微信</option>
+                            <option value="3">余额</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" style="width:180px;">
+                        <select name="refund_status" lay-verify="" lay-filter="refund_status">
+                            <option value="">处理状态</option>
+                            <option value="1">申请中</option>
+                            <option value="2">已同意</option>
+                            <option value="3">已拒绝</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" style="width:180px;">
+                        <select name="shop_id" lay-verify="" lay-filter="shop_id">
+                            <option value="">选择门店</option>
+                            {volist name="shop" id="shop"}
+                            <option value="{$shop['id']}">{$shop['name']}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                    <div class="layui-inline">
+                        <!--                        <label class="layui-form-label">下单时间</label>-->
+                        <div class="layui-input-inline">
+                            <input type="text" name="add_time" class="layui-input" id="test6" placeholder="下单时间">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <!--                        <label class="layui-form-label">支付时间</label>-->
+                        <div class="layui-input-inline">
+                            <input type="text" name="paytime" class="layui-input" id="test7" placeholder="支付时间">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <input type="text" name="refund_time" class="layui-input" id="test8" placeholder="处理时间">
+                        </div>
+                    </div>
+                    <div class="layui-input-inline" style="width:250px;">
+                        <input type="text" name="sn" class="layui-input" id="sn" placeholder="请输入需查询的订单号">
+                    </div>
+                    <div class="layui-input-inline" style="width:250px;">
+                        <input type="text" name="mobile" class="layui-input" id="mobile" placeholder="请输手机号或收货手机号">
+                    </div>
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">搜索</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    <a class="layui-btn layui-btn-sm" lay-submit lay-filter="excel">订单导出</a>
+                </div>
+            </form>
+            <table class="layui-hide" id="order" lay-filter="order"></table>
+            <script type="text/html" id="barTool">
+                {{# if(d.refund_status ==2 || d.refund_status ==3){}}
+                <a class="layui-btn layui-btn-xs" lay-event="details">查看</a>
+                {{#}else{}}
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="details">处理</a>
+                {{#}}}
+            </script>
+
+            <script type="text/html" id="refundTool">
+                {{# if(d.refund_status ==1){}}
+                    申请中
+                {{#}else if(d.refund_status ==2){}}
+                    已同意
+                {{#}else{}}
+                    已拒绝
+                {{#}}}
+            </script>
+
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script>
+layui.use(["table","layer","form","laydate"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        form  = layui.form,
+        $ = layui.$;
+    table.render({
+        elem: '#order',
+        /*toolbar: '#toolbarDemo',*/
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"order",
+        url: '{:url("mall/order/refund_apply")}',
+        height: 'full-148',
+        page: true,
+        cols: [[
+            {type: 'numbers',width:60},
+            { field: 'message2',align: 'center',width:200,  title: '订单信息'},
+            { field: 'item_list2',align: 'center',  title: '商品信息',minWidth:240},
+            { field: 'price_list2',align: 'center',  title: '商品金额',maxWidth:80},
+            { field: 'cost_list2',align: 'center',  title: '成本',maxWidth:80},
+            { field: 'bar_code2',align: 'center',  title: '条形码',maxWidth:80},
+            { field: 'member_info1',align: 'center',  title: '会员信息'},
+            { field: 'refund_status',align: 'center',  title: '退单状态',toolbar: '#refundTool' },
+            { align: 'center', title: '操作', toolbar: '#barTool' }
+        ]],
+    });
+    //日期范围
+    var laydate = layui.laydate;
+    laydate.render({
+        elem: '#test6'
+        ,range: true
+    });
+    laydate.render({
+        elem: '#test7'
+        ,range: true
+    });
+    laydate.render({
+        elem: '#test8'
+        ,range: true
+    });
+    form.on("submit(excel)",function(data){
+        let field = data.field;
+        const url = `http://localhost:82/admin/Excel/onlineRefundOrderExcel?
+        sn=${field.sn}&
+        mobile=${field.mobile}&
+        add_time=${field.add_time}&
+        pay_way=${field.pay_way}&
+        shop_id=${field.shop_id}&
+        refund_status=${field.refund_status}&
+        refund_time=${field.refund_time}&
+        paytime=${field.paytime}`;        // location.href = url;
+        location.href=url;
+        return false;
+    });
+
+    form.on("submit(formDemo)",function(data){
+        var formData = data.field;
+        table.reload('order', {
+            page: {
+                curr: 1 //重新从第 1 页开始
+            }
+            ,where: {
+                sn:formData.sn,
+                mobile:formData.mobile,
+                add_time:formData.add_time,
+                paytime:formData.paytime,
+                refund_time:formData.refund_time,
+                pay_way:formData.pay_way,
+                shop_id:formData.shop_id,
+                refund_status:formData.refund_status,
+            }
+        }, 'data');
+        return false;
+    })
+    table.on('tool(order)', function(obj) {
+        var data = obj.data; 
+        if(obj.event === "details"){
+            var id = data.apply_id;
+            $.ajax({
+                url: '{:url("mall/order/refund_details")}',
+                type: "POST",
+                data: {id:id},
+                success:function(res){
+                    if(res.result){
+                        var datas = res.data;
+                        var img = "";
+                        if(datas.pic.length !==0){
+                            for(var i=0;i<datas.pic.length;i++){
+                                img += `<img layer-src="${datas.pic[i]}" src="${datas.pic[i]}" style="width:100px;margin-left:10px;">`;
+                            }
+                        }else{
+                            img += `未上传图片信息`;
+                        }
+                        var button = "";
+                        if(data.r_status ==1){
+                            button +=`<button class="layui-btn" lay-submit lay-filter="define">同意退单</button>
+                                    <button class="layui-btn layui-btn-danger" lay-submit lay-filter="refuse">拒绝退单</button>`;
+                        }
+                        var refund_order_type = '';     //全额/部分退款
+                        var refund_order_postage = '';     //是否退运费
+                        if ( data.r_status == 1 ) {
+                            refund_order_type = `<div class="layui-form-item">
+                                    <label class="layui-form-label">退款金额</label>
+                                    <div class="layui-input-block">
+<!--                                        <input type="radio" name="refund_order_type" lay-filter="ratio_type" value="1" title="全额退款">-->
+                                        <input type="radio" name="refund_order_type" lay-filter="ratio_type" value="2" title="部分退款" checked>
+                                    </div>
+                                </div>`;
+                            if( datas.postage != "0.00" ){
+                                refund_order_postage = `<div class="layui-form-item">
+                                    <label class="layui-form-label">是否退运费</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="refund_postage_type" lay-filter="ratio_type" value="1" title="否" checked>
+                                        <input type="radio" name="refund_postage_type" lay-filter="ratio_type" value="2" title="是">
+                                    </div>
+                                </div>`;
+                            }
+                            if( (data.recharge_status.ratePrice != 0) && (data.recharge_status.ratePrice>data.recharge_status.refundPrice) ){
+                                refund_order_postage = `<div class="layui-form-item">
+                                    <label class="layui-form-label">是否退抵扣金额</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="refund_recharge_type" lay-filter="ratio_type" value="1" title="否" checked>
+                                        <input type="radio" name="refund_recharge_type" lay-filter="ratio_type" value="2" title="是">
+                                    </div>
+                                </div>`;
+                            }
+                        }
+                        layer.open({
+                            type:1,
+                            title:"<strong>退单详情</strong>-"+data.sn,
+                            area: ['80%', '80%'],
+                            content :`
+                            <form class="layui-form">
+                                <div class="ddxm-content-col">
+                                    <input type="hidden" name="id" value="${datas.id}">
+                                    <input type="hidden" name="id" value="${datas.id}">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">退单类型</label>
+                                        <div class="layui-form-mid layui-word-aux">
+                                            ${datas.types}
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">申请时间</label>
+                                        <div class="layui-form-mid layui-word-aux">
+                                            ${datas.add_time}
+                                        </div>
+                                    </div>      
+                                    <div class="layui-form-item ddxm-content-long">
+                                        <label class="layui-form-label">退货原因</label>
+                                        <div class="layui-form-mid layui-word-aux">
+                                            ${datas.reason}
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">退货说明</label>       
+                                        <div class="layui-form-mid layui-word-aux">
+                                        <textarea placeholder="暂无内容" class="layui-textarea" readonly style="resize:none;width:300px;" >${datas.remarks}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">图片信息</label>
+                                        <div class="layui-form-mid layui-word-aux">
+                                            <div id="layer-photos-demo" class="layer-photos-demo">
+                                            ${img}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-card-header"><strong>退单详情</strong></div>
+                                    <table class="layui-table" lay-filter="goods" id="goods"></table>
+                                    <div>${refund_order_type}</div>
+                                    <div>${refund_order_postage}</div>
+
+                                </div>
+                                <div style="float:right;margin-right:20px;margin-bottom:10px;margin-top:10px;">
+                                    ${button}
+                                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="cancel">关闭</button>
+                                </div>
+                            </form>`,
+                            success:function(layero,index){
+                                layer.photos({
+                                    photos:'#layer-photos-demo',
+                                    anim:5,
+                                    closeBtn:1
+                                });
+                                table.render({
+                                    elem: '#goods',
+                                    url:'/mall/order/refund_details?type='+datas.type+'&id='+datas.id+'&order_distinguish='+datas.order_distinguish+'&event_id='+datas.event_id,
+                                    title: '退货清单',
+                                    even: true,
+                                    totalRow:true,
+                                    cols: [[
+                                        {field:'id',title:"ID",totalRowText:"合计"},
+                                        {field: 'subtitle',title: '商品名称',align: 'center'},
+                                        {field: 'attr_ids',title: '规格ID',align: 'center'},
+                                        {field: 'attr_name',title: '规格',align: 'center'},
+                                        {field: 'num',title: '购买数量',align: 'center'},
+                                        {field: 'real_price',title: '支付金额',align: 'center'},
+                                        {field: 'deliver_status',title: '发货状态',align: 'center'},
+                                        {field: 'num2',title: '退货数量',align: 'center',edit:"text"},
+                                        {field: 'total',title: '总价',align: 'center',totalRow:true},
+
+                                    ]],
+                                });
+                                form.render('radio');
+
+                                //同意   退单
+                                form.on("submit(define)",function(sdata){
+
+                                   var tab = table.cache.goods;
+
+                                    // var tab =JSON.stringify(table.cache.goods);
+
+                                    for(var k=0;k<tab.length;k++){
+
+                                        var subtitle = tab[k].subtitle;
+                                        var num = tab[k].num;
+                                        var num2 = tab[k].num2;
+                                        if(num2>num){
+                                            layer.msg(subtitle+'退货数量不能够大于购买数量！');
+                                            return false;
+                                        }
+                                        if(num2<0){
+                                            layer.msg(subtitle+'退货数量格式输入不正确！2');
+                                            return false;
+                                        }
+                                            if(num2!=0){
+
+                                            if(isNaN(parseFloat(num2))&&!isFinite(num2)) {
+                                                layer.msg(subtitle + '退货数量格式输入不正确！' + num2);
+                                                return false;
+                                            }
+                                        }
+                                    }
+                                    var json_tab =  JSON.stringify(table.cache.goods);
+
+                                    if( table.cache.goods[0].deliver_status == '已发货' ){
+                                        var r = confirm ("此商品已发货,请确认是否同意退款?")
+                                        if (r == false) {
+                                            return  false;
+                                        }
+                                    }
+                                    var id = sdata.field.id;
+                                    var refund_order_type = sdata.field.refund_order_type;
+                                    var refund_order_postage = sdata.field.refund_postage_type;
+                                    var refund_recharge_type = sdata.field.refund_recharge_type;
+                                    if( sdata.field.refund_order_type == 1 ){
+                                        //全额
+                                        $.ajax({
+                                            url: '{:url("mall/order/agree_return")}',
+                                            type: "POST",
+                                            data: {id:id,refund_order_type:refund_order_type,type:3,refund_order_postage:refund_order_postage,refund_recharge_type:refund_recharge_type,json_tab:json_tab},
+                                            success:function(result){
+                                                if(result.code != 200){
+                                                    layer.msg(result.msg);
+                                                    return false;
+                                                }else{
+                                                    layer.msg('退单成功！');
+                                                    layer.closeAll();
+                                                    return true;
+                                                }
+                                            }
+                                        });
+                                    }else{
+                                        //部分
+                                        layer.prompt({
+                                            id:"refuse_prompt",
+                                            formType: 2,
+                                            value: '',
+                                            title: '退款金额',
+                                            // content:'点击同意后，退款金额将会退款到对方账户中',
+                                            area: ['400px', '250px']
+                                        }, function(value, index, elem){
+                                            layer.confirm('请确定退款金额，钱将自动退款到对方账户？', { icon: 3, title: '退款提示' }, function(index2) {
+                                                layer.close(index2);
+
+                                                var tab = table.cache.goods;
+
+                                                // var tab =JSON.stringify(table.cache.goods);
+
+                                                for(var k=0;k<tab.length;k++){
+
+                                                    var subtitle = tab[k].subtitle;
+                                                    var num = tab[k].num;
+                                                    var num2 = tab[k].num2;
+                                                    if(num2>num){
+                                                        layer.msg(subtitle+'退货数量不能够大于购买数量！');
+                                                        return false;
+                                                    }
+                                                    if(num2<0){
+                                                        layer.msg(subtitle+'退货数量格式输入不正确！2');
+                                                        return false;
+                                                    }
+                                                    if(num2!=0){
+
+                                                        if(isNaN(parseFloat(num2))&&!isFinite(num2)) {
+                                                            layer.msg(subtitle + '退货数量格式输入不正确！' + num2);
+                                                            return false;
+                                                        }
+                                                    }
+                                                }
+                                                var json_tab =  JSON.stringify(table.cache.goods);
+
+
+                                                $.ajax({
+                                                    url: '{:url("mall/order/agree_return")}',
+                                                    type: "POST",
+                                                    data: {id:id,value:value,type:3,refund_order_postage:refund_order_postage,refund_order_type:refund_order_type,refund_recharge_type:refund_recharge_type,json_tab:json_tab},
+                                                    success:function(result){
+                                                        if(result.code != 200){
+                                                            layer.msg(result.msg);
+                                                            return false;
+                                                        }else{
+                                                            layer.msg('退单成功！');
+                                                            layer.closeAll();
+                                                            return true;
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                            return false;
+                                            layer.close(index);
+                                        });
+                                        $(".layui-layer-content .layui-layer-input").attr("placeholder","输入退款金额");
+                                        $(".layui-layer-content .layui-layer-input").css("resize","none");
+                                    }
+                                    return false;
+                                })
+                                //拒绝
+                                form.on("submit(refuse)",function(sdata){
+                                    var id = sdata.field.id;
+                                    layer.prompt({
+                                        id:"refuse_prompt",
+                                        formType: 2,
+                                        value: '',
+                                        title: '拒绝退单',
+                                        area: ['400px', '250px']
+                                    }, function(value, index, elem){
+                                        //value 拒绝理由
+                                        $.ajax({
+                                            url: '{:url("mall/order/return_goods")}',
+                                            type: "POST",
+                                            data: {id:id,value:value,type:3},
+                                            success:function(result){
+                                               if(result.code != 200){
+                                                   layer.msg(result.msg);
+                                                   return false;
+                                               }else{
+                                                   layer.msg('拒绝成功！');
+                                                   layer.close(index);
+                                                   return true;
+                                               }
+                                            }
+                                        });
+                                        return false;
+                                        layer.close(index);
+                                    });
+                                    $(".layui-layer-content .layui-layer-input").attr("placeholder","输入拒绝理由");
+                                    $(".layui-layer-content .layui-layer-input").css("resize","none");
+                                    return false;
+                                })
+                                //关闭
+                                form.on("submit(cancel)",function(data){
+                                    layer.close(index);
+                                    return false;
+                                })
+                            },
+                            end: function(layero, index){
+                               table.reload('order', {
+                                });
+                            }
+                        })
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            })
+            
+        }
+    });
+});
+</script>
+{/block}

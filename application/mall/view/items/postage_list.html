@@ -1,0 +1,178 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-body">
+        <div class="layui-form">
+        <a class="layui-btn layui-btn-sm" id="" href="{:url('mall/Items/postage_add')}">添加运费模板</a>
+        <div class="layui-input-inline">
+            <input class="layui-input" id="demoReload" name="name" placeholder="运费名称" autocomplete="off">
+        </div>
+        <div class="layui-input-inline " style="width: 90px">
+            <button class="layui-btn" id="searchEmailCompany" data-type="reload">
+                <i class="layui-icon" style="font-size: 20px; "></i> 搜索
+            </button>
+        </div>
+        <table class="layui-hide" id="table" lay-filter="table"></table>
+            <script type="text/html" id="barTool">
+                {{#  if(d.id == 1){ }}
+                    <a class="layui-btn layui-btn-xs layui-btn-danger layui-btn-disabled">不可操作</a>
+                {{#  } else { }}
+                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                    {{#  if(d.status == 1){ }}
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">禁用</a>
+                    {{#  } else { }}
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="start">启用</a>
+                    {{#  } }}
+                {{#  } }}
+            </script>
+
+            <script type="text/html" id="Type">
+                {{#  if(d.type == 1){ }}
+                    重量计费
+                {{#  } else if(d.type == 2) { }}
+                    体积计费
+                {{#  } else if(d.type == 3) { }}
+                    件数计费
+                {{#  } else { }}
+                    免邮
+                {{#  } }}
+            </script>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.use(["table","layer"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        $ = layui.$;
+    table.render({
+        elem: '#table',
+        toolbar: '#toolbarDemo',
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"tableTset",
+        url: '{:url("mall/Items/postage_list")}',
+        height: 'full-128',
+        /*limit:1,
+        limits:[1,2,30,40,50,60,70,80,90],*/
+        page: true,
+        cols: [
+            [
+                { field: 'id', /*width: 80,*/ title: 'ID'},
+                { field: 'title', /*width: 80,*/ title: '模板名称'},
+                // { field: 'area_names', /*width: 80,*/ title: '城市名称'},
+                { field: 'type', /*width: 80,*/ title: '计费方式' ,toolbar:'#Type'},
+                // { field: 'first', /*width: 80,*/ title: '首重(件/立方)'},
+                // { field: 'first_price', /*width: 80,*/ title: '首重(件/立方) 金额'},
+                // { field: 'add', /*width: 80,*/ title: '续重(件/立方)'},
+                // { field: 'add_price', /*width: 80,*/ title: '续重(件/立方) 金额'},
+                { field: 'create_time', title: '创建时间'},
+                { fixed: 'right', /*width: 160,*/ title: '操作', toolbar: '#barTool' }
+            ]
+        ],
+    });
+
+    //添加单位
+    $("#Add").on("click",function(){
+        var url  ="{:url('mall/Items/postage_add')}";
+        layer.open({
+            type: 2,
+            title: '添加单位',
+            area: ['600px', '800px'],
+            content: url,
+            end: function(layero, index){
+                table.reload('table', {
+                });
+            }
+        });
+    });
+
+    //搜索
+    $("#searchEmailCompany").on("click",function(){
+        var name = $('#demoReload').val();
+        table.reload('tableTset', {
+          url: '/mall/Items/postage_list',
+          where: {name:name} //设定异步数据接口的额外参数
+        });
+    });
+
+    //监听行工具事件
+    table.on('tool(table)', function(obj) {
+        var data = obj.data;
+        //console.log(obj);
+        if (obj.event === 'del') {
+            layer.confirm('确定禁用这条数据？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("mall/Items/postage_del")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }else if (obj.event === 'start') {
+            layer.confirm('确定启用这条数据？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("mall/Items/postage_start")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }else if (obj.event === 'edit') {
+            var url = '{:url("mall/Items/postage_save")}' + "?id=" + data.id;
+            // layer.open({
+            //     type: 2,
+            //     title: '编辑单位',
+            //     area: ['600px', '800px'],
+            //     content: url,
+            //     end: function(layero, index){
+            //        table.reload('tableTset', {
+            //         });
+            //     }
+            // });
+            location.href=url;
+        }
+    });
+});
+</script>
+{/block}

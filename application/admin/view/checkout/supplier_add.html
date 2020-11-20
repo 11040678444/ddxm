@@ -1,0 +1,81 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">编辑仓库</div>
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal">    <!-- action="{:url('admin/Member/level_doPost')}" method="post" -->
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span>客户名称 </label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="supplier_name"  autocomplete="supplier_name"  placeholder="客户名称" value="{$list['supplier_name']}" class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span>联系人 </label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="contacts"  autocomplete="contacts"  placeholder="联系人" value="{$list['contacts']}" class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span>联系人电话 </label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="mobile"  autocomplete="mobile"  placeholder="联系人电话" value="{$list['mobile']}" class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">备注</label>
+                <div class="layui-input-block w300">
+                    <textarea name="remarks" required lay-verify="content" placeholder="备注" class="layui-textarea">{$list['remarks']}</textarea>
+                </div>
+            </div>
+           
+            
+            <input type="hidden" name="id" value="{$list['id']}">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="L_submit">立即提交</button>
+                    <button class="layui-btn layui-btn-normal" id = "close">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    layui.use(["form"], function(){
+        var layer = layui.layer;
+        form = layui.form;
+        form.on('submit(L_submit)', function(data){
+            var formData = data.field;
+            $.ajax({
+                type : "post",
+                url : "/admin/Checkout/supplier_doPost",
+                data: formData,
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 1 ){
+                        layer.msg(res.msg); 
+                        var index = parent.layer.getFrameIndex(window.name);
+                        setTimeout(function(){
+                            parent.layer.close(index);
+                            parent.location.reload();
+                        }, 1000);  
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+            return false;
+        });
+    });
+
+    //关闭
+        $("#close").click(function(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            parent.location.reload();
+        })
+</script>
+{/block}

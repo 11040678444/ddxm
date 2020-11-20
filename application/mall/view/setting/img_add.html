@@ -1,0 +1,260 @@
+{extend name="index_layout"/}
+{block name="main"}
+<style type="text/css">
+    .box{
+        margin-top: 10%;
+        margin-bottom: 10px;
+        color: #FF5722;
+        font-size: 18px;
+        margin-left: 45%;
+    }
+    .box1{
+        width: 900px;
+        height: 500px;
+        margin-left: auto;
+        border:solid  1px;
+        margin-right:auto;
+    }
+    .box1 .controls{
+
+    }
+    .upload-icon-img{
+        width:120px;
+    }
+    .upload-pre-item{
+        position: relative;
+    }
+    .upload-pre-item .img{
+        margin-top: 5px;
+        width: 116px;
+        height: 76px;
+    }
+    .upload-pre-item i {
+        position: absolute;
+        cursor: pointer;
+        top: 5px;
+        background: #2F4056;
+        padding: 2px;
+        line-height: 15px;
+        text-align: center;
+        color: #fff;
+        margin-left: 1px;
+        /* float: left; */
+        filter: alpha(opacity=80);
+        -moz-opacity: .8;
+        -khtml-opacity: .8;
+        opacity: .8;
+        transition: 1s;
+    }
+    .upload-pre-item i:hover{transform:rotate(360deg);}
+    .upload-pre-item,.upload-icon-img{
+        width:120px;
+        float: left;
+        margin-left: 8px;
+    }
+</style>
+<div class="layui-card">
+    <div class="layui-card-header">编辑banner</div>
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal">    <!-- action="{:url('admin/Member/level_doPost')}" method="post" -->
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品图</label>
+                <div class="layui-form-mid layui-word-aux">只能上传一张</div>
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn" id="test1">
+                        <i class="layui-icon">&#xe67c;</i>上传图片
+                    </button>
+                    <div class="upload-img-box">
+                        {if condition="isset($list['thumb'])"}
+                        <div class="upload-icon-img" >
+                            <div class="upload-pre-item">
+                                <i class="layui-icon  del_img"></i>
+                                <img src="http://picture.ddxm661.com/{$list['thumb']}" class="img">
+                                <input type="hidden" name="images" class="img_val" value="{$list['thumb']}" />
+                            </div>
+                        </div>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">轮播类型</label>
+                <div class="layui-input-block">
+                    <input type="radio" {if condition="$list['type'] eq 1"} checked {/if} {if condition="!isset($list['type'])"} checked {/if}  name="type" value="1" title="不跳转" lay-filter="jiedian">
+                    <input type="radio" {if condition="$list['type'] eq 2"} checked {/if}  name="type" value="2" title="跳转外部页面" lay-filter="jiedian">
+                    <input type="radio" {if condition="$list['type'] eq 3"} checked {/if}  name="type" value="3" title="跳转内部页面" lay-filter="jiedian">
+                </div>
+            </div>
+
+            <div id="addInput">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color:red;">*</span>图片名称 </label>
+                    <div class="layui-input-inline w300">
+                        <input type="text" name="title"  autocomplete="title"  placeholder="图片名称" value="{$list['title']}" class="layui-input" >
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">序号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="sort" lay-verify="sort" onkeyup="this.value=this.value.replace(/\D/g,'')" onblur="this.value=this.value.replace(/\D/g,'')" autocomplete="sort" placeholder="请输入序号" class="layui-input " value="{$list['sort']}">
+                </div>
+            </div>
+            <input type="hidden" name="id" id="itemID" value="{$list['id']}">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="L_submit">立即提交</button>
+                    <button class="layui-btn layui-btn-normal" id = "close">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    //动态生成input
+    function add_input(type=1){
+        if( type == 2 ){
+            var html = '<div class="layui-form-item">\n' +
+                '            <label class="layui-form-label"><span style="color:red;">*</span>页面地址 </label>\n' +
+                '            <div class="layui-input-inline w300">\n' +
+                '                <input type="text" name="url"  autocomplete="value"  placeholder="请输入地址" value="{$list[\'url\']}" class="layui-input" >\n' +
+                '            </div>\n' +
+                '        </div>';
+        }else if( type == 3 ){
+            var html = '<div class="layui-form-item">\n' +
+                '            <label class="layui-form-label"><span style="color:red;">*</span>页面地址 </label>\n' +
+                '            <div class="layui-input-inline w300">\n' +
+                '                <input type="text" name="url"  autocomplete="value"  placeholder="请输入地址" value="{$list[\'url\']}" class="layui-input" >\n' +
+                '            </div>\n' +
+                '        </div>' +
+                '       <div class="layui-form-item">\n' +
+                '            <label class="layui-form-label"><span style="color:red;">*</span>页面参数 </label>\n' +
+                '            <div class="layui-input-inline w300">\n' +
+                '                <input type="text" name="value"  autocomplete="value"  placeholder="请输入json参数" value="{$list[\'value\']}" class="layui-input" >\n' +
+                '            </div>\n' +
+                '        </div>';
+        }else{
+            var html = '';
+        }
+        $('#addInput').html();
+        $('#addInput').html(html);
+    }
+    window.onload = function () {
+        add_input({$list['type']});
+    };
+
+    layui.use(["form"], function(){
+        var layer = layui.layer;
+        form = layui.form;
+
+        form.on('radio(jiedian)', function (data) {
+            var type = data.value;
+            add_input(type);
+        });
+
+        //关闭
+        $("#close").click(function(){
+            var itemID = $('#itemID').val();
+            if( itemID == '' ){
+                window.location.href="/admin/item/index";
+            }else{
+                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                parent.layer.close(index); //再执行关闭
+                parent.location.reload();
+            }
+        })
+
+        //上传图片
+        layui.use('upload', function(){
+            var upload = layui.upload;
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#test1', //绑定元素
+                url: '/admin/Item/test', //上传接口
+                multiple: true,
+                before: function(obj) {
+                    layer.msg('图片上传中...', {
+                        icon: 16,
+                        shade: 0.01,
+                        time: 0
+                    })
+                },
+                done: function(res){
+                    //上传完毕回调
+                    if( res.code == 0 ){
+                        layer.close(layer.msg('上传成功！'));
+                        $('.upload-img-box').append('<div class="upload-icon-img" >' +
+                            '<div class="upload-pre-item"><i   class="layui-icon  del_img"></i><img src="http://picture.ddxm661.com/' + res.data.key + '" class="img">' +
+                            '<input type="hidden" name="images" class="img_val" value="' + res.data.key + '" /></div></div>');
+
+                    }
+                },
+                error: function(){
+                    //请求异常回调
+                }
+            });
+        });
+
+
+
+        form.on('submit(L_submit)', function(data){
+            var formData = data.field;
+            var itemID = $('#itemID').val();
+            $.ajax({
+                type : "post",
+                url : "/mall/Setting/img_doPost",
+                data: formData,
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 1 ){
+                        layer.msg(res.msg);
+                        var index = parent.layer.getFrameIndex(window.name);
+                        setTimeout(function(){
+                            parent.layer.close(index);
+                            parent.location.reload();
+                        }, 1000);
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+            return false;
+        });
+    });
+
+    $(document).on("click",".del_img",function(data){
+        $(this).parent('.upload-pre-item').parent('.upload-icon-img').remove(); //删除页面的
+        var imgname = $(this).nextAll('.img_val').val();
+        $.ajax({
+            type : "post",
+            url : "/admin/Item/delelteImage",
+            data: {file:imgname},
+            dataType: 'json',
+            success:function(res){
+                layer.msg(res.msg);
+            }
+        });
+
+    })
+    $(".price").keyup(function () {
+        var reg = $(this).val().match(/\d+\.?\d{0,2}/);
+        var txt = '';
+        if (reg != null) {
+            txt = reg[0];
+        }
+        $(this).val(txt);
+    }).change(function () {
+        $(this).keypress();
+        var v = $(this).val();
+        if (/\.$/.test(v))
+        {
+            $(this).val(v.substr(0, v.length - 1));
+        }
+    });
+
+</script>
+{/block}

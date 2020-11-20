@@ -1,0 +1,66 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">编辑规格</div>
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal">    <!-- action="{:url('admin/Member/level_doPost')}" method="post" -->
+<!--            <div class="layui-form-item">-->
+<!--                <label class="layui-form-label"><span style="color:red;">*</span>规格名称 </label>-->
+<!--                <div class="layui-input-inline w300">-->
+<!--                    <input type="text" name="title" lay-verify="required"  autocomplete="title"  placeholder="单位名称" value="{$list['title']}" class="layui-input" >-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="layui-form-item">-->
+
+<!--                <label class="layui-form-label">序号 </label>-->
+<!--                <div class="layui-input-inline">-->
+<!--                    <input type="text" name="sort" onkeyup="this.value=this.value.replace(/\D/g,'')" onblur="this.value=this.value.replace(/\D/g,'')" autocomplete="sort" value="{$list['sort']}" placeholder="序号" class="layui-input">-->
+<!--                </div>-->
+<!--                <div class="layui-form-mid layui-word-aux">序号从底到高排序</div>-->
+<!--            </div>-->
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span>热搜值 </label>
+                <div class="layui-input-inline w300">
+                    <textarea name="content" style="height:200px;" required lay-verify="required" placeholder="请输入热搜值" class="layui-textarea">{$content}</textarea>
+                </div>
+                <div class="layui-word-aux">一行为一个热搜值</div><br />
+                <div class="layui-word-aux">热搜值不能重复</div><br />
+                <div class="layui-word-aux">热搜值按从上往下排序</div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="L_submit">立即提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    layui.use(["form"], function(){
+        var layer = layui.layer;
+        form = layui.form;
+        form.on('submit(L_submit)', function(data){
+            var formData = data.field;
+            $.ajax({
+                type : "post",
+                url : "/mall/Setting/hot_doPost",
+                data: formData,
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 1 ){
+                        location.reload();
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+            return false;
+        });
+
+
+    });
+</script>
+{/block}

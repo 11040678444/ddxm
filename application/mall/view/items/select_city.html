@@ -1,0 +1,75 @@
+{extend name="index_layout"/}
+
+{block name="main"}
+
+<div class="layui-card">
+    <form class="layui-form" action="" style="padding-bottom:10px;padding-left:10px;">
+    {volist name="area" id="sl" key="k"}
+        <div class="layui-input-inline" style="width:90px;margin-top:10px">
+            {if condition="$sl.isch eq 1" }
+             
+            <input type="checkbox" name="{$sl.area_name}" title="{$sl.area_name}" checked id="{$sl.id}" lay-skin="primary" lay-filter="encrypt" checked style="margin: 10px">
+            {else /}
+            <input type="checkbox" name="{$sl.area_name}" title="{$sl.area_name}" id="{$sl.id}" lay-skin="primary" lay-filter="encrypt" style="margin: 10px">
+            {/if}
+        </div>
+    {/volist}
+
+    </form>
+</div>
+{/block}
+{block name="script"}
+<script>
+
+</script>
+<link href="__STATIC__/admin/css/formSelects-v4.css" rel="stylesheet">
+<script type="text/javascript" src="__STATIC__/admin/js/formSelects-v4.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/ticket.js"></script>
+<script>
+
+    var checkvalue = new Array();
+
+    /**
+     * layui的模块初始化
+     */
+    layui.use(['form', 'layer'], function () {
+        var form = layui.form;
+
+        var strjson = "{$json}";
+        if(strjson !=''){
+            strjson = strjson.replace(/&quot;/g,"\"");
+            checkvalue= JSON.parse(strjson);
+        }
+
+        form.on('checkbox(encrypt)', function(data){
+
+            var id = $(this).attr('id');
+            var name = $(this).attr('name');
+            var object = new Object();
+            object.id=id;
+            object.name=name;
+
+            var check = data.elem.checked;
+            if(check){
+                checkvalue[checkvalue.length] = object;
+            }else{
+                for(var k=0;k<checkvalue.length;k++){
+                    var ids = checkvalue[k].id;
+                    if(ids  == id ){
+                        checkvalue.splice(k, 1);
+                        continue;
+                    }
+                }
+            }
+            // console.log(checkvalue);
+        });
+        form.render();
+    });
+
+    var callbackdata = function () {
+        return checkvalue;
+    }
+
+</script>
+{/block}

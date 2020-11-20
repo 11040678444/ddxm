@@ -1,0 +1,101 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">等级编辑</div>
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal">
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span>等级名称 </label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="level_name" autocomplete="off" value="{$list['level_name']}" placeholder="请输入等级名称" class="layui-input">
+                </div>
+            </div>
+            <!-- <div class="layui-form-item">
+                <label class="layui-form-label">排序 </label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="sort" onkeyup="this.value=this.value.replace(/\D/g,'')" onblur="this.value=this.value.replace(/\D/g,'')" autocomplete="sort" value="{$list['sort']}" placeholder="请输入序号" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">请输入0-99等级序号</div>
+            </div> -->
+
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span> 设置价格 :</label>
+                <div class="layui-form-mid layui-word-aux">不输入表示该店铺没有此会员等级</div>
+            </div>
+            {volist name="shop" id="vo"}
+                <div class="layui-form-item">
+                    <label class="layui-form-label">{$vo.name}</label>
+                    <div class="layui-input-inline w300">
+
+                        <input type="text" name="shop_id[][{$vo.id}]" autocomplete="off" placeholder="请输入金额" value="{$vo.price}"  class="layui-input price">
+                    </div>
+                    <!-- <div class="layui-form-mid layui-word-aux">输入0表示该店铺没有此会员等级</div> -->
+                </div>  
+            {/volist}
+               
+            <input type="hidden" name="id" value="{$list['id']}">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="L_submit">立即提交</button>
+                    <button class="layui-btn layui-btn-normal" id = "close">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    layui.use(["form"], function(){
+        var layer = layui.layer;
+        form = layui.form;
+        form.on('submit(L_submit)', function(data){
+            var formData = data.field;
+            $.ajax({
+                type : "post",
+                url : "/admin/Member/level_doPost",
+                data: formData,
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 1 ){
+                        layer.msg(res.msg); 
+                        var index = parent.layer.getFrameIndex(window.name);
+                        setTimeout(function(){
+                            parent.layer.close(index);
+                            parent.location.reload();
+                        }, 1000);  
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+            return false;
+        });
+
+
+        //关闭
+        $("#close").click(function(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            parent.location.reload();
+        })
+    });
+    $(".price").keyup(function () {
+    var reg = $(this).val().match(/\d+\.?\d{0,2}/);
+    var txt = '';
+    if (reg != null) {
+        txt = reg[0];
+    }
+    $(this).val(txt);
+}).change(function () {
+    $(this).keypress();
+    var v = $(this).val();
+    if (/\.$/.test(v))
+    {
+        $(this).val(v.substr(0, v.length - 1));
+    }
+});
+</script>
+{/block}

@@ -1,0 +1,187 @@
+<!--{extend name="index_layout"/}-->
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-row layui-col-md12">
+    <div class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <select name="type_id" lay-filter="type_id" id="type_id">
+                    <option value="0">选择一级分类</option>
+                    {volist name="typeId" id="typeId"}
+                        <option value="{$typeId['id']}">{$typeId['cname']}</option>
+                    {/volist}
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="type" lay-filter="type" id="type">
+                    <option value="0">选择二级分类</option>
+                </select>
+            </div>
+            <div class="layui-input-inline w200">
+                <input type="text" name="title" id="title" autocomplete="title"  placeholder="请输入需要查询的商品名称"  class="layui-input" >
+            </div>
+            <input type="hidden" name="id" value="{$list['id']}" id="stockId">
+            <div class="layui-input-inline " style="width: 90px">
+                <button class="layui-btn" id="searchEmailCompany" data-type="reload">
+                    <i class="layui-icon" style="font-size: 20px; "></i> 搜索
+                </button>
+            </div>
+        </div>
+    </div>
+        <div class='ddxm-content-bg'>
+            <div class="ddxm-content-col">
+                <hr>
+                <div id="goodss">
+                    <div class="ddxm-form-item layui-card-header"><strong>商品信息</strong></div>
+                    <table class="layui-table"  lay-filter="goods" id="goods"></table>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">备注 </label>
+                        <div class="layui-input-inline w300">
+                            <input type="text" name="remarks" readonly="redonly"  autocomplete="remarks" id="remarks"  placeholder="备注" value="{$list['remarks']}" class="layui-input">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
+            </div>
+            <hr>
+            <div style="float:right;margin-right:20px;margin-bottom:10px">
+                <button type="button" class="layui-btn  layui-btn-normal" id = "close">关闭</button>
+                <button type="button" class="layui-btn  layui-btn-normal" id = "Determine">确定</button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{/block}
+{block name="script" }
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    layui.use(["table","layer"], function(){
+    var table = layui.table,
+        layer = layui.layer,
+        $ = layui.$;
+        var id = "{$list['id']}";
+        var remarks = "{$list['remarks']}";
+        
+        table.render({
+            elem: '#goods',
+            url:'/admin/deposit/goodsinfo?id='+id,
+            title: '商品详情',
+            id:'goods',
+            cols: [[
+                {field: 'id',title: '序号',align: 'center',totalRowText:true },
+                {field: 'title',title: '商品名称',align: 'center',totalRow:true},
+                {field: 'type_id',title: '一级分类',align: 'center',totalRow:true},
+                {field: 'type',title: '二级分类',align: 'center'},
+                {field: 'stock',title: '当前库存',align: 'center'},
+                {field: 'num',title: '盘点库存',align: 'center' },
+                {field: 'remarks',title: '备注',align: 'center',sort: true,totalRow:true, /*edit: 'text'*/},
+            ]], 
+        });
+
+        //关闭
+        $("#close").click(function(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+        })
+
+        //搜索
+        $("#searchEmailCompany").on("click",function(){
+            var title = $('#title').val();
+            var type_id = $('#type_id').val();
+            var type = $('#type').val();
+            var id = $('#stockId').val();
+            table.reload('goods', {
+            url: '/admin/Deposit/goodsinfo',
+            where:{  
+                    id:id,
+                    title:title,
+                    type_id:type_id,
+                    type:type,
+                    id:id,
+                } 
+            });
+        });
+
+        /*
+        //修改备注商品表的备注
+        table.on('edit(goods)', function(obj){
+        var value = obj.value, //得到修改后的值
+            data = obj.data, //得到所在行所有键值
+            field = obj.field; //得到字段
+
+            if( value == '' ){
+                return false;
+            }
+            $.ajax({
+                type : "post",
+                url : "/admin/Deposit/editItemRemrks",
+                data: {remarks:value,id:data.id},
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 1 ){
+                        layer.msg('[序号: '+ data.id +'] ' + '留言' + ' 更改为：'+ value);
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+        });
+        */
+        //确定、修改单据表的备注
+        $("#Determine").click(function(){
+            var new_remarks = $('#remarks').val();  //新的留言
+            $.ajax({
+                type : "post",
+                url : "/admin/Deposit/sureStock",
+                data: {remarks:new_remarks,id:id},
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 1 ){
+                        layer.msg(res.msg); 
+                        var index = parent.layer.getFrameIndex(window.name);
+                        setTimeout(function(){
+                            parent.layer.close(index);
+                            parent.location.reload();
+                        }, 1000);  
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+            
+        })
+
+    });
+
+    layui.use(["form"], function(){
+        var layer = layui.layer;
+        form = layui.form;
+
+        //获取二级分类
+        form.on('select(type_id)', function(data){   
+            var val=data.value;
+            $.ajax({
+                type : "post",
+                url : "/admin/Item/category_select",
+                data: {pid:val},
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 1 ){
+                        var category = res.data;
+                        var option = '';
+                        $('#type').empty();
+                        $('#type').append("<option value=''>请选择</option>");
+                        for( var k in category){
+                            $("#type").append("<option value=" + category[k].id + ">" + category[k].cname + "</option>");
+                        }
+                        form.render("select");
+                    }
+                }
+            });
+        }); 
+    });
+</script>
+{/block}

@@ -1,0 +1,197 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+
+    <div class="layui-card-body">
+        <div class="layui-form">
+            <!-- <form class="layui-form"> -->
+                <!-- <span>搜索ID：</span> -->
+                <a class="layui-btn layui-btn-sm" id="add">添加服务</a>
+                <div class="layui-input-inline">
+                <input class="layui-input" id="demoReload" name="name" placeholder="服务名称" autocomplete="off">
+            </div>
+            <div class="layui-input-inline " style="width: 90px">
+                <button class="layui-btn" id="searchEmailCompany" data-type="reload">
+                    <i class="layui-icon" style="font-size: 20px; "></i> 搜索
+                </button>
+            </div>
+            <!-- </form> -->
+            <table class="layui-hide" id="table" lay-filter="table"></table>
+            <script type="text/html" id="barTool">
+                {{#  if(d.userid == 1){ }}
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                {{#  } else { }}
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                {{#  } }}
+            </script>
+            <script type="text/html" id="statusTool">
+                {{#  if(d.status == 1){ }}
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del1">下架</a>
+                {{#  } else { }}
+                <a class="layui-btn layui-btn-xs" lay-event="start">上架</a>
+                {{#  } }}
+            </script>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.use(["table","layer"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        $ = layui.$;
+        table.render({
+        elem: '#table',
+        toolbar: '#toolbarDemo',
+        id:"tableTset",
+        url: '{:url("admin/Service/show_list")}',
+        /*limit:1,
+        limits:[1,2,30,40,50,60,70,80,90],*/
+        page: true,
+        cols: [
+            [
+                { field: 'id', width: 80, title: 'ID'},
+                { field: 'sort',  title: '序号'},
+                { field: 'sname',  title: '服务名称'},
+                { field: 'types',  title: '服务分类'},
+                { field: 'update_id', title: '更新人'},
+                { field: 'create_time',  title: '创建时间'},
+                { field: 'update_time', title: '更新时间'},
+                { field: 'status',  title: '上下架',toolbar:'#statusTool'},
+                { fixed: 'right',  title: '操作', toolbar: '#barTool' }
+            ]
+        ],
+    });
+
+   //添加门店
+    $("#add").on("click",function(){
+        var url  ="{:url('admin/Service/add')}";
+        layer.open({
+            type: 2,
+            title: '添加服务',
+            area: ['850px', '700px'],
+            content: url,
+            end: function(layero, index){
+                table.reload('table', {
+                });
+            }
+        });
+    });
+
+    //搜索
+    $("#searchEmailCompany").on("click",function(){
+        var name = $('#demoReload').val();
+        table.reload('tableTset', {
+          url: '/admin/Service/show_list',
+          where: {name:name} //设定异步数据接口的额外参数
+        });
+    });
+
+
+    //监听行工具事件
+    table.on('tool(table)', function(obj) {
+        var data = obj.data;
+        //console.log(obj);
+        if (obj.event === 'del') {
+            layer.confirm('确定删除这条数据？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/Service/del")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }else if (obj.event === 'edit') {
+            var url = '{:url("admin/Service/add")}' + "?id=" + data.id;
+            layer.open({
+                type: 2,
+                title: '编辑服务',
+                area: ['850px', '700px'],
+                content: url,
+                end: function(layero, index){
+                   table.reload('tableTset', {
+                    });
+                }
+            });
+        }else if (obj.event === 'start') {
+            layer.confirm('确定启用这条数据？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/Service/start")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }else if (obj.event === 'del1') {
+            layer.confirm('确定下架这条数据？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/Service/del1")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }
+    });
+});
+</script>
+{/block}

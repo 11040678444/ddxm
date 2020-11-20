@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理系统</title>
+    <meta name="author" content="YZNCMS">
+    <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/admin.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/ddxm.css">
+    <link rel="stylesheet" href="__STATIC__/admin/font/iconfont.css">
+    <script src="__STATIC__/libs/layui/layui.js"></script>
+    <script src="__STATIC__/libs/jquery/jquery.min.js"></script>
+    <style type="text/css">
+        .layui-table-cell{
+            height:auto !important;
+        }
+        .layui-layer-title{
+            text-align: center;
+            padding: 0 ;
+            font-size:20px;
+        
+        }
+        .width150{
+            width:70px;
+        }
+        .width200{
+            width:70px;
+        }
+    </style>
+    
+<script type="text/javascript">
+//全局变量
+var GV = {
+    'image_upload_url': '{$image_upload_url ? $image_upload_url : url("attachment/attachments/upload", ["dir" => "images", "module" => request()->module()])}',
+    'file_upload_url': '{$file_upload_url ? $file_upload_url : url("attachment/attachments/upload", ["dir" => "files", "module" => request()->module()])}',
+    'WebUploader_swf': '__STATIC__/webuploader/Uploader.swf',
+    'upload_check_url': '{$upload_check_url ? $upload_check_url : url("attachment/Attachments/check")}',
+    'ueditor_upload_url': '{$ueditor_upload_url ? $ueditor_upload_url : url("attachment/Ueditor/run")}',
+};
+</script>
+</head>
+<body class="childrenBody">
+<div class="layui-card">
+    <div class="layui-card-header">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>公司出库单</legend>
+        </fieldset>
+ </div>
+
+    <div class="layui-card-body">
+        <div class="layui-btn-container">
+<!--            <a class="layui-btn layui-btn-sm">导出</a>-->
+            <a class="layui-btn layui-btn-sm" id="add">新增出库</a>
+            <a class="layui-btn layui-btn-sm" id="duizhang">批量对账</a>
+            <a class="layui-btn layui-btn-sm" id="out_stock">批量出库</a>
+        </div>
+        <div class="layui-form">
+        <div class="layui-input-inline">
+                <select name="shop_id" id="shop_id" lay-filter="shop_id">
+                    <option value="0">请选择出货仓库</option>
+                    {volist name="shop" id="vo"}
+                        <option value="{$vo['id']}">{$vo['name']}</option>
+                    {/volist} 
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="reconciliation" id="reconciliation" lay-filter="reconciliation">
+                    <option value="0">请选择是否对账</option>
+                    <option value="1">已对账</option>
+                    <option value="2">未对账</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="out_of_stock" id="out_of_stock" lay-filter="out_of_stock">
+                    <option value="0">请选择是否出库</option>
+                    <option value="1">已出库</option>
+                    <option value="2">未出库</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="time" name="time" placeholder="开始时间" autocomplete="off">
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="end_time" name="end_time" placeholder="结束时间" autocomplete="off">
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="name" name="name" placeholder="订单号/客户名称/手机号" autocomplete="off">
+            </div>
+            
+            <div class="layui-input-inline " style="width: 90px">
+                <button class="layui-btn" id="searchEmailCompany" data-type="reload">
+                    <i class="layui-icon" style="font-size: 20px; "></i> 搜索
+                </button>
+            </div>
+
+            <table class="layui-hide" id="table" lay-filter="table"></table>
+            <script type="text/html" id="StatusTool">
+                {{#  if(d.reconciliation == 0){ }}
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="no">未对账</a>
+                {{#  } else { }}
+                <a class="layui-btn layui-btn-xs" lay-event="ok">已对账</a>
+                {{#  } }}
+
+
+                {{#  if(d.out_of_stock == 0){ }}
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="no_stock">未出库</a>
+                {{#  } else { }}
+                <a class="layui-btn layui-btn-xs" lay-event="ok_stock">已出库</a>
+                {{#  } }}
+            </script>
+            <script type="text/html" id="barTool">
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            </script>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use('laydate', function(){
+      var laydate = layui.laydate;
+      //执行第一个laydate实例
+      laydate.render({
+        elem: '#time', //指定元素
+        type: 'datetime'
+      });
+      //执行第二个laydate实例
+      laydate.render({
+        elem: '#end_time', //指定元素
+        type: 'datetime'
+      });
+    });
+</script>
+<script type="text/javascript">
+layui.use(["table","layer"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        $ = layui.$;
+    table.render({
+        elem: '#table',
+        toolbar: '#toolbarDemo',
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"tableTest",
+        url: '{:url("admin/Checkout/index")}',
+        height: 'full-148',
+        page: true,
+        cols: [
+            [
+                {type:'checkbox'},
+                // { field: 'id',  title: '订单ID'},
+                { field: 'message',  title: '订单信息',minWidth:230},
+                { field: 'item_list',  title: '商品信息',minWidth:230},
+                { field: 'code_list',  title: '商品条码',minWidth:140},
+                { field: 'price_list',  title: '销售单价',minWidth:120},
+                { field: 'cost_list',  title: '总成本',minWidth:120},
+                { field: 'num_list', title: '数量',width:60},
+                { field: 'amount_list',title: '总金额' ,minWidth:160},
+                { field: 'create_time', title: '出库时间',minWidth:160},
+                { field: 'remarks', title: '出库备注',minWidth:180, edit: 'text'},
+                { field: 'reconciliation', title: '状态', toolbar:'#StatusTool',minWidth:150},
+                // { field: 'out_of_stock', title: '是否出库', toolbar:'#OutTool',minWidth:150},
+                // { fixed: 'right', /*width: 160,*/ title: '操作', toolbar: '#barTool' }
+            ]
+        ],
+    });
+
+    $("#add").click(function(){
+        layer.open({
+            type:2,
+            title: '<strong>公司出库</strong>',
+            area: ['1200px', '740px'],
+            content: '{:url("admin/Checkout/add")}',
+            end: function(layero, index){
+                table.reload('tableTest', {
+                });
+            }
+        })
+    })
+
+    $('#duizhang').on("click",function(){
+        //批量对账
+        var tt = layui.table.checkStatus('tableTest').data;
+        let data = [];
+        tt.map(item => {
+            data.push(item.id);
+        })
+        if( data.length == 0 ){
+            return false;
+        }
+        layer.confirm('请确认全部对账', { icon: 3, title: '提示' }, function(index) {
+            layer.close(index);
+            $.ajax({
+                url: "/admin/Checkout/edit_status",    // 提交到controller的url路径
+                type: "post",    // 提交方式
+                data: {ids: data},  // data为String类型，必须为 Key/Value 格式。
+                dataType: "json",    // 服务器端返回的数据类型
+                success: function (data) {
+                    if (data.code == 1) {
+                        layer.msg(data.msg, {time: 3000});
+                        setTimeout(function () {
+                            // location.reload();
+                            $(".layui-laypage-btn").click();
+                        }, 1000);
+                    } else {
+                        layer.msg(data.msg);
+                    }
+                },
+            });
+        });
+    });
+
+    //批量出库
+    $('#out_stock').on("click",function(){
+        //批量对账
+        var tt = layui.table.checkStatus('tableTest').data;
+        let data = [];
+        tt.map(item => {
+            data.push(item.id);
+        })
+        if( data.length == 0 ){
+            return false;
+        }
+        layer.confirm('请确认全部出库', { icon: 3, title: '提示' }, function(index) {
+            layer.close(index);
+            $.ajax({
+                url: "/admin/Checkout/edit_stock",    // 提交到controller的url路径
+                type: "post",    // 提交方式
+                data: {ids: data},  // data为String类型，必须为 Key/Value 格式。
+                dataType: "json",    // 服务器端返回的数据类型
+                success: function (data) {
+                    if (data.code == 1) {
+                        layer.msg(data.msg, {time: 3000});
+                        setTimeout(function () {
+                            // location.reload();
+                            $(".layui-laypage-btn").click();
+                        }, 1000);
+                    } else {
+                        layer.msg(data.msg);
+                    }
+                },
+            });
+        });
+    });
+
+
+
+    //搜索
+    $("#searchEmailCompany").on("click",function(){
+        var name = $('#name').val();
+        var shop_id = $('#shop_id').val();
+        var time = $('#time').val();
+        var end_time = $('#end_time').val();
+        var reconciliation = $('#reconciliation').val();
+        var out_of_stock = $('#out_of_stock').val();
+        table.reload('tableTest', {
+          url: '/admin/Checkout/index',
+          where:{  name:name,
+                    shop_id:shop_id,
+                    time:time,
+                    end_time:end_time,
+                    reconciliation:reconciliation,
+                    out_of_stock:out_of_stock
+          } //设定异步数据接口的额外参数
+        });
+    });
+
+    //监听单元格编辑
+    table.on('edit(table)', function(obj){
+        var value = obj.value //得到修改后的值
+            ,data = obj.data //得到所在行所有键值
+            ,field = obj.field; //得到字段
+        $.ajax({
+            type : "post",
+            url : "/admin/Checkout/edit_remarks",
+            data: {id:data.id,field:field,value,value},
+            dataType: 'json',
+            success:function(res){
+                if( res.code == 1 ){
+                    layer.msg('[ID: '+ data.id +'] ' + field + ' 备注：'+ value);
+                }else if( res.code==2 ){
+                    layer.msg(res.msg);
+                }else{
+                    layer.msg('编辑失败,请联系管理员');
+                }
+            }
+        });
+    });
+
+    //监听行工具事件
+    table.on('tool(table)', function(obj) {
+        var data = obj.data;
+        //console.log(obj);
+        if (obj.event === 'no') {
+            layer.confirm('确认改为已对账？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/Checkout/no")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                            $(".layui-laypage-btn").click();
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        // setTimeout(function() {
+                        //     if (data.url) {
+                        //         $(".layui-laypage-btn").click();
+                        //         return false;
+                        //         // location.href = data.url;
+                        //     } else {
+                        //         // location.reload();
+                        //         $(".layui-laypage-btn").click();
+                        //         return false;
+                        //     }
+                        // }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }else if (obj.event === 'ok') {
+            layer.confirm('确认改为未对账？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/Checkout/ok")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                // location.reload();
+                                $(".layui-laypage-btn").click();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }else if (obj.event === 'ok_stock') {
+            layer.confirm('确认改为未出库？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/Checkout/ok_stock")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                // location.reload();
+                                $(".layui-laypage-btn").click();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }else if (obj.event === 'no_stock') {
+            layer.confirm('确认改为已出库？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/Checkout/no_stock")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                // location.reload();
+                                $(".layui-laypage-btn").click();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }
+        else if (obj.event === 'edit') {
+            var url = '{:url("admin/item/edit")}' + "?id=" + data.id;
+            layer.open({
+                type: 2,
+                title: '在线调试',
+                area: ['500px', '300px'],
+                content: url,
+                end: function(layero, index){
+                   table.reload('tableTest', {
+                    });
+                }
+            });
+        }
+    });
+});
+</script>

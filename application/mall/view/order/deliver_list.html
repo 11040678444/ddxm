@@ -1,0 +1,175 @@
+{extend name="index_layout"/}
+{block name="main"}
+<style type="text/css">
+    .upload-pre-item{
+        position: relative;
+    }
+    .upload-pre-item i {
+        position: absolute;
+        cursor: pointer;
+        top: -5px;
+        background: #2F4056;
+        /*padding: 2px;*/
+        line-height: 15px;
+        text-align: center;
+        color: #fff;
+       /* margin-left: -10px;*/
+        /* float: left; */
+        filter: alpha(opacity=80);
+        -moz-opacity: .8;
+        -khtml-opacity: .8;
+        opacity: .8;
+        transition: 1s;
+    }
+    .upload-pre-item{
+        float:left;
+        margin-top:15px;
+        margin-left:15px;
+    }
+    .upload-img-box{
+        width:326px;
+        margin-top:10px;
+        padding-bottom:10px;
+        background-color:#f2f2f2;
+        display:none;
+    }
+</style>
+<div class="layui-card">
+    <div class="layui-card-body">
+        <div class="layui-form"> 
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-input-inline" style="width:250px;">
+                       <input type="text" name="search" class="layui-input" id="search" placeholder="请输入需查询的订单号">
+                    </div>
+                    <div class="layui-input-inline">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo">搜索</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                    <label class="layui-form-label">供货商</label>
+                    <div class="layui-input-inline">
+                        <select name="supplier" lay-filter="supplier" id="supplier">
+                            <option value="">--请选择供货商--</option>
+                            {volist name="data" id ="vo"}
+                            <option value="{$vo.id}" title="{$vo.nickname}">{$vo.nickname}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                <table class="layui-hide" id="tableOrder" lay-filter="tableOrder"></table>
+                <script type="text/html" id="paySnTool">
+                    {{# if(d.deliver_status ==null || d.deliver_status ==""){}}
+                        <a style="cursor:pointer">未选择</a>
+                    {{#}}}
+                </script>
+                <!-- <div style="left:50px;">
+                    <span>已选商品</span>
+                    <div class="layui-input-inline" style="width:740px;background-color:#e2e2e2;padding-bottom:15px;margin-top:30px;margin-bottom:30px;margin-left:10px">
+                        <div class="upload-pre-item">
+                            <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal">香奈儿</a>
+                            <i class="layui-icon  layui-icon-close del_close"></i>
+                            <input type="hidden" name="" class="img_val" value="" />
+                        </div> 
+                    </div>
+                    <button class="layui-btn" lay-submit lay-filter="dadasasd " style="margin-left:10px;">确认</button>
+                </div> -->
+                <div class="layui-input-inline layui-btn-group userTable" style="margin-right:40px;float:right;">
+                    <button class="layui-btn" lay-submit lay-filter="assignment" data-type="getCheckData" style="margin-left:10px;">确认分配</button>
+                </div>
+                <div style="clear:both"></div>
+            </form>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script>
+layui.use(["table","layer","form"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        form  = layui.form,
+        $ = layui.$;
+    table.render({
+        elem: '#tableOrder',
+        /*toolbar: '#toolbarDemo',*/
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"ordertable",
+        url: '{:url("mall/order/deliver_list")}?id='+"{$id}",
+        /*height:400,*/
+        /*page: true,*/
+        cols: [[
+            { type: 'checkbox',width:60},
+            { field: 'subtitle',align: 'center',width:200,  title: '商品名称'},
+            { field: 'num',align: 'center',  title: '购买数量'},  
+            { field: 'real_price',align: 'center',  title: '支付价格'},
+            { field: 'deliver_status',align: 'center',  title: '发货状态',toolbar: '#paySnTool'}
+        ]],
+    });
+    form.on("submit(formDemo)",function(data){
+        var search = data.field.search;
+        table.reload('ordertable', {
+            page: {
+                curr: 1 //重新从第 1 页开始
+            }
+            ,where: {
+                search:search,
+            }
+        }, 'data');
+        return false;
+    })
+    active = {
+        getCheckData: function(){ //获取选中数据
+        var checkStatus = table.checkStatus('ordertable')
+        ,data = checkStatus.data;
+         return data;
+        }           
+    };
+    form.on("submit(assignment)",function(res){
+        var field = res.field;
+        if(field.supplier ==""){
+            layer.msg("请选供货商");
+            return false;
+        }
+        var supplier_title = $("#supplier option:selected").text();
+        var type = $(this).data('type');
+        var data = active[type] ? active[type].call(this) : '';
+        if(data == ""){
+            layer.confirm('未选择商品 继续关闭?', {icon: 3, title:'关闭提示'}, function(indexs){
+                layer.close(indexs);
+                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                parent.layer.close(index); //再执行关闭
+            });
+            return false;
+        }else{
+            var html = '您将会把商品分配给供货商:<span style="color:red;margin-left:10px;padding-right:10px;">'+supplier_title+"</span>";
+            layer.confirm(html,{icon: 6, title:'确认选择'}, function(indexs){
+                $.ajax({
+                    url: '{:url("mall/order/deliver_supplier")}',
+                    type: "POST" ,
+                    data: {data:data,field:field},
+                    success:function(odata){
+                        layer.close(indexs);
+                        if(odata){
+                            layer.msg(odata.msg,{icon: 6 , time: 1200 ,shade:0.6},function(){
+                                
+                                if(odata.data==0){
+                                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                    parent.layer.close(index); //再执行关闭
+                                }
+                                table.reload('ordertable', {
+                                });
+                            })
+                        }else{
+                            layer.msg(odata.msg,{icon:5});
+                        }
+                    }
+                })
+            })
+            return false;
+        }
+        return false;
+    });
+});
+</script>
+{/block}

@@ -1,0 +1,141 @@
+<!--{extend name="index_layout"/}-->
+{block name="main"}
+<div class="layui-card layui-form">
+    <form class="layui-form">
+        <div class="layui-form-item" style="padding-top:15px;">
+            <label class="layui-form-label">订单编号</label>
+            <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                {$data.o_sn}
+            </div> 
+            <label class="layui-form-label">退货单号</label>
+            <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                {$data.r_sn}
+            </div>   
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">申请人员</label>
+            <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                {$data.worker}
+            </div>           
+            <label class="layui-form-label">申请时间</label>
+            <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                {$data.create_time}
+            </div> 
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">支付方式</label>
+            <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                {$data.r_type}
+            </div>           
+            <label class="layui-form-label">退款方式</label>
+            <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                {$data.otype}
+            </div> 
+        </div>
+        <div class="layui-form-item">        
+            <label class="layui-form-label">退货原因</label>
+            <div class="layui-input-inline" style="width:180px;">
+              <textarea name="remarks" placeholder="请输入内容" class="layui-textarea" style="resize:none">{$data.reason}</textarea>
+            </div>
+             <label class="layui-form-label">退货备注</label>
+            <div class="layui-input-inline" style="width:180px;">
+              <textarea name="remarks" placeholder="请输入内容" class="layui-textarea" style="resize:none">{$data.remarks}</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">        
+            <label class="layui-form-label">退货状态</label>
+            <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                {$data.status}
+            </div> 
+        </div>
+        <table class="layui-table" lay-data="{cellMinWidth:80,width:714,id:'refund' ,url:'/admin/order/refund?order_id={$data.id}'}" lay-filter="refund">
+            <thead>
+                <tr>
+                    <th lay-data="{field:'r_subtitle',width:186,align: 'center'}">商品名称</th>
+                    <th lay-data="{field:'number',width:80,align: 'center'}">数量</th>
+                    <th lay-data="{field:'refund',width:120,align: 'center'}">商品已退数量</th>
+                    <th lay-data="{field:'price',width:100,align: 'center'}">成交价</th>
+                    <th lay-data="{field:'r_num',width:120,edit: 'text',align: 'center'}">退货数量</th>
+                    <th lay-data="{field:'r_price',width:100,edit: 'text',align: 'center'}">退款价</th>
+                </tr>
+            </thead>
+        </table>
+        <div class="layui-form-item">
+            <label class="layui-form-label">退货数量</label>
+            <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                {$data.r_number}
+            </div>           
+            <label class="layui-form-label">总金额</label>
+            <div class="layui-form-mid layui-word-aux ddxm-col-mad">
+                {$data.r_amount}
+            </div> 
+        </div>
+        <div style="float:right;margin-right:20px;margin-bottom:10px;margin-top:20px;">
+            <button type="button" class="layui-btn" id="close">关闭</button>
+            {if condition="$data.r_status eq 0"}
+                <button type="button" class="layui-btn layui-btn-normal return_confirm" lay-submit lay-filter="confirm" >确认退货</button>
+                <button type="button" class="layui-btn layui-btn-danger return_confirm"lay-submit lay-filter="close" >拒绝退货</button>
+            {/if}
+        </div>
+    </form>
+</div>
+{/block}
+{block name="script" }
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    layui.use(["table","layer","form"], function(){
+    var table = layui.table,
+        layer = layui.layer,
+        form  = layui.form,
+        $ = layui.$;
+        form.on('submit(confirm)', function(data){
+            var order_id = {$data.id};
+           /* var type  = $(this).attr("data");*/
+            $(".return_confirm").hide();
+            $.ajax({
+                url:'{:url("admin/order/orderrefund")}',
+                type:"post",
+                data:{id:order_id},
+                success:function(datas){
+                    if(datas.result){
+                        layer.msg(datas.msg, {icon: 6 , time: 1200 ,shade:0.6},function(){
+                            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                            parent.layer.close(index); //再执行关闭
+                        });
+                    }else{
+                        layer.msg(datas.msg, {icon: 5 , time: 2000 ,shade:0.6});
+                        $(".return_confirm").show();
+                    }
+                }
+            })
+            return false;
+        })
+        form.on('submit(close)', function(data){
+            var order_id = {$data.id};
+            /*var type  = $(this).attr("data");*/
+            $(".return_confirm").hide();
+            $.ajax({
+                url:'{:url("admin/order/orderrefund_close")}',
+                type:"post",
+                data:{id:order_id},
+                success:function(datas){
+                    if(datas.result){
+                        layer.msg(datas.msg, {icon: 6 , time: 1200 ,shade:0.6},function(){
+                            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                            parent.layer.close(index); //再执行关闭
+                        });
+                    }else{
+                        layer.msg(datas.msg, {icon: 5 , time: 2000 ,shade:0.6});
+                        $(".return_confirm").show();
+                    }
+                }
+            })
+            return false;
+        })
+        $(document).on("click",'#close',function(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+        })
+    });
+</script>
+{/block}

@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transition al.dtd">
+<html>
+	<head>
+		<title>门店登录</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" charset="utf-8"/>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+				box-sizing: border-box;
+			}
+			html{
+				font-size:100px;
+			}
+			body{
+				background-image: url(__STATIC__/index/images/login-bg.png);
+				background-size: cover;
+				font-size:14px;
+			}
+			.contentLogin{
+				width: 24%;   
+				height:100%;
+				margin:0 auto;
+				margin-top: 1rem;
+				border-radius: 1.5%;
+				background-color: white;
+				padding-top: 4%;
+				padding-bottom:2%;
+			}
+			.contentLogin img{
+				display: block;
+				margin:0 auto;
+				width: 30%;
+				height: 23%;
+			}
+			.contentLogin .loginName{
+				font-size:0.26rem;  
+				color: #0f9cf2;
+				margin-top: 4%;
+				margin-bottom: 7%;
+				text-align: center;
+			}
+			input{
+				display:block;
+				margin:0 auto;
+				width: 70%;
+				height:48px;
+				border-radius: 0.07rem;
+			}
+
+            .username{
+				background-image: url(__STATIC__/index/images/login-name.png);
+				margin-bottom: 5%;
+			}
+			.password{
+				background-image: url(__STATIC__/index/images/login-password.png);
+			}
+
+
+
+			.username,.password{
+				background-repeat: no-repeat;
+				background-position: 20px center;
+				text-indent: 58px;
+				background-size: 18px 18px;
+				font-size: 0.14rem;
+				color: #c2c8cc;
+			}
+			button{
+				display: block;
+				margin:0 auto;
+				width: 70%;
+				height:48px;
+				border-radius: 0.07rem;
+				margin-top: 10%;
+				background-color: #3db3dc;
+				color: #FFFFFF;
+				font-size: 0.14rem;   
+			}
+			
+			
+			@media screen and (max-device-width: 800px) {
+			    input,button{
+			    	height:20px;			    	
+			    }
+			}
+			
+			
+			@media screen and (max-device-width: 1280px) {
+			      input,button{
+			    	height:31.9px;			    	
+			    }
+			}
+			
+			@media screen and (max-device-width: 1440px) {
+			      input,button{
+			    	height:36px;			    	
+			    }
+			}
+			
+			
+			@media screen and (max-device-width: 1600px) {
+			      input,button{
+			    	height:39.9px;
+			    }
+			}
+            
+		</style>
+		
+	</head>
+	
+
+	<body>
+		<div class="contentLogin">
+			<img src="__STATIC__/index/images/pandalogo.png" alt="" />
+			<p class="loginName">门店管理系统</p>
+			<form action="/index/login/doLogin" method="post">
+				<input type="text" class="username" name="username" placeholder="请输入用户名" >
+				<input type="password" class="password"  name="password" placeholder="请输入登录密码" >
+				<button>登录</button>
+			</form>
+		</div>
+		
+		
+		
+		
+		<script src="__STATIC__/index/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				
+			})
+			
+			$(window).resize(function (){
+			 var whdef = 100/1920;        <!--表示1920的设计图,使用100PX的默认值-->
+			 var wH = window.innerHeight; <!--当前窗口的高度-->
+			 var wW = window.innerWidth;  <!--当前窗口的宽度-->
+			 var rem = wW * whdef;        <!--以默认比例值乘以当前窗口宽度,得到该宽度下的相应FONT-SIZE值-->
+			 $('html').css('font-size', rem + "px");
+			});
+		</script>
+	</body>
+</html>

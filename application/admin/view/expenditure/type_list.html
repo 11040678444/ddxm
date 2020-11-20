@@ -1,0 +1,130 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">订单列表</div>
+    <!-- <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <a class="layui-btn layui-btn-sm " href="{:url('admin/Expenditure/add')}">新增</a>
+        </div>
+    </script> -->
+    <div class="layui-card-body">
+        <div class="layui-form">
+            <table class="layui-hide" id="table" lay-filter="table"></table>
+            <script type="text/html" id="toolbarDemo">
+                <div class="layui-btn-container">
+                <a class="layui-btn layui-btn-sm" id="AddShop" lay-event="AddShop">添加</a>
+              </div>
+            </script>
+            <script type="text/html" id="barTool">
+                {{#  if(d.userid == 1){ }}
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                {{#  } else { }}
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                {{#  } }}
+            </script>
+            <!-- <script type="text/html" id="statusTool">
+                {{# if(d.status ==1){}}
+                    上架
+                {{#}else if(d.status==0){}}
+                    下架
+                {{#}else{}}
+                    删除
+                {{#}}}
+            </script> -->
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.use(["table","layer"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        $ = layui.$;
+    table.render({
+        elem: '#table',
+        toolbar: '#toolbarDemo',
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"tableTset",
+        url: '{:url("admin/Expenditure/type_list")}',
+        height: 'full-128',
+        /*limit:1,
+        limits:[1,2,30,40,50,60,70,80,90],*/
+        page: true,
+        cols: [
+            [
+                { field: 'id', /*width: 80,*/ title: 'ID'},
+                { field: 'title', /*width: 80,*/ title: '标题'},
+                { field: 'update_time', /*width: 120,*/ title: '更新时间'},
+                // { field: 'status'/*,width: 200*/, title: '线上状态',toolbar: '#statusTool'},
+                { fixed: 'right', /*width: 160,*/ title: '操作', toolbar: '#barTool' }
+            ]
+        ],
+    });
+
+    //添加门店
+    $("#AddShop").on("click",function(){
+        var url  ="{:url('admin/Expenditure/add')}";
+        layer.open({
+            type: 2,
+            title: '添加',
+            area: ['600px', '300px'],
+            content: url,
+            end: function(layero, index){
+                table.reload('table', {
+                });
+            }
+        });
+    });
+
+    //监听行工具事件
+    table.on('tool(table)', function(obj) {
+        var data = obj.data;
+        //console.log(obj);
+        if (obj.event === 'del') {
+            layer.confirm('确定删除这条数据？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/Expenditure/del")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }else if (obj.event === 'edit') {
+            var url = '{:url("admin/Expenditure/add")}' + "?id=" + data.id;
+            layer.open({
+                type: 2,
+                title: '在线调试',
+                area: ['800px', '600px'],
+                content: url,
+                end: function(layero, index){
+                   table.reload('tableTset', {
+                    });
+                }
+            });
+        }
+    });
+});
+</script>
+{/block}

@@ -1,0 +1,218 @@
+{extend name="index_layout"/}
+{block name="main"}
+<body class="childrenBody">
+<div class="layui-card">
+	<!-- <div class="layui-card-header">新增采购单</div> -->
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal" method="post">
+            <table id="ddxm-table" cellspacing="1" cellpadding="1" border="1">
+                <tr>
+                    <th width="10px">ID</th>
+                    <th width="200px">商品名称</th>
+                    <th width="50px">成本</th>
+                    <th width="200px">描述</th>
+                </tr>
+                {notempty name="data"}
+                    {volist name="data" id="vo"}
+                        <tr>
+                            <td align="center"><input type="text" name="id" readonly value="{$vo.id}" class="purchase-table" style="display: block;width:90%;"/></td>
+                            <td><input name="item_name" type="text" readonly  value="{$vo.subtitle}" style="width:90%;" class="purchase-table"></td>
+                            <td width="50px"><input name="oprice" type="text" readonly value="{$vo.price}" class="purchase-table" style="width:90%;"/></td>
+                            <td><input name="title"  type="text" placeholder="请输入描述" value="{$vo.title}" class="purchase-table" style="width:90%;"/></td>
+                        </tr>
+                    {/volist}
+                {/notempty}
+            </table>
+            <!--<div class="layui-form-item">-->
+                <!--<label class="layui-form-label">备注</label>-->
+                <!--<div class="layui-input-inline">-->
+                    <!--<textarea name="remarks" placeholder="请输入内容" class="layui-textarea" style="resize:none;" ></textarea>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="layui-form-item title">
+                <div class="layui-input-block">
+                    <button class="layui-btn ajax-post" lay-submit lay-filter="purchase_add" target-form="form-horizontal" id="purchase_add">立即提交</button>
+                    <button class="layui-btn layui-btn-normal" id = "close">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="parentitem" style="display:none">
+    {volist name="data.item" id="v"}
+        <option value="{$v.id}">{$v.cname}</option>
+    {/volist}
+</div>
+{/block}
+{block name="script"}
+<script>
+layui.use(['table',"form","layer"],function(){
+    var table = layui.table,
+        layer = layui.layer,
+        form = layui.form,
+        $ = layui.$;
+    //关闭
+    //关闭
+    $("#close").click(function(){
+        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+        parent.layer.close(index); //再执行关闭
+        parent.location.reload();
+    })
+
+    $(document).on("keyup",'.price',function () {
+        var number = $(this).parent().prev().children(".number").val();
+        var reg = $(this).val().match(/\d+\.?\d{0,2}/);
+        var txt = '';
+        if (reg != null) {
+            txt = reg[0];
+        }
+        var amount = 0;
+        if(txt!= "" && txt!=0 && number!=0 && number !=""){
+            amount = number * txt;
+            amount =amount.toFixed(2);
+        }
+        $(this).parent().next().children(".money").val(amount);
+         var money = 0;
+        $("input[name='money']").each(function(m){
+            if( $(this).val() !=""){
+                money += parseFloat($(this).val());
+            }
+        })
+        money =money.toFixed(2);
+        $(".amount").html(money);
+        $("#amount_input").val(money);
+        $(this).val(txt);
+    });
+   $(document).on("change",'.price',function () {
+        $(this).keypress();
+        var v = $(this).val();
+        if (/\.$/.test(v))
+        {
+            $(this).val(v.substr(0, v.length - 1));
+        }
+    });
+   $(document).on('keyup','.number',function(data){
+        var price = $(this).parent().next().children(".price").val();
+
+        var number;
+        if(this.value.length==1){
+            number=this.value.replace(/[^0-9]/g,'');
+        }else if(this.value.length==0){
+            number=0;
+        }else{
+            number=this.value.replace(/\D/g,'');
+        }
+        number = number==''?0:parseInt(number);
+        var amount = 0;
+        if(price!= "" && price!=0 && number!=0 && number !=""){
+            amount = number * price;
+            amount =amount.toFixed(2);
+        }
+        $(this).parent().next().next().children(".money").val(amount);
+        var money = 0;
+        $("input[name='money']").each(function(m){
+            if( $(this).val() !=""){
+                money += parseFloat($(this).val());
+            }
+        })
+        money =money.toFixed(2);
+        $(".amount").html(money);
+        $("#amount_input").val(money);
+        this.value = number;
+    })
+    $(document).on("click",'.del_item',function(){
+        var count = $("#count").val();
+        $(this).parent().parent().detach();
+        $(".count").each(function(ii,vv){
+            
+            $(".count").eq(ii).html(ii+1); 
+        });
+        $("#count").val(count-1);
+        var id = $(this).parent().parent("tr").children("td").eq(1).children("input[name='item_id']").val();
+        var item_id = $("#item_id").val();
+        var item = new Array();
+        item = item_id.split(",");
+        var array = "";
+        for(var i=0;i<item.length;i++){
+            if(item[i] ==id){
+            }else{
+                if(array==""){
+                    array += item[i];
+                }else{
+                    array += ","+item[i];
+                }
+            }
+        }
+        var money = 0;
+        $("input[name='money']").each(function(m){
+            if( $(this).val() !=""){
+                money += parseFloat($(this).val());
+            }
+        })
+        money =money.toFixed(2);
+        $(".amount").html(money);
+        $("#amount_input").val(money);
+        $("#item_id").val(array);
+        return false;
+    });
+    $('#purchase_add').click(function () {
+        var data = $('table tr:gt(0)');
+        if(!data.length)
+        {
+            layer.msg('数据不能为空', {icon: 5});
+            return false;
+        }
+
+        var json = [];
+        var title_switch = 1;
+        $.each(data,function (k,v){
+
+            var title = $(this).find("input[name='title']").val();
+            if(!title)
+            {
+                title_switch = 0;
+                return false;
+            }
+
+            const id = $(this).find('input[name="id"]').val();
+            json.push({'id':id,title:title});
+       });
+
+       if(!title_switch)
+       {
+           layer.msg('描述不能为空', {icon: 5});
+           return false;
+       }
+
+       if(!json.length)
+       {
+           layer.msg('至少选择一个数据对象', {icon: 5});
+           return false;
+       }
+
+        $.ajax({
+            url: '{:url("admin/CostReverse/edit")}',
+            type: "POST" ,
+            data: {data:JSON.stringify(json)},
+            success:function(data){
+                data = JSON.parse(data);
+                if(data.code == 200)
+                {
+                    layer.msg(data.msg, {icon: 6 , time: 2000 ,shade:0.6});
+
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    setTimeout(function(){
+                        parent.layer.close(index);//再执行关闭
+                        parent.location.reload();
+                    }, 1000);
+                    return false;
+                }else {
+                    layer.msg(data.msg, {icon: 5 , time: 3000 ,shade:0.6});
+                }
+            }
+        });
+        return false;
+    });
+});
+</script>
+{/block}

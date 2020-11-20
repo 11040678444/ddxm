@@ -1,0 +1,805 @@
+			.content{
+				width: 100%;
+				height: 100%;
+				display: flex;
+			}
+			.content .cashier{
+				padding-top: 2.5%;
+				padding-left: 2.5%;
+				width: 100%;
+				height:100%;
+				display: flex;
+			}
+			.content .cashier .cashier1{
+				width: 26%;
+				margin-right: 1.5%;
+			}
+			.content .cashier .cashier1 .search{
+			    width:100%;
+			    height:auto;
+			    margin-bottom: 2%;
+			}
+			.content .cashier .cashier1 .search .searchInp{
+				width:100%;
+				height:auto;
+				border:none;
+				box-shadow:0 0 3px 3px gainsboro;
+				border-radius: 6px;
+				margin-bottom: 3%;
+				text-align: center;
+				padding-top: 2%;
+				padding-bottom: 2%;
+			}
+			.content .cashier .cashier1 .search .searchSearch{
+				position: absolute;
+				top:13%;
+				left:25%;
+				z-index: 2;
+			}
+			.content .cashier .cashier1 .search .searchP{
+				width:100%;
+				height:auto;
+				box-shadow:0 0 3px 3px gainsboro;
+				border-radius: 6px;
+				text-align: center;
+				background-color: #ffebbc;
+				padding-top: 1%;
+				padding-bottom: 1%;
+				display: flex;
+				justify-content: center;
+                align-items: center;
+			}
+			/*产品信息goods开始*/
+			.content .cashier .cashier1 .goods{
+				width:100%;
+				height:46.5%;
+				box-shadow:0 0 3px 3px gainsboro;
+				border-radius: 6px;
+				margin-bottom: 3.5%;
+				overflow: auto;
+			}
+			.content .cashier .cashier1 .goods .goodsList{
+				width: 100%;
+				height: auto;
+				border-bottom:1px solid gainsboro;
+				display: flex;
+				padding-top: 3%;
+				padding-left: 3%;
+				padding-right: 3%;
+				padding-bottom: 3%;
+			}
+			.pii{
+				border:1px solid blue !important;
+				border-radius: 8px;
+			}
+			.content .cashier .cashier1 .goods .goodsList .goodsList-left{
+				width: 65%;
+				height: 80%;
+				
+				line-height:0.23rem;
+			}
+			.left1{
+				font-size: 0.16rem;
+			}
+			.left2{
+				font-size: 0.15rem;
+				color: gray;
+			}
+			.left3{
+				font-size: 0.14rem;
+				font-weight: 100;
+				color: gray;
+			}
+			.left4{
+				font-size: 0.14rem;
+				font-weight: 100;
+				color: gray;
+				text-decoration: line-through;
+			}
+			.left5{
+				font-size: 0.14rem;
+				font-weight: 100;
+				color: #93d5e6;
+			}
+			.content .cashier .cashier1 .goods .goodsList .goodsList-right{
+				width: 35%;
+				height: 80%;
+				
+				text-align: right;
+				line-height:0.23rem;
+			}
+			.right1,.right2{
+				font-size: 0.15rem;
+			}
+			.right1b,.rightMoney{
+				font-weight: 100;
+			}
+			.right2{
+				color: red;
+			}
+			/*产品信息goods结束*/
+			/*结算Settlement开始*/
+			.Settlement{
+				width:100%;
+				height:auto;
+				box-shadow:0 0 3px 3px gainsboro;
+				border-radius: 6px;
+				padding-top: 3%;
+				padding-bottom: 3%;
+				padding-left: 3%;
+				padding-right: 3%;
+				line-height: 2;
+				color: #aaadb6;
+			}
+			.Settlement .settp1,.settp2,.settp3,.settp4,.settp5{
+				font-size: 14px;
+			}
+			.Settlement .settp6{
+				margin-bottom: 3%;
+				font-size: 18px;
+				color: black;
+			}
+			.Settlement .settp7{
+				margin-right: 8%;
+				margin-left: 16%;
+			}
+			.Settlement .settp7,.settp8{
+				display: inline-block;
+				display: inline-table;
+				width: 30%;
+				height: auto;
+				border:1px solid #93d5e6;
+				text-align: center;
+				padding-top: 1.5%;
+				padding-bottom: 1.5%;
+				border-radius: 6px;
+				color: #93d5e6;
+				font-size: 18px;
+			}
+			.settpp{
+				background-color: #40bed9;
+				color: white!important;
+			}
+			.Settlement .settb1,.settb2,.settb3,.settb4,.settb5,.settb6{
+				float: right;
+				font-weight: 100;
+			}
+			.settbb6{
+				color: black;
+				font-size: 10px;
+				display:inline-table;
+				margin-right: 10px;
+				font-weight: 100;
+			}
+			.Settlement .settb6{
+				color: red;
+			}
+			/*结算Settlement结束*/
+			/*结算cashier1结束*/
+            
+            
+            /*结算cashier2中间按钮开始*/
+			.content .cashier .cashier2{
+				width:5%;
+				height:auto;
+				padding-top: 4.5%;
+			}
+			.content .cashier .cashier2 ul li{
+				list-style: none;
+				text-align: center;				
+				width: 90%;
+				height: auto;
+				margin: 0 auto;
+				margin-bottom: 20%;
+				padding-top: 7%;
+				padding-bottom: 7%;
+				color: #089fae;
+				background-color: #c1ebf8;
+				border-radius: 8px;
+			}
+			.liii{
+				background-color: #2eadc8!important;
+				color: white!important;
+			}
+			/*结算cashier2中间按钮结束*/
+			
+			
+			
+			
+			.content .cashier .cashier3{
+				width:64%;
+				height:88%;
+				margin-left: 1.5%;
+				box-shadow:0 0 3px 3px gainsboro;
+				border-radius: 6px;
+			}
+			.content .cashier .cashier3 .tabul{
+				width: 100%;
+				height: auto;
+				background-color: #efefef;
+			}
+			.content .cashier .cashier3 .tabul .tabli{
+				width: 11.6%;
+				height: auto;
+				padding-top: 1%;
+				padding-bottom: 1%;
+				text-align: center;
+				color: #848484;
+				box-sizing: border-box !important;
+				overflow-x: hidden !important;
+			}
+			.content .cashier .cashier3 .tabul .tabli1{
+				border-radius: 6px;
+			}
+			.content .cashier .cashier3 .tabul .tablli{
+				color: black!important;
+				background-color: white!important;
+			}
+			
+			.tabd{
+				margin-top: 2%;
+				width: 100%;
+				height: 91%;
+				display: none;
+				overflow: auto;
+				
+			}
+			
+			.tabbdd{
+				width: 100%;
+				height: 90%;
+				overflow: auto;
+			} 
+			.tabd1{
+				display: block;
+			}
+	       	.tabgoodsList{
+				width: 31.5%;
+				height: 16.5%;
+				border:1px solid #eaeaea;
+				border-radius: 6px;
+				margin-left: 1.5%;
+				margin-bottom: 2%;
+				float: left;
+				overflow: auto;
+			}
+			.tabgoodsListt{
+				border:1px solid #079df2!important;	
+			}
+			.tabgoodsList .tabgoodsListImg{
+				width:100px;
+				height: 100px;
+				float: left;
+			}
+			.tabgoodsList1{
+				 width: 70%;
+				 height: 100%;
+				 float: left;
+				 padding-top: 1%;
+				 padding-left: 1%;
+				 border-left:2px solid #eaeaea;
+			}
+			.tabgoodsList1P{
+				 margin-top: 9%;
+			}
+			.tabgoodsList1P1{
+				 word-wrap:break-word;
+				 text-decoration: line-through;
+				 color: #aaadb6;
+			}
+			.tabgoodsList1P2{
+				 color: #40bed9;
+				 margin-right: 20%;
+			}
+			.tabgoodsList1b2{
+				color: black;
+				display: inline-block;
+				display: inline-table;
+				margin-left: 20%;
+			}
+			
+			
+		
+			/*透明*/
+			.transparent{
+				display:none;
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top:0;
+				bottom:0;
+				z-index:2;
+				background: rgba(0,0,0,0.5);
+			}
+			/*选择会员弹窗开始*/
+			.selectMembers,.SettleAccounts,.SearchWindow,.NumberPopup{
+				width: auto;
+				height: auto;
+				position: absolute;
+				top:30%;left:35%;
+			    z-index: 3;
+			    background: white;
+			    padding-right: 0.5%;
+			    padding-left: 1%;
+			    padding-bottom: 1%;
+			    display: none;
+			}
+			.selectMembers .sMcontent{
+				display: flex;
+			}
+			.selectMembers .sMcontent .sm-leftInp{
+				width:300px;
+				height: 30px;
+				text-indent: 20px;
+			}
+			.selectMembers .sMcontent .sm-left{
+				width: auto;
+				height: auto;
+				border: 1px solid gray;
+				margin-top: 2%;
+				padding: 3%;
+				line-height: 25px;
+				color: gray;
+			}
+			.selectMembers .sMcontent .sm-left .sm-left1,.sm-left2,.sm-left3{
+				float: right;
+			}
+			.selectMembers .sMcontent .sm-left .sm-left2{
+				color: red;
+			}
+			.selectMembers .sMcontent .sMcontent-right{
+				width: 250px;
+				height: 250px;
+				border: 1px solid gray;
+				margin-left: 5%;
+				padding-top: 1%;
+				padding-left: 2%;
+			}
+			.selectMembers .sMcontent .sMcontent-right .sm-right{
+				display: flex;
+				margin-bottom: 2%;
+			}
+			.selectMembers .sMcontent .sMcontent-right .sm-right .sm-rightP{
+				border-radius: 6px;
+				width: 50px;
+				height: 50px;
+				background-color: gainsboro;
+				margin-right: 8%;
+				text-align: center;
+				line-height: 50px;
+				cursor:default;
+			}
+			.selectMembers .sMcontent .sMcontent-right .sm-right .sm-rightO{
+				border-radius: 6px;
+				width: 125px;
+				height: 30px;
+				background-color: gainsboro;
+				margin-right: 5%;
+				text-align: center;
+				line-height: 30px;
+				cursor:default;
+			}
+			.selectMembers .sMcontent .sMcontent-right .sm-right .sm-rightSure{
+				border-radius: 6px;
+				color: white;
+				background-color:blueviolet;
+				width: 50px;
+				height: 30px;
+				margin-right: 5%;
+				text-align: center;
+				line-height: 30px;
+				cursor:default;
+			}
+			/*选择会员结束*/
+			/*结算弹窗开始*/
+			.SettleAccounts .SA-content{
+				 display: flex;
+			}
+			.SettleAccounts .SA-content .SAC-left{
+				 width: 300px;
+				 height: 300px;
+				 border: 1px solid gainsboro;
+				 padding-right: 3%;
+				 padding-left: 3%;
+				 margin-right: 1%;
+				 line-height: 50px;
+				 color: gray;
+			}
+			.SettleAccounts .SA-content .SAC-left .SAC-left1{
+				 font-weight: 100;
+				 float: right;
+			}
+			.SettleAccounts .SA-content .SAC-right{
+				 width: 300px;
+				 height: 300px;
+				 border: 1px solid gainsboro;
+				 padding-top: 3%;
+			}
+			.SettleAccounts .SA-content .SAC-right .SAC-rightD{
+				 display: flex;
+				 margin-bottom: 4%
+			}
+			.SettleAccounts .SA-content .SAC-right .SAC-rightD .SAC-rightDP{
+				 width: 50%;
+				 padding-left: 10%;
+			}
+			.SettleAccounts .SA-content .SAC-right .SAC-rightD .SAC-rightDP img{
+				 margin-right: 2%;
+			}
+			.SettleAccounts .SA-content .SAC-right .SAC-rightDD{
+				 display: flex;
+				 margin-top: 15%;
+			}
+			.SettleAccounts .SA-content .SAC-right .SAC-rightDD .SacRightDDP1{
+				 width: 50px;
+				 height: 30px;
+				 background-color: gainsboro;
+				 margin-right: 20%;
+				 text-align: center;
+				 line-height: 30px;
+				 margin-left: 15%;
+			}
+			.SettleAccounts .SA-content .SAC-right .SAC-rightDD .SacRightDDP2{
+				 width: 80px;
+				 height: 30px;
+				 text-align: center;
+				 line-height: 30px;
+				 background-color: gainsboro;
+			}
+			.SettleAccounts .SA-content .SacRightDDP1,.SacRightDDP2,.SAC-rightDP{
+				 cursor:default;
+			}
+			/*结算弹窗结束*/
+			/*搜索弹窗开始*/
+	        .SearchWindow .SWinp{
+	        	height: auto;
+	        	width: auto;
+	        }
+	        .SearchWindow .SWinp .SWinpIpt{
+	        	width: 350px;
+	        	height: 40px;
+	        	text-align: center;
+	        	border-radius: 4px;
+	        	border:1px solid gainsboro!important 
+	        }
+	        .SearchWindow .SWinp .SWinpBtn{
+	        	width: 50px;
+	        	height: 40px;
+	        	background-color: blueviolet;
+	        	color: white;
+	        	border-radius: 4px;
+	        	cursor: default;
+	        	margin-bottom: 5%;
+	        }
+	        .SearchWindow .SWinp .SWtable{
+	        	width: auto;
+	        	height: auto;
+	        }
+	        .SearchWindow .SWinp .SWtable .SWtableSlt1{
+	        	height:30px;
+	        	width: 150px;
+	        	margin-right:5%;
+	        }
+	        .SearchWindow .SWinp .SWtable .SWtableSlt2{
+	        	height:30px;
+	        	width:150px;
+	        	margin-bottom: 5%;
+	        }
+	        .SearchWindow .SWinp .SWtable th{
+	        	text-align: center;
+	        	padding-top: 2%;
+	        	padding-bottom: 2%;
+	        	border:1px solid gray;
+	        }
+	        .SearchWindow .SWinp .SWtable td{
+	        	text-align: center;
+	        	padding-top: 2%;
+	        	padding-bottom: 2%;
+	        	border:1px solid gray;
+	        	border-top:1px solid white!important; 
+	        }
+	        .SearchWindow .SWinp .SWtable .tdChoice{
+	        	color: blue;
+	        }
+			/*搜索弹窗结束*/
+			/*弹窗名字/关闭弹窗公共*/
+			.SWcloseX,.closeX,.SAcloseX,.NucloseX{
+	        	text-align: right;
+	        	margin-top: 2%;
+	        	cursor: default;
+	        	font-size: 20px;
+	        }
+	        .SWtittleName,.tittleName,.SAtittleName,.NutittleName{
+	        	text-align: center;
+	        	margin-bottom: 4%;
+	        	font-size: 20px;
+	        }
+	        /*弹窗名字/关闭弹窗公共*/
+			/*数量弹窗开始*/
+			.NumberPopup .NuIpt{
+	        	background-image: url(../images/btn-off.png);
+	        	background-repeat: no-repeat;
+	        	background-position: right;
+	        	width: 315px;
+	        	height: 40px;
+	        	border:1px solid gainsboro!important;
+	        	margin-bottom: 5%;
+	        }
+	        .NumberPopup .Nukeyboard{
+	        	display: flex;
+	        }
+	        .NumberPopup .Nukeyboard .keyboardNum1{
+	        	display: flex;
+	        	margin-bottom: 6%;
+	        }
+	        .NumberPopup .Nukeyboard .keyboardNum1 .keyboardNum1P{
+	        	width: 60px;
+	        	height: 60px;
+	        	text-align: center;
+	        	line-height: 60px;
+	        	background-color: gainsboro;
+	        	border-radius: 6px;
+	        	margin-right:25px;
+	        }
+	        .NumberPopup .Nukeyboard .keyboardNum1 .keyboardNum0P{
+	        	width: 230px!important;
+	        }
+	        .NumberPopup .Nukeyboard .keyboardSure .keyboardSureP{
+	        	background-color: blue;
+	        	color: white;
+	        	width: 60px;
+	        	height: 285px;
+	        	text-align: center;
+	        	line-height: 285px;
+	        	border-radius: 6px;
+	        	margin-right:25px;
+	        }
+			/*数量弹窗结束*/
+			
+			
+			/*分页*/
+			.page{
+				text-align: center;	
+			}
+			.pagination{
+				padding-top: 1%;
+				align-items: center;
+				justify-content: center;
+				display: inline-block;
+				display: inline-table;
+				display: flex;
+			}
+             .disabled,.disabled1{
+             	list-style: none;
+             	cursor: default;
+             	background-color: gainsboro;
+             	text-align: center;
+             	width: 40px;
+				height: 40px;
+				margin-left: 1%;
+				line-height: 40px;
+				font-weight: 100;
+             }
+             .disabled1{
+             	width: 30px;
+				height: 30px;
+				margin-left: 1%;
+				line-height: 30px;
+             }
+             .disabledddd{
+             	background-color: green;
+             	color: white;
+             }
+             
+             .disabled a{
+             	text-decoration: none;
+                text-align: center;
+				width: 40px;
+				height: 40px;
+				line-height: 40px;
+				cursor: default;
+				color: black;
+             }
+             
+             .disabled1 a{
+             	width: 30px;
+				height: 30px;
+				margin-left: 1%;
+				line-height: 30px;
+				text-decoration: none;
+				color: black;
+             }
+			 /*分页*/
+			
+			
+			
+			@media screen and (max-device-width: 800px) {
+			    
+			}
+
+			
+			
+			
+			
+			
+			@media screen and (max-device-width: 1600px) {
+			    .content .cashier .cashier1 .goods .goodsList .goodsList-left,.goodsList-right{
+			    	line-height: 18px;
+			    }
+			    .left1,.right1,.right2{
+			    	font-size: 13px;
+			    }
+			    .left2{
+			    	font-size: 12px;
+			    }
+			    .left3,.left4,.left5{
+			    	font-size: 11px;
+			    }
+			    .Settlement .settp1,.settp2,.settp3,.settp4,.settp5{
+			    	font-size: 11px;
+			    }
+			    .Settlement .settp6{
+			    	font-size: 15px;
+			    }
+			    .Settlement .settp7,.settp8{
+			    	font-size: 15px;
+			    	padding-top: 1%;
+			    	padding-bottom: 1%;
+			    }
+			    .tabgoodsList{
+			    	font-size: 8px;
+			    }
+			    .tabgoodsList1b2{
+			    	margin-left: 30%;
+			    }
+			    .tabgoodsList1P{
+				    margin-top: 8%;
+			    }
+			    .searchSearch{
+			   	  top:15%!important;
+			   	  width: 15px;
+			   	  height: 15px;
+			   }
+			   .tabgoodsList .tabgoodsListImg{
+			    	width: 82px;
+			    	height: 82px;
+			    }
+			    
+			   .tabgoodsList{
+					width: 30.5%;
+					height: 16.5%;
+					margin-left: 2%;
+			   }
+			    
+			     .disabled{
+	             	width: 35px;
+					height: 35px;
+					margin-left: 1%;
+					line-height: 35px;
+	             }
+	             .disabled a{
+					width: 35px;
+					height: 35px;
+					line-height: 35px;
+	             }
+	             .pagination{
+					padding-top: 0.8%;
+				}
+			   
+			}
+			
+
+            @media screen and (max-device-width: 1440px) {
+			    .tabgoodsList{
+			    	font-size: 8px;
+			    }
+			    .tabgoodsList1b2{
+			    	margin-left: 30%;
+			    }
+			    .tabgoodsList1P{
+				    margin-top: 8%;
+			    }
+			    .searchSearch{
+			   	  top:15%!important;
+			   	  width: 12px;
+			   	  height: 12px;
+			   }
+			   .tabgoodsList .tabgoodsListImg{
+			    	width: 79px;
+			    	height: 79px;
+			    }
+			    
+			    .tabgoodsList{
+					width: 31%;
+					height: 16.8%;
+					margin-left: 1.7%;
+			    }
+			    
+			     .disabled{
+	             	width: 30px;
+					height: 30px;
+					margin-left: 1%;
+					line-height: 30px;
+	             }
+	             .disabled a{
+					width: 30px;
+					height: 30px;
+					line-height: 30px;
+	             }
+	             .pagination{
+					padding-top: 1%;
+				} 
+				.pagination1{
+					margin-top: 10%!important;
+				}   
+			}
+			
+            @media screen and (max-device-width: 1280px) {
+			     .content .cashier .cashier1 .goods .goodsList .goodsList-left,.goodsList-right{
+			    	line-height: 16px;
+			    }
+			    .left1,.right1,.right2{
+			    	font-size: 5.6px;
+			    }
+			    .left2{
+			    	font-size: 5.4px;
+			    }
+			    .left3,.left4,.left5{
+			    	font-size: 5px;
+			    }
+			    
+			    .Settlement .settp1,.settp2,.settp3,.settp4,.settp5{
+			    	font-size: 8px;
+			    }
+			    .Settlement .settp6{
+			    	font-size: 10px;
+			    }
+			    .Settlement .settp7,.settp8{
+			    	font-size: 10px;
+			    	padding-top: 0;
+			    	padding-bottom: 0;
+			    }
+			    
+			    .tabgoodsList{
+			    	font-size: 5px;
+			    }
+			    .tabgoodsList1b2{
+			    	margin-left: 5%;
+			    }
+			    .tabgoodsList1P{
+				    margin-top: 3%;
+			    }
+			    .searchSearch{
+			   	  top:18.5%!important;
+			   	  width: 12px;
+			   	  height: 12px;
+			   }
+			    .tabgoodsList .tabgoodsListImg{
+			    	width: 65px;
+			    	height: 65px;
+			    } 
+			    .selectMembers,.SettleAccounts,.SearchWindow,.NumberPopup{
+			    	top:10%;
+			    } 
+			    .tabgoodsList{
+					width: 32%;
+					height: 18.8%;
+					margin-left: 1%;
+			    }	
+			    
+			    .disabled{
+	             	width: 25px;
+					height: 25px;
+					margin-left: 1%;
+					line-height: 25px;
+	             }
+	             .disabled a{
+					width: 25px;
+					height: 25px;
+					line-height: 25px;
+	             }
+	             .pagination{
+					padding-top: 0.8%;
+				}
+    		    
+			}

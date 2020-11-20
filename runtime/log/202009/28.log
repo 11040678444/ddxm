@@ -1,0 +1,2075 @@
+---------------------------------------------------------------
+[2020-09-28T15:02:46+08:00] 127.0.0.1 GET localhost:81/
+[运行时间：0.892543s] [吞吐率：1.12req/s] [内存消耗：3,306.36kb] [文件加载：109]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'sec-fetch-dest' => 'document',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'none',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\common\view\dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.111884s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_cache` [ RunTime:0.074573s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_cache` WHERE  `key` = 'Config' ORDER BY `id` DESC [ RunTime:0.074274s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_config` [ RunTime:0.074144s ]
+[ sql ] [ SQL ] SELECT `name`,`value`,`type`,`options` FROM `ddxm_config` WHERE  ( status='1' ) ORDER BY `listorder`,`id` DESC [ RunTime:0.073135s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_hooks` [ RunTime:0.074380s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `ddxm_hooks` [ RunTime:0.072662s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_adminlog` [ RunTime:0.073185s ]
+[ sql ] [ SQL ] INSERT INTO `ddxm_adminlog` (`uid` , `status` , `info` , `get` , `ip` , `remarks` , `create_time`) VALUES (0 , 0 , '提示语:请先登陆' , '/' , 2130706433 , '' , 1601276565) [ RunTime:0.073088s ]
+---------------------------------------------------------------
+[2020-09-28T15:04:17+08:00] 127.0.0.1 GET localhost:81/admin/
+[运行时间：0.367252s] [吞吐率：2.72req/s] [内存消耗：3,098.28kb] [文件加载：104]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'sec-fetch-dest' => 'document',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'none',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\common\view\dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.103983s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_adminlog` [ RunTime:0.069554s ]
+[ sql ] [ SQL ] INSERT INTO `ddxm_adminlog` (`uid` , `status` , `info` , `get` , `ip` , `remarks` , `create_time`) VALUES (0 , 0 , '提示语:请先登陆' , '/admin/' , 2130706433 , '' , 1601276657) [ RunTime:0.069278s ]
+---------------------------------------------------------------
+[2020-09-28T15:04:18+08:00] 127.0.0.1 GET localhost:81/admin/index/login.html
+[运行时间：0.032719s] [吞吐率：30.56req/s] [内存消耗：2,148.05kb] [文件加载：93]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/',
+  'sec-fetch-dest' => 'document',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\index\login.html [ array (
+) ]
+---------------------------------------------------------------
+[2020-09-28T15:04:19+08:00] 127.0.0.1 GET localhost:81/public/static/admin/images/slider.png
+[运行时间：0.034882s] [吞吐率：28.67req/s] [内存消耗：1,839.59kb] [文件加载：83]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/public/static/admin/css/jquery.slider.css',
+  'sec-fetch-dest' => 'image',
+  'sec-fetch-mode' => 'no-cors',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'images' => 'slider.png',
+)
+---------------------------------------------------------------
+[2020-09-28T15:04:29+08:00] 127.0.0.1 GET localhost:81/public/static/admin/images/success_ok.png
+[运行时间：0.025776s] [吞吐率：38.80req/s] [内存消耗：1,839.62kb] [文件加载：83]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/public/static/admin/css/jquery.slider.css',
+  'sec-fetch-dest' => 'image',
+  'sec-fetch-mode' => 'no-cors',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'images' => 'success_ok.png',
+)
+---------------------------------------------------------------
+[2020-09-28T15:04:30+08:00] 127.0.0.1 POST localhost:81/admin/index/login.html
+[运行时间：0.561672s] [吞吐率：1.78req/s] [内存消耗：3,177.13kb] [文件加载：105]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/index/login.html',
+  'sec-fetch-dest' => 'empty',
+  'sec-fetch-mode' => 'cors',
+  'sec-fetch-site' => 'same-origin',
+  'origin' => 'http://localhost:81',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '51',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+)
+[ info ] [ PARAM ] array (
+  '_m' => 'dXNlcm5hbWU9ZGR4bSZwYXNzd29yZD1kZHhtMjAxOQ==',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.118773s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.079762s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `username` = 'ddxm' LIMIT 1 [ RunTime:0.079585s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_adminlog` [ RunTime:0.079688s ]
+[ sql ] [ SQL ] INSERT INTO `ddxm_adminlog` (`uid` , `status` , `info` , `get` , `ip` , `remarks` , `create_time`) VALUES (0 , 0 , '提示语:用户名或者密码错误，登陆失败！' , '/admin/index/login.html' , 2130706433 , '' , 1601276670) [ RunTime:0.080685s ]
+---------------------------------------------------------------
+[2020-09-28T15:04:38+08:00] 127.0.0.1 POST localhost:81/admin/index/login.html
+[运行时间：0.433885s] [吞吐率：2.30req/s] [内存消耗：3,177.28kb] [文件加载：105]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/index/login.html',
+  'sec-fetch-dest' => 'empty',
+  'sec-fetch-mode' => 'cors',
+  'sec-fetch-site' => 'same-origin',
+  'origin' => 'http://localhost:81',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '43',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+)
+[ info ] [ PARAM ] array (
+  '_m' => 'dXNlcm5hbWU9YWRtaW4mcGFzc3dvcmQ9ZGR4bTEz',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.088343s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.059254s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `username` = 'admin' LIMIT 1 [ RunTime:0.059534s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_adminlog` [ RunTime:0.058904s ]
+[ sql ] [ SQL ] INSERT INTO `ddxm_adminlog` (`uid` , `status` , `info` , `get` , `ip` , `remarks` , `create_time`) VALUES (0 , 0 , '提示语:用户名或者密码错误，登陆失败！' , '/admin/index/login.html' , 2130706433 , '' , 1601276678) [ RunTime:0.058130s ]
+---------------------------------------------------------------
+[2020-09-28T15:04:42+08:00] 127.0.0.1 POST localhost:81/admin/index/login.html
+[运行时间：0.474376s] [吞吐率：2.11req/s] [内存消耗：3,177.21kb] [文件加载：105]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/index/login.html',
+  'sec-fetch-dest' => 'empty',
+  'sec-fetch-mode' => 'cors',
+  'sec-fetch-site' => 'same-origin',
+  'origin' => 'http://localhost:81',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '49',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+)
+[ info ] [ PARAM ] array (
+  '_m' => 'dXNlcm5hbWU9YWRtaW4mcGFzc3dvcmQ9ZGR4bTIwMTk=',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.097663s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.065227s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `username` = 'admin' LIMIT 1 [ RunTime:0.064859s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_adminlog` [ RunTime:0.064849s ]
+[ sql ] [ SQL ] INSERT INTO `ddxm_adminlog` (`uid` , `status` , `info` , `get` , `ip` , `remarks` , `create_time`) VALUES (0 , 0 , '提示语:用户名或者密码错误，登陆失败！' , '/admin/index/login.html' , 2130706433 , '' , 1601276682) [ RunTime:0.064238s ]
+---------------------------------------------------------------
+[2020-09-28T15:04:51+08:00] 127.0.0.1 POST localhost:81/admin/index/login.html
+[运行时间：0.529227s] [吞吐率：1.89req/s] [内存消耗：3,177.13kb] [文件加载：105]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/index/login.html',
+  'sec-fetch-dest' => 'empty',
+  'sec-fetch-mode' => 'cors',
+  'sec-fetch-site' => 'same-origin',
+  'origin' => 'http://localhost:81',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '51',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+)
+[ info ] [ PARAM ] array (
+  '_m' => 'dXNlcm5hbWU9ZGR4bSZwYXNzd29yZD1kZHhtMjAxOQ==',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.111633s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.074593s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `username` = 'ddxm' LIMIT 1 [ RunTime:0.074146s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_adminlog` [ RunTime:0.077920s ]
+[ sql ] [ SQL ] INSERT INTO `ddxm_adminlog` (`uid` , `status` , `info` , `get` , `ip` , `remarks` , `create_time`) VALUES (0 , 0 , '提示语:用户名或者密码错误，登陆失败！' , '/admin/index/login.html' , 2130706433 , '' , 1601276690) [ RunTime:0.072931s ]
+---------------------------------------------------------------
+[2020-09-28T15:05:00+08:00] 127.0.0.1 POST localhost:81/admin/index/login.html
+[运行时间：0.608497s] [吞吐率：1.64req/s] [内存消耗：3,180.80kb] [文件加载：105]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/index/login.html',
+  'sec-fetch-dest' => 'empty',
+  'sec-fetch-mode' => 'cors',
+  'sec-fetch-site' => 'same-origin',
+  'origin' => 'http://localhost:81',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '51',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+)
+[ info ] [ PARAM ] array (
+  '_m' => 'dXNlcm5hbWU9YWRtaW4mcGFzc3dvcmQ9ZGR4bTEyMw==',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.099553s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.066677s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `username` = 'admin' LIMIT 1 [ RunTime:0.066299s ]
+[ sql ] [ SQL ] UPDATE `ddxm_admin`  SET `last_login_time` = 1601276700 , `last_login_ip` = 2130706433  WHERE  `userid` = 1 [ RunTime:0.066001s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_adminlog` [ RunTime:0.065295s ]
+[ sql ] [ SQL ] INSERT INTO `ddxm_adminlog` (`uid` , `status` , `info` , `get` , `ip` , `remarks` , `create_time`) VALUES (1 , 1 , '提示语:恭喜您，登陆成功' , '/admin/index/login.html' , 2130706433 , '' , 1601276700) [ RunTime:0.065284s ]
+---------------------------------------------------------------
+[2020-09-28T15:05:09+08:00] 127.0.0.1 GET localhost:81/admin/index/index.html
+[运行时间：7.732119s] [吞吐率：0.13req/s] [内存消耗：3,553.59kb] [文件加载：108]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/index/login.html',
+  'sec-fetch-dest' => 'document',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\index\index.html [ array (
+  0 => 'userInfo',
+  1 => 'SUBMENU_CONFIG',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.100606s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.065703s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.065355s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_menu` [ RunTime:0.065220s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 0  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.064335s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 3  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.064139s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 10  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.064060s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 11  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.064384s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 24  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.064382s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 25  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063918s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 26  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.064277s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 13  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.064119s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 14  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.064142s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 27  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.064347s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 28  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063158s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 29  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063076s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 23  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063499s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 30  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062862s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 31  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062993s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 15  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063160s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 16  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063369s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 213  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063150s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 17  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063267s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 20  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063060s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 175  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063046s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 176  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063006s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 199  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063283s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 225  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063225s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 353  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063497s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 200  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063378s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 201  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063135s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 202  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063199s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 177  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063197s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 178  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062896s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 183  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063194s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 216  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063045s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 243  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063207s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 501  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063205s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 184  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063299s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 185  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063348s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 186  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062949s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 187  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063215s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 198  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063357s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 188  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063674s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 189  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063284s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 190  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063442s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 191  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063514s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 192  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063356s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 193  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062993s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 194  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063194s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 221  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063317s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 195  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063168s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 196  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063530s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 197  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063422s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 244  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063218s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 245  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062804s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 246  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063322s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 247  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063133s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 248  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063220s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 249  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063229s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 250  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.073453s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 260  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063093s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 242  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063310s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 333  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063088s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 334  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063009s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 335  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063288s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 336  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063295s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 337  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063068s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 338  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063486s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 267  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063071s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 203  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063494s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 204  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063537s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 209  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062950s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 210  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063265s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 211  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062995s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 205  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063093s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 206  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062907s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 207  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062998s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 208  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063035s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 214  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063082s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 215  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062959s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 217  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063269s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 220  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063148s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 218  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063036s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 219  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063003s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 223  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062915s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 224  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063178s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 416  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062988s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 417  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062971s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 421  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063462s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 251  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063232s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 252  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062930s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 253  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063440s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 256  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063155s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 257  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062961s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 258  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062900s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 262  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062891s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 293  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063171s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 430  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062810s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 263  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063133s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 264  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063345s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 265  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063339s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 266  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063114s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 284  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063283s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 285  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063504s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 292  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063232s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 282  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063377s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 283  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063208s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 419  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063021s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 420  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063026s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 426  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062858s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 432  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062939s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 286  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063168s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 289  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063686s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 290  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063040s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 291  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063236s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 428  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063454s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 429  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063217s ]
+---------------------------------------------------------------
+[2020-09-28T15:05:10+08:00] 127.0.0.1 GET localhost:81/admin/main/index.html
+[运行时间：0.315299s] [吞吐率：3.17req/s] [内存消耗：3,256.89kb] [文件加载：105]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/index/index.html',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\main\index.html [ array (
+  0 => 'userInfo',
+  1 => 'sys_info',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.086230s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.059340s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.057509s ]
+[ sql ] [ SQL ] SELECT VERSION() as version [ RunTime:0.057661s ]
+---------------------------------------------------------------
+[2020-09-28T15:26:49+08:00] 127.0.0.1 GET localhost:81/admin/order/index/menuid/178.html
+[运行时间：0.498840s] [吞吐率：2.00req/s] [内存消耗：3,631.65kb] [文件加载：105]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/index/index.html',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'menuid' => '178',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\order\index.html [ array (
+  0 => 'data',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.084182s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.056310s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.055742s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_shop` [ RunTime:0.056281s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `ddxm_shop` [ RunTime:0.054458s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_shop_worker` [ RunTime:0.055464s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `ddxm_shop_worker` WHERE  `status` = 1 [ RunTime:0.054896s ]
+---------------------------------------------------------------
+[2020-09-28T15:27:48+08:00] 127.0.0.1 GET localhost:81/admin/item/index/menuid/176.html
+[运行时间：0.432968s] [吞吐率：2.31req/s] [内存消耗：3,395.11kb] [文件加载：105]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ error ] [8]未定义变量: list[D:\PHPTutorial\WWW\ddxm_svn\runtime\temp\22e53d2a5967375281ee5f6aefc87f19.php:40]
+[ error ] [8]未定义变量: list[D:\PHPTutorial\WWW\ddxm_svn\runtime\temp\22e53d2a5967375281ee5f6aefc87f19.php:40]
+[ error ] [8]未定义变量: list[D:\PHPTutorial\WWW\ddxm_svn\runtime\temp\22e53d2a5967375281ee5f6aefc87f19.php:40]
+[ error ] [8]未定义变量: list[D:\PHPTutorial\WWW\ddxm_svn\runtime\temp\22e53d2a5967375281ee5f6aefc87f19.php:40]
+[ error ] [8]未定义变量: list[D:\PHPTutorial\WWW\ddxm_svn\runtime\temp\22e53d2a5967375281ee5f6aefc87f19.php:40]
+[ error ] [8]未定义变量: list[D:\PHPTutorial\WWW\ddxm_svn\runtime\temp\22e53d2a5967375281ee5f6aefc87f19.php:40]
+[ error ] [8]未定义变量: list[D:\PHPTutorial\WWW\ddxm_svn\runtime\temp\22e53d2a5967375281ee5f6aefc87f19.php:40]
+[ error ] [8]未定义变量: list[D:\PHPTutorial\WWW\ddxm_svn\runtime\temp\22e53d2a5967375281ee5f6aefc87f19.php:40]
+[ error ] [8]未定义变量: list[D:\PHPTutorial\WWW\ddxm_svn\runtime\temp\22e53d2a5967375281ee5f6aefc87f19.php:40]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/index/index.html',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'menuid' => '176',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\item\index.html [ array (
+  0 => 'typeId',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.095420s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.063640s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.064076s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_item_category` [ RunTime:0.065716s ]
+[ sql ] [ SQL ] SELECT `id`,`cname` FROM `ddxm_item_category` WHERE  `pid` = 0  AND `status` = 1  AND `type` = 1  AND `online` = 0 [ RunTime:0.062409s ]
+---------------------------------------------------------------
+[2020-09-28T15:27:54+08:00] 127.0.0.1 GET localhost:81/admin/item/index.html?page=1&limit=10
+[运行时间：4.652672s] [吞吐率：0.21req/s] [内存消耗：3,366.06kb] [文件加载：103]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/item/index/menuid/176.html',
+  'sec-fetch-dest' => 'empty',
+  'sec-fetch-mode' => 'cors',
+  'sec-fetch-site' => 'same-origin',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'limit' => '10',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.097941s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.065420s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.065442s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_item` [ RunTime:0.065397s ]
+[ sql ] [ SQL ] SELECT *,id as price FROM `ddxm_item` WHERE  `status` <> 3  AND `item_type` IN (2,3) ORDER BY `id` DESC LIMIT 0,10 [ RunTime:0.065610s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `ddxm_item` WHERE  `status` <> 3  AND `item_type` IN (2,3) LIMIT 1 [ RunTime:0.065892s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_item_category` [ RunTime:0.064429s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 354 LIMIT 1 [ RunTime:0.064058s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 355 LIMIT 1 [ RunTime:0.063602s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_item_unit` [ RunTime:0.063874s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_unit` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.063676s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_item_cate` [ RunTime:0.064760s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_cate` WHERE  `id` = 2 LIMIT 1 [ RunTime:0.063451s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_item_specs` [ RunTime:0.063922s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_specs` WHERE  `id` = 2560 LIMIT 1 [ RunTime:0.064068s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_item_price` [ RunTime:0.064424s ]
+[ sql ] [ SQL ] SELECT `selling_price` FROM `ddxm_item_price` WHERE  `status` = 1  AND `item_id` = 6266 LIMIT 1 [ RunTime:0.063505s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 354 LIMIT 1 [ RunTime:0.063501s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 355 LIMIT 1 [ RunTime:0.063978s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_unit` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.063062s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_cate` WHERE  `id` = 2 LIMIT 1 [ RunTime:0.062967s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_specs` WHERE  `id` = 2560 LIMIT 1 [ RunTime:0.062718s ]
+[ sql ] [ SQL ] SELECT `selling_price` FROM `ddxm_item_price` WHERE  `status` = 1  AND `item_id` = 6265 LIMIT 1 [ RunTime:0.062974s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 37 LIMIT 1 [ RunTime:0.062905s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 111 LIMIT 1 [ RunTime:0.062920s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_unit` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.062733s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_cate` WHERE  `id` = 2 LIMIT 1 [ RunTime:0.069099s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_specs` WHERE  `id` = 2560 LIMIT 1 [ RunTime:0.062775s ]
+[ sql ] [ SQL ] SELECT `selling_price` FROM `ddxm_item_price` WHERE  `status` = 1  AND `item_id` = 6264 LIMIT 1 [ RunTime:0.063060s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 37 LIMIT 1 [ RunTime:0.062906s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 111 LIMIT 1 [ RunTime:0.062799s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_unit` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.062491s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_cate` WHERE  `id` = 2 LIMIT 1 [ RunTime:0.062829s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_specs` WHERE  `id` = 2560 LIMIT 1 [ RunTime:0.062754s ]
+[ sql ] [ SQL ] SELECT `selling_price` FROM `ddxm_item_price` WHERE  `status` = 1  AND `item_id` = 6263 LIMIT 1 [ RunTime:0.062879s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 37 LIMIT 1 [ RunTime:0.062959s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 112 LIMIT 1 [ RunTime:0.062951s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_unit` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.062782s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_cate` WHERE  `id` = 2 LIMIT 1 [ RunTime:0.062771s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_specs` WHERE  `id` = 2560 LIMIT 1 [ RunTime:0.062967s ]
+[ sql ] [ SQL ] SELECT `selling_price` FROM `ddxm_item_price` WHERE  `status` = 1  AND `item_id` = 6262 LIMIT 1 [ RunTime:0.063006s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 37 LIMIT 1 [ RunTime:0.062832s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 115 LIMIT 1 [ RunTime:0.062775s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_unit` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.062853s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_cate` WHERE  `id` = 2 LIMIT 1 [ RunTime:0.062757s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_specs` WHERE  `id` = 2560 LIMIT 1 [ RunTime:0.062883s ]
+[ sql ] [ SQL ] SELECT `selling_price` FROM `ddxm_item_price` WHERE  `status` = 1  AND `item_id` = 6261 LIMIT 1 [ RunTime:0.063195s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 40 LIMIT 1 [ RunTime:0.062759s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 120 LIMIT 1 [ RunTime:0.062812s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_unit` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.063495s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_cate` WHERE  `id` = 2 LIMIT 1 [ RunTime:0.062832s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_specs` WHERE  `id` = 2560 LIMIT 1 [ RunTime:0.062853s ]
+[ sql ] [ SQL ] SELECT `selling_price` FROM `ddxm_item_price` WHERE  `status` = 1  AND `item_id` = 6260 LIMIT 1 [ RunTime:0.063124s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 40 LIMIT 1 [ RunTime:0.063097s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 120 LIMIT 1 [ RunTime:0.062901s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_unit` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.062771s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_cate` WHERE  `id` = 2 LIMIT 1 [ RunTime:0.062950s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_specs` WHERE  `id` = 2560 LIMIT 1 [ RunTime:0.062908s ]
+[ sql ] [ SQL ] SELECT `selling_price` FROM `ddxm_item_price` WHERE  `status` = 1  AND `item_id` = 6259 LIMIT 1 [ RunTime:0.063289s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 40 LIMIT 1 [ RunTime:0.062521s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 120 LIMIT 1 [ RunTime:0.063046s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_unit` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.062974s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_cate` WHERE  `id` = 2 LIMIT 1 [ RunTime:0.062831s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_specs` WHERE  `id` = 2560 LIMIT 1 [ RunTime:0.063007s ]
+[ sql ] [ SQL ] SELECT `selling_price` FROM `ddxm_item_price` WHERE  `status` = 1  AND `item_id` = 6258 LIMIT 1 [ RunTime:0.063219s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 40 LIMIT 1 [ RunTime:0.062848s ]
+[ sql ] [ SQL ] SELECT `cname` FROM `ddxm_item_category` WHERE  `id` = 121 LIMIT 1 [ RunTime:0.065056s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_unit` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.062796s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_cate` WHERE  `id` = 2 LIMIT 1 [ RunTime:0.065891s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_item_specs` WHERE  `id` = 2560 LIMIT 1 [ RunTime:0.063365s ]
+[ sql ] [ SQL ] SELECT `selling_price` FROM `ddxm_item_price` WHERE  `status` = 1  AND `item_id` = 6257 LIMIT 1 [ RunTime:0.063345s ]
+---------------------------------------------------------------
+[2020-09-28T16:30:54+08:00] 127.0.0.1 GET localhost:81/
+[运行时间：7.259946s] [吞吐率：0.14req/s] [内存消耗：3,357.40kb] [文件加载：105]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'sec-fetch-dest' => 'document',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'none',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\index\index.html [ array (
+  0 => 'userInfo',
+  1 => 'SUBMENU_CONFIG',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.091620s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.061377s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.060791s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_menu` [ RunTime:0.060600s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 0  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.059612s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 3  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.059670s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 10  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.059895s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 11  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.059965s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 24  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.059412s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 25  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.059659s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 26  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.059935s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 13  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.059879s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 14  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.060121s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 27  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.059998s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 28  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.059881s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 29  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.059408s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 23  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058641s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 30  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058306s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 31  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058260s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 15  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058378s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 16  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058519s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 213  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058357s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 17  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058286s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 20  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058724s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 175  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058612s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 176  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058317s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 199  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058359s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 225  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058670s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 353  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058565s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 200  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058474s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 201  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058507s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 202  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058479s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 177  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058650s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 178  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058297s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 183  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058681s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 216  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058386s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 243  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058676s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 501  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058511s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 184  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058430s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 185  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058592s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 186  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058379s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 187  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058344s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 198  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058656s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 188  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058416s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 189  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058313s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 190  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058328s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 191  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058638s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 192  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058592s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 193  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058577s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 194  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058473s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 221  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058480s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 195  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058252s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 196  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058415s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 197  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058647s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 244  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058564s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 245  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058402s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 246  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058854s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 247  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058479s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 248  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058780s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 249  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058545s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 250  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058410s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 260  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058427s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 242  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058611s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 333  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058501s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 334  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058303s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 335  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058270s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 336  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058745s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 337  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058678s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 338  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058537s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 267  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058413s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 203  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058421s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 204  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058412s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 209  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058284s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 210  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058375s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 211  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058616s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 205  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058641s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 206  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058452s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 207  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058532s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 208  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058440s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 214  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058524s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 215  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058565s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 217  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058529s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 220  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058459s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 218  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058576s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 219  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058559s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 223  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058506s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 224  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058337s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 416  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058449s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 417  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058397s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 421  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058486s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 251  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058459s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 252  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058501s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 253  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058475s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 256  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058271s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 257  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058532s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 258  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058250s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 262  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058327s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 293  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058484s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 430  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058833s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 263  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058495s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 264  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058415s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 265  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058342s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 266  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058392s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 284  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058459s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 285  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058487s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 292  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058391s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 282  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058399s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 283  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058423s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 419  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058471s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 420  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058430s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 426  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058562s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 432  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058475s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 286  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058834s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 289  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058512s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 290  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058328s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 291  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058440s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 428  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058585s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 429  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.058348s ]
+---------------------------------------------------------------
+[2020-09-28T16:30:54+08:00] 127.0.0.1 GET localhost:81/admin/main/index.html
+[运行时间：0.362150s] [吞吐率：2.76req/s] [内存消耗：3,089.97kb] [文件加载：102]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\main\index.html [ array (
+  0 => 'userInfo',
+  1 => 'sys_info',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.098370s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.065571s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.065746s ]
+[ sql ] [ SQL ] SELECT VERSION() as version [ RunTime:0.065367s ]
+---------------------------------------------------------------
+[2020-09-28T16:30:54+08:00] 127.0.0.1 GET localhost:81/favicon.ico
+[运行时间：0.026368s] [吞吐率：37.92req/s] [内存消耗：1,839.81kb] [文件加载：83]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/',
+  'sec-fetch-dest' => 'image',
+  'sec-fetch-mode' => 'no-cors',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2020-09-28T16:31:24+08:00] 127.0.0.1 GET localhost:81/index.php/Index/Index/index.html
+[运行时间：0.031040s] [吞吐率：32.22req/s] [内存消耗：1,988.66kb] [文件加载：83]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/',
+  'sec-fetch-dest' => 'document',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2020-09-28T16:31:45+08:00] 127.0.0.1 GET localhost:81/attachment/attachments/index/menuid/23.html
+[运行时间：0.312749s] [吞吐率：3.20req/s] [内存消耗：3,288.57kb] [文件加载：104]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'menuid' => '23',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\attachment\view\attachments\index.html [ array (
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.109803s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.073002s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.072733s ]
+---------------------------------------------------------------
+[2020-09-28T16:31:46+08:00] 127.0.0.1 GET localhost:81/attachment/attachments/index.html?page=1&limit=10
+[运行时间：0.487908s] [吞吐率：2.05req/s] [内存消耗：3,081.13kb] [文件加载：99]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/attachment/attachments/index/menuid/23.html',
+  'sec-fetch-dest' => 'empty',
+  'sec-fetch-mode' => 'cors',
+  'sec-fetch-site' => 'same-origin',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'limit' => '10',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.104043s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.069943s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.068348s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_attachment` [ RunTime:0.069282s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_attachment` ORDER BY `id` DESC LIMIT 0,10 [ RunTime:0.068432s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `ddxm_attachment` ORDER BY `id` DESC LIMIT 1 [ RunTime:0.068019s ]
+---------------------------------------------------------------
+[2020-09-28T16:31:49+08:00] 127.0.0.1 GET localhost:81/admin/menu/index/menuid/14.html
+[运行时间：0.286642s] [吞吐率：3.49req/s] [内存消耗：3,348.48kb] [文件加载：106]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'menuid' => '14',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\menu\index.html [ array (
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.104012s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.069475s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.069390s ]
+---------------------------------------------------------------
+[2020-09-28T16:31:49+08:00] 127.0.0.1 GET localhost:81/admin/menu/index.html?page=1&limit=10
+[运行时间：0.426021s] [吞吐率：2.35req/s] [内存消耗：3,488.78kb] [文件加载：102]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/menu/index/menuid/14.html',
+  'sec-fetch-dest' => 'empty',
+  'sec-fetch-mode' => 'cors',
+  'sec-fetch-site' => 'same-origin',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'limit' => '10',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.092812s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.062207s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.062201s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_menu` [ RunTime:0.062035s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` ORDER BY `listorder`,`id` DESC [ RunTime:0.091695s ]
+---------------------------------------------------------------
+[2020-09-28T16:31:51+08:00] 127.0.0.1 GET localhost:81/admin/config/setting/menuid/13.html
+[运行时间：0.440324s] [吞吐率：2.27req/s] [内存消耗：3,328.45kb] [文件加载：106]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'menuid' => '13',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\config\setting.html [ array (
+  0 => 'groupArray',
+  1 => 'fieldList',
+  2 => 'group',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.105083s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.070219s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.070232s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_config` [ RunTime:0.070073s ]
+[ sql ] [ SQL ] SELECT `name`,`title`,`remark`,`type`,`value`,`options` FROM `ddxm_config` WHERE  `group` = 'base'  AND `status` = 1 ORDER BY `listorder`,`id` DESC [ RunTime:0.068937s ]
+---------------------------------------------------------------
+[2020-09-28T16:31:52+08:00] 127.0.0.1 GET localhost:81/admin/config/index/menuid/11.html
+[运行时间：0.291813s] [吞吐率：3.43req/s] [内存消耗：3,326.65kb] [文件加载：106]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'menuid' => '11',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\config\index.html [ array (
+  0 => 'groupArray',
+  1 => 'group',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.102446s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.068934s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.067730s ]
+---------------------------------------------------------------
+[2020-09-28T16:31:53+08:00] 127.0.0.1 GET localhost:81/admin/config/index/group/base.html?page=1&limit=10
+[运行时间：0.424263s] [吞吐率：2.36req/s] [内存消耗：3,123.01kb] [文件加载：101]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/config/index/menuid/11.html',
+  'sec-fetch-dest' => 'empty',
+  'sec-fetch-mode' => 'cors',
+  'sec-fetch-site' => 'same-origin',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'limit' => '10',
+  'group' => 'base',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.105553s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.070880s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.069768s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_config` [ RunTime:0.070087s ]
+[ sql ] [ SQL ] SELECT `config`.`id`,`config`.`name`,`config`.`title`,`config`.`type`,`config`.`listorder`,`config`.`status`,`config`.`update_time`,field_type.title as ftitle FROM `ddxm_config` `config` LEFT JOIN `ddxm_field_type` `field_type` ON `field_type`.`name`=`config`.`type` WHERE  `group` = 'base' ORDER BY `config`.`listorder` ASC,`config`.`id` DESC [ RunTime:0.069102s ]
+---------------------------------------------------------------
+[2020-09-28T16:31:55+08:00] 127.0.0.1 GET localhost:81/admin/config/index/group/system.html
+[运行时间：0.270782s] [吞吐率：3.69req/s] [内存消耗：3,165.88kb] [文件加载：103]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/config/index/menuid/11.html',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'group' => 'system',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\config\index.html [ array (
+  0 => 'groupArray',
+  1 => 'group',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.095409s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.063647s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.063105s ]
+---------------------------------------------------------------
+[2020-09-28T16:31:55+08:00] 127.0.0.1 GET localhost:81/admin/config/index/group/system.html?page=1&limit=10
+[运行时间：0.356904s] [吞吐率：2.80req/s] [内存消耗：3,122.96kb] [文件加载：101]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/config/index/group/system.html',
+  'sec-fetch-dest' => 'empty',
+  'sec-fetch-mode' => 'cors',
+  'sec-fetch-site' => 'same-origin',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'limit' => '10',
+  'group' => 'system',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.086453s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.057903s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.057875s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_config` [ RunTime:0.058204s ]
+[ sql ] [ SQL ] SELECT `config`.`id`,`config`.`name`,`config`.`title`,`config`.`type`,`config`.`listorder`,`config`.`status`,`config`.`update_time`,field_type.title as ftitle FROM `ddxm_config` `config` LEFT JOIN `ddxm_field_type` `field_type` ON `field_type`.`name`=`config`.`type` WHERE  `group` = 'system' ORDER BY `config`.`listorder` ASC,`config`.`id` DESC [ RunTime:0.057097s ]
+---------------------------------------------------------------
+[2020-09-28T16:31:57+08:00] 127.0.0.1 GET localhost:81/admin/config/index/group/upload.html
+[运行时间：0.304561s] [吞吐率：3.28req/s] [内存消耗：3,165.89kb] [文件加载：103]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/config/index/group/system.html',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'group' => 'upload',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\config\index.html [ array (
+  0 => 'groupArray',
+  1 => 'group',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.112664s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.075706s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.075285s ]
+---------------------------------------------------------------
+[2020-09-28T16:31:58+08:00] 127.0.0.1 GET localhost:81/admin/config/index/group/upload.html?page=1&limit=10
+[运行时间：0.426743s] [吞吐率：2.34req/s] [内存消耗：3,125.66kb] [文件加载：101]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/config/index/group/upload.html',
+  'sec-fetch-dest' => 'empty',
+  'sec-fetch-mode' => 'cors',
+  'sec-fetch-site' => 'same-origin',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'limit' => '10',
+  'group' => 'upload',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.105030s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.070864s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.070366s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_config` [ RunTime:0.070604s ]
+[ sql ] [ SQL ] SELECT `config`.`id`,`config`.`name`,`config`.`title`,`config`.`type`,`config`.`listorder`,`config`.`status`,`config`.`update_time`,field_type.title as ftitle FROM `ddxm_config` `config` LEFT JOIN `ddxm_field_type` `field_type` ON `field_type`.`name`=`config`.`type` WHERE  `group` = 'upload' ORDER BY `config`.`listorder` ASC,`config`.`id` DESC [ RunTime:0.069735s ]
+---------------------------------------------------------------
+[2020-09-28T16:32:00+08:00] 127.0.0.1 GET localhost:81/admin/config/index/group/develop.html
+[运行时间：0.265719s] [吞吐率：3.76req/s] [内存消耗：3,165.84kb] [文件加载：103]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/config/index/group/upload.html',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'group' => 'develop',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\config\index.html [ array (
+  0 => 'groupArray',
+  1 => 'group',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.096235s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.064655s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.064619s ]
+---------------------------------------------------------------
+[2020-09-28T16:32:00+08:00] 127.0.0.1 GET localhost:81/admin/config/index/group/develop.html?page=1&limit=10
+[运行时间：0.382726s] [吞吐率：2.61req/s] [内存消耗：3,122.13kb] [文件加载：101]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/config/index/group/develop.html',
+  'sec-fetch-dest' => 'empty',
+  'sec-fetch-mode' => 'cors',
+  'sec-fetch-site' => 'same-origin',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'limit' => '10',
+  'group' => 'develop',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.094061s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.062549s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.062307s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_config` [ RunTime:0.062489s ]
+[ sql ] [ SQL ] SELECT `config`.`id`,`config`.`name`,`config`.`title`,`config`.`type`,`config`.`listorder`,`config`.`status`,`config`.`update_time`,field_type.title as ftitle FROM `ddxm_config` `config` LEFT JOIN `ddxm_field_type` `field_type` ON `field_type`.`name`=`config`.`type` WHERE  `group` = 'develop' ORDER BY `config`.`listorder` ASC,`config`.`id` DESC [ RunTime:0.061524s ]
+---------------------------------------------------------------
+[2020-09-28T16:32:10+08:00] 127.0.0.1 GET localhost:81/admin/manager/index/menuid/16.html
+[运行时间：0.248863s] [吞吐率：4.02req/s] [内存消耗：3,263.88kb] [文件加载：105]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'menuid' => '16',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\manager\index.html [ array (
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.087909s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.058773s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.058384s ]
+---------------------------------------------------------------
+[2020-09-28T16:32:11+08:00] 127.0.0.1 GET localhost:81/admin/manager/index.html?page=1&limit=10
+[运行时间：1.155648s] [吞吐率：0.87req/s] [内存消耗：3,097.84kb] [文件加载：101]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/manager/index/menuid/16.html',
+  'sec-fetch-dest' => 'empty',
+  'sec-fetch-mode' => 'cors',
+  'sec-fetch-site' => 'same-origin',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'limit' => '10',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.101460s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.068249s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.068519s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` ORDER BY `userid` ASC LIMIT 0,10 [ RunTime:0.067647s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_auth_group` [ RunTime:0.066840s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_auth_group` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.066525s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_auth_group` WHERE  `id` = 2 LIMIT 1 [ RunTime:0.066081s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_auth_group` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.066403s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_auth_group` WHERE  `id` = 4 LIMIT 1 [ RunTime:0.066415s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_auth_group` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.066367s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_auth_group` WHERE  `id` = 8 LIMIT 1 [ RunTime:0.066216s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_auth_group` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.065299s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_auth_group` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.065354s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_auth_group` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.065316s ]
+[ sql ] [ SQL ] SELECT `title` FROM `ddxm_auth_group` WHERE  `id` = 8 LIMIT 1 [ RunTime:0.065389s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `ddxm_admin` LIMIT 1 [ RunTime:0.065723s ]
+---------------------------------------------------------------
+[2020-09-28T16:32:11+08:00] 127.0.0.1 GET localhost:81/admin/auth_manager/index/menuid/17.html
+[运行时间：0.248655s] [吞吐率：4.02req/s] [内存消耗：3,274.49kb] [文件加载：105]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'menuid' => '17',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\auth_manager\index.html [ array (
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.087776s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.059023s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.058558s ]
+---------------------------------------------------------------
+[2020-09-28T16:32:12+08:00] 127.0.0.1 GET localhost:81/admin/auth_manager/index.html?page=1&limit=10
+[运行时间：0.420168s] [吞吐率：2.38req/s] [内存消耗：3,077.78kb] [文件加载：100]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/auth_manager/index/menuid/17.html',
+  'sec-fetch-dest' => 'empty',
+  'sec-fetch-mode' => 'cors',
+  'sec-fetch-site' => 'same-origin',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'limit' => '10',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.100988s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.067693s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.067702s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_auth_group` [ RunTime:0.067640s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_auth_group` WHERE  `module` = 'admin' ORDER BY `id` ASC [ RunTime:0.066678s ]
+---------------------------------------------------------------
+[2020-09-28T16:32:14+08:00] 127.0.0.1 GET localhost:81/admin/adminlog/index/menuid/20.html
+[运行时间：0.266021s] [吞吐率：3.76req/s] [内存消耗：3,293.66kb] [文件加载：106]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'menuid' => '20',
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\adminlog\index.html [ array (
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.094783s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.063821s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.064098s ]
+---------------------------------------------------------------
+[2020-09-28T16:32:15+08:00] 127.0.0.1 GET localhost:81/admin/adminlog/index.html?page=1&limit=10
+[运行时间：0.495201s] [吞吐率：2.02req/s] [内存消耗：3,088.32kb] [文件加载：101]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/admin/adminlog/index/menuid/20.html',
+  'sec-fetch-dest' => 'empty',
+  'sec-fetch-mode' => 'cors',
+  'sec-fetch-site' => 'same-origin',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'limit' => '10',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.102068s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.068144s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.067815s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_adminlog` [ RunTime:0.067872s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_adminlog` ORDER BY `id` DESC LIMIT 0,10 [ RunTime:0.066656s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `ddxm_adminlog` ORDER BY `id` DESC LIMIT 1 [ RunTime:0.071705s ]
+---------------------------------------------------------------
+[2020-09-28T17:40:42+08:00] 127.0.0.1 GET localhost:81/
+[运行时间：7.620710s] [吞吐率：0.13req/s] [内存消耗：3,357.68kb] [文件加载：105]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'sec-fetch-dest' => 'document',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'none',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\index\index.html [ array (
+  0 => 'userInfo',
+  1 => 'SUBMENU_CONFIG',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.096532s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.064792s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.064381s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_menu` [ RunTime:0.064682s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 0  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063423s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 3  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063146s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 10  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063236s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 11  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063191s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 24  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063514s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 25  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.063072s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 26  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062134s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 13  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061944s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 14  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061833s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 27  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061676s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 28  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062001s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 29  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061933s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 23  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062091s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 30  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061863s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 31  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061855s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 15  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062069s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 16  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061950s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 213  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061862s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 17  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061948s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 20  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062002s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 175  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062055s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 176  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061955s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 199  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061973s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 225  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062179s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 353  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061935s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 200  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061950s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 201  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061715s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 202  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061903s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 177  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061996s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 178  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062020s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 183  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061770s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 216  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062012s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 243  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061868s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 501  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061515s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 184  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061607s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 185  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061960s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 186  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062103s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 187  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061993s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 198  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061763s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 188  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061691s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 189  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062021s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 190  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061896s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 191  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061817s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 192  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061991s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 193  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061957s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 194  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061671s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 221  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061923s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 195  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061549s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 196  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061970s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 197  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061656s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 244  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061990s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 245  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061824s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 246  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061442s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 247  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061749s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 248  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061709s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 249  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061879s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 250  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061841s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 260  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062044s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 242  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062176s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 333  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061940s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 334  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061824s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 335  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061747s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 336  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061810s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 337  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061787s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 338  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061347s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 267  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061971s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 203  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061780s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 204  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061637s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 209  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061609s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 210  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061683s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 211  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061960s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 205  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061884s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 206  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062058s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 207  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061848s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 208  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061772s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 214  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061709s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 215  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061448s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 217  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061756s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 220  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061948s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 218  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061777s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 219  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061820s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 223  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062066s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 224  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062008s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 416  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061841s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 417  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061947s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 421  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061893s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 251  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062071s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 252  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061991s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 253  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061927s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 256  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061772s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 257  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061889s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 258  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061938s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 262  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061762s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 293  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061505s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 430  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061990s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 263  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061767s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 264  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062002s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 265  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061899s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 266  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061563s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 284  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061892s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 285  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061945s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 292  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062160s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 282  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061634s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 283  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061903s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 419  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062180s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 420  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061974s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 426  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061962s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 432  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061662s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 286  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061898s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 289  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.062026s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 290  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061837s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 291  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061997s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 428  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061979s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 429  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.061569s ]
+---------------------------------------------------------------
+[2020-09-28T17:40:42+08:00] 127.0.0.1 GET localhost:81/admin/main/index.html
+[运行时间：0.356413s] [吞吐率：2.81req/s] [内存消耗：3,089.97kb] [文件加载：102]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\main\index.html [ array (
+  0 => 'userInfo',
+  1 => 'sys_info',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.098640s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.064754s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.064505s ]
+[ sql ] [ SQL ] SELECT VERSION() as version [ RunTime:0.064493s ]
+---------------------------------------------------------------
+[2020-09-28T17:59:15+08:00] 127.0.0.1 GET localhost:81/
+[运行时间：8.775550s] [吞吐率：0.11req/s] [内存消耗：3,357.68kb] [文件加载：105]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'sec-fetch-dest' => 'document',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'none',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\index\index.html [ array (
+  0 => 'userInfo',
+  1 => 'SUBMENU_CONFIG',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.110868s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.074107s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.074042s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_menu` [ RunTime:0.074075s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 0  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072969s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 3  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.073324s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 10  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072891s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 11  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.073172s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 24  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072954s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 25  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072921s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 26  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072893s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 13  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072851s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 14  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072655s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 27  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072451s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 28  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072073s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 29  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071566s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 23  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071780s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 30  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071962s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 31  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071716s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 15  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071745s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 16  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071601s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 213  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071841s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 17  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071896s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 20  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071776s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 175  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071798s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 176  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071894s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 199  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071757s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 225  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071778s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 353  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071875s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 200  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071996s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 201  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071758s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 202  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071595s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 177  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071935s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 178  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071698s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 183  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071780s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 216  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072121s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 243  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072219s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 501  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071946s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 184  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071789s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 185  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071933s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 186  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072081s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 187  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071199s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 198  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071683s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 188  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071782s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 189  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071923s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 190  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071728s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 191  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071780s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 192  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071875s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 193  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072043s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 194  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071778s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 221  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071774s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 195  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071817s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 196  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071652s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 197  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071861s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 244  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071814s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 245  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071761s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 246  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071992s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 247  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071888s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 248  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071768s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 249  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072001s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 250  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071835s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 260  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071961s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 242  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072017s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 333  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071923s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 334  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071707s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 335  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071665s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 336  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071868s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 337  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071669s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 338  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071660s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 267  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071908s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 203  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071599s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 204  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071892s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 209  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071816s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 210  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071882s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 211  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071738s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 205  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071619s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 206  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071517s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 207  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071421s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 208  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071939s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 214  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072015s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 215  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071840s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 217  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071931s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 220  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071674s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 218  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071687s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 219  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071801s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 223  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071492s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 224  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071872s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 416  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071772s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 417  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071710s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 421  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071806s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 251  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071645s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 252  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071825s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 253  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071736s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 256  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071956s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 257  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071453s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 258  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071764s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 262  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071604s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 293  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072024s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 430  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071960s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 263  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072047s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 264  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071374s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 265  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071629s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 266  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071830s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 284  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071774s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 285  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071722s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 292  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.070877s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 282  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071981s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 283  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071499s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 419  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072102s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 420  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.070873s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 426  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071669s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 432  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071411s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 286  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071309s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 289  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072227s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 290  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071961s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 291  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071577s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 428  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.071829s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_menu` WHERE  `parentid` = 429  AND `status` = 1 ORDER BY `listorder` ASC,`id` ASC [ RunTime:0.072372s ]
+---------------------------------------------------------------
+[2020-09-28T17:59:16+08:00] 127.0.0.1 GET localhost:81/admin/main/index.html
+[运行时间：0.311461s] [吞吐率：3.21req/s] [内存消耗：3,089.97kb] [文件加载：102]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3fi2urbeit4upaonnmjaqdd2k1; __51cke__=; __tins__19813755=%7B%22sid%22%3A%201601277256046%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201601279075944%7D; __51laig__=2; hisi_language=zh-cn; hisiadmin_language=zh-cn; hisihisi_iframe=0; hisihisi_admin_theme=0',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost:81/',
+  'sec-fetch-dest' => 'iframe',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-site' => 'same-origin',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'localhost:81',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\main\index.html [ array (
+  0 => 'userInfo',
+  1 => 'sys_info',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.085791s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_admin` [ RunTime:0.056714s ]
+[ sql ] [ SQL ] SELECT * FROM `ddxm_admin` WHERE  `userid` = 1 LIMIT 1 [ RunTime:0.057272s ]
+[ sql ] [ SQL ] SELECT VERSION() as version [ RunTime:0.056921s ]
+---------------------------------------------------------------
+[2020-09-28T18:08:15+08:00] 127.0.0.1 GET 127.0.0.1:81/
+[运行时间：0.334727s] [吞吐率：2.99req/s] [内存消耗：3,096.30kb] [文件加载：104]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'Keep-Alive',
+  'host' => '127.0.0.1:81',
+  'accept-encoding' => 'gzip, deflate',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
+  'accept-language' => 'zh-CN',
+  'accept' => 'text/html, application/xhtml+xml, image/jxr, */*',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\common\view\dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.094864s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_adminlog` [ RunTime:0.063073s ]
+[ sql ] [ SQL ] INSERT INTO `ddxm_adminlog` (`uid` , `status` , `info` , `get` , `ip` , `remarks` , `create_time`) VALUES (0 , 0 , '提示语:请先登陆' , '/' , 2130706433 , '' , 1601287695) [ RunTime:0.062951s ]
+---------------------------------------------------------------
+[2020-09-28T18:08:15+08:00] 127.0.0.1 GET 127.0.0.1:81/favicon.ico
+[运行时间：0.040701s] [吞吐率：24.57req/s] [内存消耗：1,837.34kb] [文件加载：83]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'Keep-Alive',
+  'host' => '127.0.0.1:81',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; Trident/7.0; rv:11.0) like Gecko',
+  'accept-encoding' => 'gzip, deflate',
+  'ua-cpu' => 'AMD64',
+  'accept' => '*/*',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2020-09-28T18:08:18+08:00] 127.0.0.1 GET 127.0.0.1:81/admin/index/login.html
+[运行时间：0.029834s] [吞吐率：33.52req/s] [内存消耗：1,992.91kb] [文件加载：90]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=md3bhfmclnejnjmboiprbk3i45',
+  'connection' => 'Keep-Alive',
+  'host' => '127.0.0.1:81',
+  'accept-encoding' => 'gzip, deflate',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
+  'accept-language' => 'zh-CN',
+  'referer' => 'http://127.0.0.1:81/',
+  'accept' => 'text/html, application/xhtml+xml, image/jxr, */*',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\application\admin\view\index\login.html [ array (
+) ]
+---------------------------------------------------------------
+[2020-09-28T18:08:19+08:00] 127.0.0.1 GET 127.0.0.1:81/public/static/admin/images/slider.png
+[运行时间：0.032977s] [吞吐率：30.32req/s] [内存消耗：1,838.76kb] [文件加载：83]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=md3bhfmclnejnjmboiprbk3i45',
+  'connection' => 'Keep-Alive',
+  'host' => '127.0.0.1:81',
+  'accept-encoding' => 'gzip, deflate',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
+  'accept-language' => 'zh-CN',
+  'referer' => 'http://127.0.0.1:81/admin/index/login.html',
+  'accept' => 'image/png, image/svg+xml, image/jxr, image/*;q=0.8, */*;q=0.5',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+  'images' => 'slider.png',
+)
+---------------------------------------------------------------
+[2020-09-28T18:08:19+08:00] 127.0.0.1 GET 127.0.0.1:81/favicon.ico
+[运行时间：0.027777s] [吞吐率：36.00req/s] [内存消耗：1,837.34kb] [文件加载：83]
+[ error ] [8]Use of undefined constant APP_DEBUG - assumed 'APP_DEBUG'[D:\PHPTutorial\WWW\ddxm_svn\config\app.php:218]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'Keep-Alive',
+  'host' => '127.0.0.1:81',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; Trident/7.0; rv:11.0) like Gecko',
+  'accept-encoding' => 'gzip, deflate',
+  'ua-cpu' => 'AMD64',
+  'accept' => '*/*',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2020-09-28T18:08:42+08:00] 127.0.0.1 GET 127.0.0.1/ddxm_svn/public//index.php
+[运行时间：0.334647s] [吞吐率：2.99req/s] [内存消耗：3,196.34kb] [文件加载：104]
+[ info ] [ LANG ] D:\PHPTutorial\WWW\ddxm_svn\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=md3bhfmclnejnjmboiprbk3i45',
+  'connection' => 'Keep-Alive',
+  'host' => '127.0.0.1',
+  'accept-encoding' => 'gzip, deflate',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
+  'accept-language' => 'zh-CN',
+  'accept' => 'text/html, application/xhtml+xml, image/jxr, */*',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\PHPTutorial\WWW\ddxm_svn\public\..\application\common\view\dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.094819s ] mysql:host=120.79.5.57;port=3339;dbname=ddxm;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `ddxm_adminlog` [ RunTime:0.063310s ]
+[ sql ] [ SQL ] INSERT INTO `ddxm_adminlog` (`uid` , `status` , `info` , `get` , `ip` , `remarks` , `create_time`) VALUES (0 , 0 , '提示语:请先登陆' , '/ddxm_svn/public//index.php' , 2130706433 , '' , 1601287721) [ RunTime:0.063565s ]

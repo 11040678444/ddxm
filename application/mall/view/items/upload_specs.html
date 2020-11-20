@@ -1,0 +1,67 @@
+{extend name="index_layout"/}
+{block name="main"}
+<!--<input class="layui-card" >-->
+
+    <img id="img" style="width: 300px;height: 300px">
+    <input type="checkbox" name="check" id="check" value="1">是否批量</input>
+    <button class="layui-btn"  id="imgupload">上传图片</button>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+
+    var imgurl = "";//图片上传后的地址
+    //上传图片
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#imgupload',
+            url: '/admin/Upload/upload',
+            multiple: true,
+            before: function(obj) {
+                layer.msg('图片上传中...', {
+                    icon: 16,
+                    shade: 0.01,
+                    time: 0
+                })
+            },
+            done: function(res){
+                //上传完毕回调
+                if( res.code == 0 ){
+                    layer.close(layer.msg('上传成功！'));
+                    imgurl =res.data.key;
+                    $("#imgupload").text("更换图片");
+                    $("#img").attr("src", "http://picture.ddxm661.com/"+imgurl);
+                }else{
+                    layer.msg(res.msg,{icon:5});
+                }
+            },
+            error: function(){
+                //请求异常回调
+                layer.msg("上传失败",{icon:5});
+            }
+        });
+    });
+
+    // 下面是 返回的  回调 参数
+    var callbackdata = function () {
+        // imgurl = "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=224467989,1207151607&fm=26&gp=0.jpg";
+
+        var check = $("input[type='checkbox']").is(':checked');
+
+        var c = 0;
+        if(check){
+            c =1;
+        }
+        var data= {
+            "imgurl": imgurl,
+            "check": check,
+        };
+        return data;
+    }
+
+
+</script>
+{/block}

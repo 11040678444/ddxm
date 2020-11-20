@@ -1,0 +1,161 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <!-- <div class="layui-card-header">耗卡记录</div> -->
+    <div class="layui-card-body">
+
+        <div class="layui-form">
+            <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <div class="layui-input-inline" style="width:180px;">
+                    <select name="shop" lay-verify="" lay-filter="shop">
+                        <option value="">全部门店</option>
+                        {volist name="data.shop" id ="vo"}
+                        <option value="{$vo.id}">{$vo.name}</option>
+                        {/volist}
+                    </select>  
+                </div>
+                <div class="layui-input-inline" style="width:180px;">
+                    <select name="waiter" lay-verify="" lay-filter="waiter" id="waiter">
+                        <option value="">服务人员</option>
+                        {volist name="data.waiter" id ="vo"}
+                        <option value="{$vo.id}" class="waiter">{$vo.name}</option>
+                        {/volist}
+                    </select>  
+                </div>
+                <div class="layui-input-inline" style="width:180px;">
+                    <select name="service" lay-verify="" lay-filter="service">
+                        <option value="">服务名称</option>
+                        {volist name="data.service" id ="vo"}
+                        <option value="{$vo.id}">{$vo.name}</option>
+                        {/volist}
+                    </select>  
+                </div>
+                <div class="layui-input-inline" style="width:180px;">
+                    <select name="status" lay-verify="" lay-filter="status">
+                        <option value="">对账状态</option>
+                        <option value="1">待处理</option>
+                        <option value="2">已处理</option>
+                    </select>  
+                </div>
+                <button class="layui-btn" lay-submit lay-filter="formDemo">搜索</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                <a class="layui-btn" id="duizhang">批量对账</a>
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="export"><i class="layui-icon layui-icon-export"></i>批量导出</button>
+            </div>
+            </form>
+            <table class="layui-hide" id="table" lay-filter="table"></table>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="barTool">
+    {{#  if(d.state === 0){ }}
+        <p class="layui-btn layui-btn-radius layui-btn-xs layui-btn-normal">待处理</p>
+    {{#  } else { }}
+        <p class="layui-btn layui-btn-radius layui-btn-xs layui-btn-warm">已处理</p>
+    {{#  } }}
+</script>
+{/block}
+{block name="script"}
+<script>
+layui.use(["table","layer","form","laydate"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        laydate = layui.laydate,
+        form = layui.form,
+        $ = layui.$;
+    table.render({
+        elem: '#table',
+        /*toolbar: '#toolbarDemo',*/
+        url: '{:url("admin/order/ticket_consume_details")}',
+        id:"tableTest",
+        cols: [
+            [
+                {type:'checkbox'},
+                { field: 'shop_name',align:"center",title: '门店'},
+                { field: 'nickname', align:"center",title: '会员' },
+                { field: 'service_name',align:"center", title: '服务名称' },
+                { field: 'price', align:"center",title: '金额' },
+                { field: 'waiter',align:"center", title: '服务员' },
+                { field: 'num',align:"center", title: '次数' },
+                { field: 'state', align:"center",title: '状态' ,toolbar: '#barTool'},
+                /*{ fixed: 'right', title: '操作', toolbar: '#barTool' }*/
+            ]
+        ],page:true
+    });
+    form.on("submit(formDemo)",function(data){
+        var field = data.field;
+        table.reload('tableTest', {
+            where: { //设定异步数据接口的额外参数，任意设
+                field
+            }
+            ,page: {
+                curr: 1 //重新从第 1 页开始
+            }
+        });
+        return false;
+    }) 
+    form.on("submit(export)",function(data){
+        var shop = data.field.shop;
+        var waiter = data.field.waiter;
+        var service = data.field.service;
+        var status  = data.field.status;
+        var url = '{:url("admin/Excel/ticket_consume_details")}?shop='+shop+"&waiter="+waiter+"&service="+service+"&status="+status;
+        window.location.href  = url;
+        return  false;
+    })
+    $('#duizhang').on("click",function(){
+        //批量对账
+        var tt = layui.table.checkStatus('tableTest').data;
+        let data = [];
+        tt.map(item => {
+            data.push(item.id);
+        })
+        if( data.length == 0 ){
+            return false;
+        }
+        $.ajax({
+            url: "/admin/Order/consume_edit_status",    // 提交到controller的url路径
+            type: "post",    // 提交方式
+            data: {ids:data},  // data为String类型，必须为 Key/Value 格式。
+            dataType: "json",    // 服务器端返回的数据类型
+            success: function (res) { 
+                console.log(res) 
+                if(res.result){
+                    layer.msg(res.msg, {time: 3000});
+                    setTimeout(function(){
+                        $(".layui-laypage-btn").click();
+                    }, 1000); 
+                }else{
+                    layer.msg(res.msg);
+                }
+            },
+        });
+    });
+    form.on('select(shop)', function(data){
+        var val = data.value;
+        $(".waiter").remove();
+        form.render('select');
+        $.ajax({
+            url: "/admin/Order/consume_shop",   
+            type: "post",    // 提交方式
+            data: {id:val},  
+            dataType: "json",    
+            success: function (res) { 
+                if(res.result){
+                    var array = res.data;
+                    var option = "";
+                    for(var i = 0; i<array.length;i++){
+                        option += `<option value="`+array[i]["id"]+`" class="waiter">`+array[i]["name"]+`</option>`;
+                    }
+                    $("#waiter").append(option);
+                    form.render('select');
+                }else{
+                    layer.msg(res.msg);
+                }
+            },
+        });
+    });      
+});
+</script>
+{/block}

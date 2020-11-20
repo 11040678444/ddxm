@@ -1,0 +1,183 @@
+{extend name="index_layout"/}
+{block name="main"}
+<style type="text/css">
+    .box{
+        margin-top: 10%;
+        margin-bottom: 10px;
+        color: #FF5722;
+        font-size: 18px;
+        margin-left: 45%;
+    }
+    .box1{
+        width: 900px;
+        height: 500px;
+        margin-left: auto;
+        border:solid  1px;
+        margin-right:auto;
+    }
+    .box1 .controls{
+
+    }
+    .upload-icon-img{
+        width:120px;
+    }
+    .upload-pre-item{
+        position: relative;
+    }
+    .upload-pre-item .img{
+        margin-top: 5px;
+        width: 116px;
+        height: 76px;
+    }
+    .upload-pre-item i {
+        position: absolute;
+        cursor: pointer;
+        top: 5px;
+        background: #2F4056;
+        padding: 2px;
+        line-height: 15px;
+        text-align: center;
+        color: #fff;
+        margin-left: 1px;
+        /* float: left; */
+        filter: alpha(opacity=80);
+        -moz-opacity: .8;
+        -khtml-opacity: .8;
+        opacity: .8;
+        transition: 1s;
+    }
+    .upload-pre-item i:hover{transform:rotate(360deg);}
+    .upload-pre-item,.upload-icon-img{
+        width:120px;
+        float: left;
+        margin-left: 8px;
+    }
+</style>
+<div class="layui-card">
+    <div class="layui-card-header">添加提现</div>
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal">    <!-- action="{:url('admin/Member/level_doPost')}" method="post" -->
+            <!--<input type="hidden" name="pid" value="{$pid}">-->
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span>手机号 </label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="mobile" onkeyup="this.value=this.value.replace(/\D/g,'')" onblur="this.value=this.value.replace(/\D/g,'')"  autocomplete="mobile"  placeholder="手机号" value="" class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span>提现金额 </label>
+                <div class="layui-input-inline w300">
+                    <input type="number" name="price" autocomplete="price" value="" placeholder="提现金额" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">备注 </label>
+                <div class="layui-input-inline w300">
+                    <textarea cols="40%" rows="5%" class="remarks" name="remarks" autocomplete="remarks" placeholder="备注"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="L_submit">立即提交</button>
+                    <button class="layui-btn layui-btn-normal" id = "close">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    layui.use(["form"], function(){
+        var layer = layui.layer;
+        form = layui.form;
+        form.on('submit(L_submit)', function(data){
+            var formData = data.field;
+
+            if(formData.mobile < 11)
+            {
+                layer.msg('电话不能小于11位');
+                return false;
+            }
+
+            if(formData.price < 0.1)
+            {
+                layer.msg('提现金额不能低于0.1元');
+                return false;
+            }
+
+            $.ajax({
+                type : "post",
+                url : "/mall/Cashout/CashOutAdd",
+                data: formData,
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 200 ){
+                        layer.msg(res.msg); 
+                        var index = parent.layer.getFrameIndex(window.name);
+                        setTimeout(function(){
+                            parent.layer.close(index);
+                            // parent.location.reload();
+                        }, 1000);  
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+            return false;
+        });
+        //关闭
+        $("#close").click(function(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            parent.location.reload();
+        });
+        //上传图片
+        layui.use('upload', function(){
+            var upload = layui.upload;
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#test1', //绑定元素
+                url: '/admin/Item/test', //上传接口
+                multiple: true,
+                before: function(obj) {
+                    layer.msg('图片上传中...', {
+                        icon: 16,
+                        shade: 0.01,
+                        time: 0
+                    })
+                },
+                done: function(res){
+                    //上传完毕回调
+                    if( res.code == 0 ){
+                        layer.close(layer.msg('上传成功！'));
+                        $('.upload-img-box').append('<div class="upload-icon-img" ><div class="upload-pre-item"><i class="layui-icon  del_img"></i><img src="http://picture.ddxm661.com/' + res.data.key + '" class="img"><input type="hidden" name="thumb" class="img_val" value="' + res.data.key + '" /></div></div>');
+                    }
+                },
+                error: function(){
+                    //请求异常回调
+                }
+            });
+        });
+    });
+
+    //删除图片
+    $(document).on("click",".del_img",function(data){
+        $(this).parent('.upload-pre-item').parent('.upload-icon-img').remove(); //删除页面的
+        var imgname = $(this).nextAll('.img_val').val();
+        $.ajax({
+            type : "post",
+            url : "/admin/Item/delelteImage",
+            data: {file:imgname},
+            dataType: 'json',
+            success:function(res){
+                layer.msg(res.msg);
+            }
+        });
+
+    })
+</script>
+{/block}

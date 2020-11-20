@@ -1,0 +1,425 @@
+{extend name="index_layout"/}
+{block name="main"}
+<body class="childrenBody">
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal" method="post">
+            <input type="hidden" name="count" value="0" id="count">
+            <input type="hidden"   id="item_id">
+            <table id="ddxm-table" cellspacing="1" cellpadding="1" border="1">
+                <tr >
+                    <th width="60px">序号</th>
+                    <th width="200px">商品名称</th>
+                    <th width="160px">销售金额</th>
+                    <th width="120px">总库存</th>
+                    <th width="80px">拼团总数量</th>
+                    <th width="80px">拼团团购价</th>
+                    <th width="80px">团长团购价</th>
+<!--                    <th width="80px">合计金额</th>-->
+                    <!-- <th>备注</th> -->
+                    <th width="80px">操作</th>
+                </tr>
+                <tr id="add_tr">
+                    <td></td>
+                    <td id="add" style="color:#1E9FFF">点击此处新增商品</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+
+<!--            <div class="layui-form-item">-->
+<!--                <label class="layui-form-label"><span style="color:red;">*</span>活动名称 </label>-->
+<!--                <div class="layui-input-inline w300">-->
+<!--                    <input type="text" name="title"  autocomplete="title" required lay-verify="required" placeholder="活动名称" value="{$list['title']}" class="layui-input" >-->
+<!--                </div>-->
+<!--            </div>-->
+
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span>拼团人数 </label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="people_num"  autocomplete="people_num" required lay-verify="required|pepoleNum" placeholder="拼团人数" value="{$list['title']}" class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span>每人限购 </label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="buy_num"  autocomplete="buy_num" required lay-verify="required|pepoleNum" placeholder="每人限购" value="1" class="layui-input" >
+                </div>
+            </div>
+
+<!--            <div class="layui-form-item">-->
+<!--                <label class="layui-form-label"><span style="color:red;">*</span>运费 </label>-->
+<!--                <div class="layui-input-inline w300">-->
+<!--                    <input type="text" name="postage"  autocomplete="postage" required lay-verify="required" placeholder="每人限购" value="0" class="layui-input" >-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">自动拼团</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="automatic" lay-filter="automatic" value="1" title="是">
+                    <input type="radio" name="automatic" value="1" lay-filter="automatic" title="否" checked>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">参与分销</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="retail" lay-filter="retail" value="1" title="是" checked>
+                    <input type="radio" name="retail" value="0" lay-filter="retail" title="否" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">首页显示</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="hot" lay-filter="hot" value="1" title="是" checked>
+                    <input type="radio" name="hot" value="0" hot-filter="retail" title="否" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否免邮</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="postage_way" lay-filter="hot" value="1" title="是" checked>
+                    <input type="radio" name="postage_way" value="2" hot-filter="retail" title="否" >
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">起始时间</label>
+                <div class="layui-input-inline">
+                    <input class="layui-input" id="time" required lay-verify="required" name="time" placeholder="开始时间" autocomplete="off">
+                    -<input class="layui-input" id="end_time" required lay-verify="required" name="end_time" placeholder="结束时间" autocomplete="off">
+                </div>
+<!--                <div class="layui-form-mid layui-word-aux">不输如表示无时间限制</div>-->
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn ajax-post" lay-submit lay-filter="purchase_add" target-form="form-horizontal" id="purchase_add">立即提交</button>
+                    <button class="layui-btn layui-btn-normal" id = "close">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="parentitem" style="display:none">
+    {volist name="data.item" id="v"}
+    <option value="{$v.id}">{$v.cname}</option>
+    {/volist}
+</div>
+{/block}
+{block name="script"}
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //执行第一个laydate实例
+        laydate.render({
+            elem: '#time', //指定元素
+            type: 'datetime'
+        });
+        //执行第二个laydate实例
+        laydate.render({
+            elem: '#end_time', //指定元素
+            type: 'datetime'
+        });
+    });
+</script>
+<script>
+    layui.use(['table',"form","layer"],function(){
+        var table = layui.table,
+            layer = layui.layer,
+            form = layui.form,
+            $ = layui.$;
+
+        //验证拼团人数大于0的正整数
+        form.verify({
+            pepoleNum: [
+                /^[1-9]\d*$/
+                ,'必须为大于0的正整数'
+            ]
+        });
+
+        //关闭
+        $("#close").click(function(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            parent.location.reload();
+        })
+
+        $(document).on("click",'#add',function(){
+            /* var supplier = $("#supplier").val();*/
+            var item_id = $("#item_id").val();
+            var count = $("#count").val();
+            var item = $(".parentitem").html();
+            layer.open({
+                type:1,
+                title:"商品选择",
+                area: ['1000px', '700px'],
+                content:`
+            <div class="layui-card">
+                <div class="layui-card-body">
+                <form class="layui-form form-horizontal" method="post">
+                    <div class="layui-form-item">
+                        <div class="layui-input-inline">
+                            <input type="text" name="title"  autocomplete="off" class="layui-input" placeholder="商品名称">
+                        </div>
+                        <div class="layui-input-inline" style="width:100px;margin-left:20px;">
+                            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="item_search">搜索</button>
+                        </div>
+                    </div>
+                    <table id="purchase_item" lay-filter="purchase_item"></table>
+                    <div class="layui-input-inline layui-btn-group userTable" style="margin-right:40px;float:right">
+                        <button class="layui-btn layui-btn-primary" lay-submit lay-filter="close" >取消</button>
+                        <button class="layui-btn layui-btn-normal" id="add_item" data-type="getCheckData">确定</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+            `,
+                success:function(layero,index){
+                    form.render("select");
+                    form.on('select(parent)', function(data){
+                        var id = data.value;
+                        $.ajax({
+                            url: '{:url("admin/Warehousing/getCategory")}',
+                            type: "POST" ,
+                            data: {id:id},
+                            success:function(data){
+                                if(data.result){
+                                    var option = "";
+                                    $(".child").remove();
+                                    for(var i =0;i<data.count;i++){
+                                        option += `<option value="`+data.data[i]["id"]+`" class="child">`+data.data[i]["cname"]+`</option>`;
+                                    }
+                                    $("#child").append(option);
+                                    form.render("select");
+                                }
+                            }
+                        })
+                    });
+                    form.on("submit(item_search)",function(data){
+                        var data = data.field;
+                        table.reload('tableItem', {
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                            ,where: {
+                                data
+                            }
+                        }, 'data');
+                        return false;
+                    })
+                    form.on("submit(close)",function(data){
+                        layer.close(index);
+                        return false;
+                    })
+                    table.render({
+                        elem: '#purchase_item',
+                        /* toolbar: '#toolbarDemo',*/
+                        skin: 'row', //行边框风格
+                        even: true ,//开启隔行背景
+                        id:"tableItem",
+                        url: '{:url("mall/Assemble/purchase_item")}',
+                        where:{
+                            id:item_id,
+                        }              ,
+                        page: true,
+                        cols: [
+                            [
+                                {type: 'radio',width:80, fixed: 'left'},
+                                { field: 'title', width:300, title: '商品名称'},
+                                { field: 'price',  title: '商品销售金额'},
+                                { field: 'stores',  title: '总库存'},
+                            ]
+                        ],
+                    });
+                    form.on('submit(search)', function(data){
+                        return false;
+                    });
+                    active = {
+                        getCheckData: function(){ //获取选中数据
+                            var checkStatus = table.checkStatus('tableItem')
+                                ,data = checkStatus.data;
+                            return data;
+                        }
+
+                    };
+                    $("#add_item").on("click",function(){
+                        var type = $(this).data('type');
+                        var data = active[type] ? active[type].call(this) : '';
+                        if(data!=""){
+                            var html ="";
+                            var add_tr = $("#add_tr").prop("outerHTML");
+                            var count = $("#count").val();
+
+                            for(var i = 0; i<data.length;i++){
+                                count ++;
+                                if(item_id==""){
+                                    item_id += data[i]["id"];
+                                }else{
+                                    item_id += ","+data[i]["id"];
+                                }
+
+                                var num = i+1;
+                                html += `<tr><td data="`+data[i]["id"]+`" class="count">`+count+`</td>
+                                    <td style=""><input name="item_name" type="text" readonly title="`+data[i]["title"]+`" value="`+data[i]["title"]+`"style="width:200px;" class="purchase-table">
+                                    <input type="hidden" name="item_id" value="`+data[i]['id']+`"></td>
+                                    <td><input name="price" type="text" readonly value="`+data[i]["price"]+`" class="purchase-table" style="width:140px;"></td>
+                                    <td><input type="stores" name="p_type" readonly value="`+data[i]["stores"]+`" class="purchase-table" style="width:80px;">
+                                    <input type="hidden" name="store" value="`+data[i]["store"]+`"></td>
+
+
+                                    <td><input type="text" name="number" style="width:80px" class="purchase-table number" value="" lay-verify="required|number" placeholder="请输入数量"></td>
+                                    <td><input type="text" name="price1" style="width:80px" class="purchase-table price" placeholder="请输入团购价" lay-verify="required"></td>
+                                    <td><input type="text" name="price2" style="width:80px" class="purchase-table price" placeholder="请输入团长团购价" lay-verify="required"></td>
+                                    
+                                    <td><button  class="layui-btn layui-btn-xs layui-btn-danger del_item">删除</button></td></tr>
+                                    `;
+                            }
+                            html += add_tr;
+                            $("#add_tr").detach();
+                            $("#count").val(count);
+                            $("#ddxm-table").append(html);
+                            $("#item_id").val(item_id);
+                            /* layer.close(indexs);*/
+                            layer.close(index);
+                            return false;
+                        }else{
+                            layer.confirm('未选择商品 继续关闭?', {icon: 3, title:'关闭提示'}, function(indexs){
+                                layer.close(indexs);
+                                layer.close(index);
+                            });
+                        }
+                        return false;
+                    });
+                    $('#add_tr').hide();
+                },
+                end: function(layero, index){
+                }
+            })
+        })
+        $(document).on("keyup",'.price',function () {
+            var number = $(this).parent().prev().children(".number").val();
+            var reg = $(this).val().match(/\d+\.?\d{0,2}/);
+            var txt = '';
+            if (reg != null) {
+                txt = reg[0];
+            }
+            var amount = 0;
+            if(txt!= "" && txt!=0 && number!=0 && number !=""){
+                amount = number * txt;
+                amount =amount.toFixed(2);
+            }
+            $(this).parent().next().children(".money").val(amount);
+            var money = 0;
+            $("input[name='money']").each(function(m){
+                if( $(this).val() !=""){
+                    money += parseFloat($(this).val());
+                }
+            })
+            money =money.toFixed(2);
+            $(".amount").html(money);
+            $("#amount_input").val(money);
+            $(this).val(txt);
+        });
+        $(document).on("change",'.price',function () {
+            $(this).keypress();
+            var v = $(this).val();
+            if (/\.$/.test(v))
+            {
+                $(this).val(v.substr(0, v.length - 1));
+            }
+        });
+        $(document).on('keyup','.number',function(data){
+            var price = $(this).parent().next().children(".price").val();
+
+            var number;
+            if(this.value.length==1){
+                number=this.value.replace(/[^0-9]/g,'');
+            }else if(this.value.length==0){
+                number=0;
+            }else{
+                number=this.value.replace(/\D/g,'');
+            }
+            number = number==''?0:parseInt(number);
+            var amount = 0;
+            if(price!= "" && price!=0 && number!=0 && number !=""){
+                amount = number * price;
+                amount =amount.toFixed(2);
+            }
+            $(this).parent().next().next().children(".money").val(amount);
+            var money = 0;
+            $("input[name='money']").each(function(m){
+                if( $(this).val() !=""){
+                    money += parseFloat($(this).val());
+                }
+            })
+            money =money.toFixed(2);
+            $(".amount").html(money);
+            $("#amount_input").val(money);
+            this.value = number;
+        })
+        $(document).on("click",'.del_item',function(){
+            var count = $("#count").val();
+            $(this).parent().parent().detach();
+            $(".count").each(function(ii,vv){
+
+                $(".count").eq(ii).html(ii+1);
+            });
+            $("#count").val(count-1);
+            var id = $(this).parent().parent("tr").children("td").eq(1).children("input[name='item_id']").val();
+            var item_id = $("#item_id").val();
+            var item = new Array();
+            item = item_id.split(",");
+            var array = "";
+            for(var i=0;i<item.length;i++){
+                if(item[i] ==id){
+                }else{
+                    if(array==""){
+                        array += item[i];
+                    }else{
+                        array += ","+item[i];
+                    }
+                }
+            }
+            var money = 0;
+            $("input[name='money']").each(function(m){
+                if( $(this).val() !=""){
+                    money += parseFloat($(this).val());
+                }
+            })
+            money =money.toFixed(2);
+            $(".amount").html(money);
+            $("#amount_input").val(money);
+            $("#item_id").val(array);
+            return false;
+        });
+        form.on('submit(purchase_add)', function(data){
+            var data = data.field;
+
+            if(data.count == 0){
+                layer.msg('未选择商品', {icon: 5});
+                return false;
+            }
+            // $("#purchase_add").hide();
+            $.ajax({
+                url: '{:url("mall/Assemble/add_doPost")}',
+                type: "POST" ,
+                data: {data:data},
+                success:function(data){
+                    if(data.code==1){
+                        layer.msg(data.msg,{icon: 6 , time: 2000 ,shade:0.6},function(){
+                            location.href="/mall/Assemble/item_list";
+                        })
+                    }else{
+                        $("#purchase_add").show();
+                        layer.msg(data.msg, {icon: 5 , time: 2000 ,shade:0.6});
+                    }
+                }
+            })
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+    })
+</script>
+{/block}

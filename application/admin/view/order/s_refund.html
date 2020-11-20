@@ -1,0 +1,168 @@
+<!--{extend name="index_layout"/}-->
+{block name="main"}
+<div class="layui-card layui-form">
+    <form class="layui-form">
+        <div class="layui-form-item" style="padding-top:15px;">
+            <label class="layui-form-label">退货原因</label>
+            <div class="layui-input-block" style="width:200px">
+              <select name="reason" lay-verify="required" lay-filter="reason">
+                <option value="商品品质问题" >商品品质问题 </option>
+                <option value="商品不一致，客户退货">商品不一致，客户退货 </option>
+                <option value="其他">其他</option>}
+              </select>
+            </div>
+            <div id="reason">
+            </div>
+        </div>
+        <table class="layui-table" lay-data="{cellMinWidth:80,width:714,id:'refund' ,url:'/admin/order/s_refund?order_id={$data.id}'}" lay-filter="refund">
+            <thead>
+                <tr>
+                    <th lay-data="{type:'checkbox',width:54}">选择</th>
+                    <th lay-data="{field:'service_name',width:130,align: 'center'}">商品名称</th>
+                    <th lay-data="{field:'num',width:80,align: 'center'}">数量</th>
+                    <th lay-data="{field:'refund',width:120,align: 'center'}">商品已退数量</th>
+                    <th lay-data="{field:'real_price',width:100,align: 'center'}">成交价</th>
+                    <th lay-data="{field:'refund_num',width:120,edit: 'text',align: 'center'}">退货数量</th>
+                    <th lay-data="{field:'refund_price',width:100,edit: 'text',align: 'center'}">退款价</th>
+                </tr>
+            </thead>
+
+        </table>
+        </table>
+        <div class="layui-form">
+            <div class="layui-form-item" style="margin-left:40px;">
+                <span style="font-weight:bold">合计余额</span><span class="refund_price" style="color:red;padding-left:20px;padding-right:20px; font-size:20px;font-weight:bold">0</span>元
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="font-weight:bold">退款方式</label>
+                <div class="layui-input-block">
+                  <input type="radio" name="type" value="cash" title="现金退款" checked="">
+                  <input type="radio" name="type" value="balance" title="余额退款">
+                  <input type="radio" name="type" value="card" title="银行卡">
+                </div>
+            </div>
+
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block" style="width:200px;padding-bottom:15px;">
+              <textarea name="remarks" placeholder="请输入内容" class="layui-textarea" style="resize:none"></textarea>
+            </div>
+        </div>
+        <div style="float:right;margin-right:20px;margin-bottom:10px">
+            <button type="button" class="layui-btn  layui-btn-normal" id="close">关闭</button>
+            <button type="button" class="layui-btn  layui-btn-danger" lay-submit lay-filter="confirm" id="confirm">确认退货</button>
+        </div>
+    </form>
+</div>
+{/block}
+{block name="script" }
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    layui.use(["table","layer","form"], function(){
+    var table = layui.table,
+        layer = layui.layer,
+        form  = layui.form,
+        $ = layui.$;
+        var moneyArray = 0;
+        form.on('submit(confirm)', function(data){
+            var selectData = layui.table.checkStatus('refund').data;
+            if(selectData.length===0){
+                layer.msg('未选择商品');
+                return false;
+            };
+            var array = "";
+            var money = 0;
+            var p_array = "";
+            for(var i = 0;i<selectData.length;i++){
+                if(parseFloat(selectData[i]['refund_price']) >parseFloat(selectData[i]['real_price'])){
+                    array += selectData[i]['service_name']+"  金额  <br>";
+                }
+                if(parseInt(selectData[i]['refund_old_num']) <parseInt(selectData[i]['refund_num'])){
+                    array += selectData[i]['service_name']+"<br>";
+                }else{
+                    money += parseInt(selectData[i]['refund_num']) * parseFloat(selectData[i]['refund_price']);
+                }
+            }
+            if(array!="" && array !=null  && array !=undefined){
+                layer.msg(array +'商品退货数量大于商品剩余数量');
+                return false;
+            }
+            if(money!=moneyArray){
+                layer.msg("非法操作");
+                return false;
+            }
+            var order_id = {$data.id};
+            var remarks  = data.field;
+            $("#confirm").hide();
+            $.ajax({
+                url:'{:url("admin/order/servicerefund")}',
+                type:"post",
+                data:{data:selectData,array:money,id:order_id,remarks:remarks},
+                success:function(data){
+                    if(data.result){
+                        layer.msg(data.msg, {icon: 6 , time: 1200 ,shade:0.6},function(){
+                            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                            parent.layer.close(index); //再执行关闭
+                        });
+                    }else{
+                        layer.msg(data.msg, {icon: 5 , time: 2000 ,shade:0.6});
+                        $("#confirm").show();
+                    }
+                }
+            })
+            return false;
+        })
+        $(document).on("click",'#close',function(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+        })
+        table.on('edit(refund)', function(obj){
+            var data = obj.data;
+            var value = obj.value;
+            var field = obj.field;
+            //console.log(fields);
+            if(field=="refund_num"){
+                if(parseInt(value) > parseInt(data.refund_old_num)){
+                //obj.update({ refund_num:123 })
+                layer.msg('退货数量  '+value+'  大于购买数量  '+data.refund_old_num);
+                }
+            }else if(field=="refund_price"){
+                if(parseFloat(value) > parseFloat(data.real_price)){
+                //obj.update({ refund_num:123 })
+                layer.msg('退货金额  '+value+'  大于购买金额  '+data.real_price);
+                }
+            }
+            moneyArray = 0;
+            var data = layui.table.checkStatus('refund').data;
+            for(var i = 0;i<data.length;i++){
+                moneyArray += (data[i]['refund_num']) * (data[i]['refund_price']);
+            }
+            $(".refund_price").html(moneyArray)
+        });
+        table.on('checkbox(refund)', function(obj){
+            moneyArray = 0;
+            var data = layui.table.checkStatus('refund').data;
+            for(var i = 0;i<data.length;i++){
+                moneyArray += parseInt(data[i]['refund_num']) * parseFloat(data[i]['refund_price']);
+            }
+            $(".refund_price").html(moneyArray);
+            return false;
+        });
+        form.on('select(reason)', function(data){
+            //console.log(data.elem); //得到select原始DOM对象
+            //console.log(data.value); //得到被选中的值
+            //console.log(data.othis); //得到美化后的DOM对象
+            var value = data.value;
+            var text = `<div class="layui-input-block" style="width:200px;margin-top:10px;">
+                <textarea name="reasons" placeholder="请输入内容" class="layui-textarea" style="resize:none" lay-verify="required"></textarea>
+            </div>`;
+            $("#reason").empty();
+            if(value==="其他"){
+                $("#reason").append(text);
+                return false;
+            }
+        });
+    });
+</script>
+{/block}

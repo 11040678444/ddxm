@@ -1,0 +1,215 @@
+{extend name="index_layout"/}
+{block name="main"}
+<style>
+    #desc{
+        /*border: 1px solid red;*/
+        /*height: 50px;*/
+        position: absolute;
+        top:120px;
+        float: right;
+        right: 12%;
+        z-index: 898;
+        color: red;
+    }
+    .allCost_style{
+        float: left;
+    }
+    .layui-card-body{
+        position: relative;
+        width: 1400px;
+        margin: auto;
+    }
+</style>
+<div class="layui-card">
+    <div class="layui-card-body">
+        <div class="layui-form-item">
+            <label class="layui-form-label">合计成本</label>
+            <div class="layui-input-inline">
+                <label class="layui-form-label" style="width:200px;">
+                    <div class="allCost_style">
+                        <span class="amount" style="font-size:26px;color:red" id="allCost">0.00 </span> 元
+                    </div>
+                </label>
+                <input type="hidden" name="amount" id="amount_input" value="0">
+            </div>
+        </div>
+        <div class="layui-form">
+            <div class="layui-input-inline">
+                <select name="shop_id" id="shop_id" lay-filter="shop_id">
+                    <option value="0">请选择仓库</option>
+                    {volist name="shop" id="vo"}
+                        <option value="{$vo['id']}">{$vo['name']}</option>
+                    {/volist} 
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="type_id" id="type_id" lay-filter="type_id">
+                    <option value="0">请选择一级分类</option>
+                    {volist name="category" id="vo"}
+                        <option value="{$vo['id']}" {if condition="$vo['id'] eq $list['type_id']"} selected="selected" {/if} >{$vo['cname']}</option>
+                    {/volist} 
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="type" id="type" lay-filter="type">
+                    <option value="0">请选择二级分类</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="stock" id="stock" lay-filter="stock">
+                    <option value="0">库存筛选</option>
+                    <option value="1">显示零库存</option>
+                    <option value="2">隐藏零库存</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="demoReload" name="name" placeholder="商品名/条形码" autocomplete="off">
+            </div>
+            <div class="layui-input-inline" style="width: 90px">
+                <button class="layui-btn" id="searchEmailCompany" data-type="reload">
+                    <i class="layui-icon" style="font-size: 20px; "></i> 搜索
+                </button>
+            </div>
+            <div class="layui-input-inline " style="width: 90px">
+            <a href="">
+                <button class="layui-btn" id="清空" data-type="reload">
+                    <i class="layui-icon" style="font-size: 20px; "></i> 清空
+                </button>
+            </a>
+            </div>
+            <div class="layui-input-inline " style="width: 90px">
+                <a class="layui-btn" id="edit">编辑成本</a>
+            </div>
+
+            <table class="layui-hide" id="table" lay-filter="table"></table> 
+        </div>
+
+        <div  id="desc">
+            <span>* 未调整门店商品成本价情况下公司成本单价、公司合计成本均为0</span></br>
+            <span>* 门店成本单价*数量=门店总成本</span> | <span>公司成本单价*数量=公司总成本</span>
+        </div>
+    </div>
+
+
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.use(["table","layer",'form'], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        $ = layui.$;
+    table.render({
+        elem: '#table',
+        toolbar: '#toolbarDemo',
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"tableTset",
+        url: '{:url("admin/Deposit/stock_list")}',
+        height: 'full-128',
+        /*limit:1,
+        limits:[1,2,30,40,50,60,70,80,90],*/
+        page: true,
+        cols: [
+            [
+                {type:'radio'},
+                { field: 'id',width: 80, title: 'ID'},
+                { field: 'shop_id', /*width: 80,*/ title: '所属仓库'},
+                { field: 'type_id',/* width: 200, */title: '一级分类' },
+                { field: 'type',/* width: 200, */title: '二级分类' },
+                { field: 'title',/* width: 200, */title: '商品名称' },
+                { field: 'bar_code',/* width: 200, */title: '商品条形码' },
+                { field: 'stock',/* width: 200, */title: '库存数量' },
+                { field: 'gs_single_cost',width: 120,title: '公司成本单价' },
+                { field: 'single_price1',width: 120,title: '门店成本单价' },
+                { field: 'gs_cost',width: 120,title: '公司合计成本' },
+                { field: 'cost_price1',width: 120,title: '门店合计成本' },
+                { field: 'cost_price' ,width: 150,title: '<font color="red"><b>公司进价合计成本</b></font>' },
+            ]
+        ],
+        done: function(res, curr, count){
+            var allCost = res.allCost;
+            $('#allCost').html(allCost);
+        }
+    });
+    //搜索
+    $("#searchEmailCompany").on("click",function(){
+        var name = $('#demoReload').val();
+        var shop_id = $('#shop_id').val();
+        var type_id = $('#type_id').val();
+        var stock = $('#stock').val();
+        var type = $('#type').val();
+        table.reload('tableTset', {
+          url: '/admin/Deposit/stock_list',
+          where: {name:name,shop_id:shop_id,type_id:type_id,type:type,stock:stock} //设定异步数据接口的额外参数
+        });
+    });
+
+    //修改门店单成本
+    $("#edit").on("click",function(){
+        //获取勾选的数据
+        var checkDatas = layui.table.checkStatus('tableTset').data;
+        if ( checkDatas.length == 0 )
+        {
+            layer.msg('请选择商品');
+            return false;
+        }
+        var url  ="{:url('admin/Deposit/edit_cost')}" ;
+        url += "?bar_code="+checkDatas[0].bar_code;
+        url += "&cost_price="+checkDatas[0].cost_price;
+        url += "&id="+checkDatas[0].id;
+        url += "&shop_ids="+checkDatas[0].shop_ids;
+        url += "&shop_id="+checkDatas[0].shop_id;
+        url += "&single_price="+checkDatas[0].single_price;
+        url += "&stock="+checkDatas[0].stock;
+        url += "&title="+checkDatas[0].title;
+        url += "&single_price1="+checkDatas[0].single_price1;
+        url += "&cost_price1="+checkDatas[0].cost_price1;
+
+        url += "&gs_single_cost="+checkDatas[0].gs_single_cost;
+        url += "&gs_cost="+checkDatas[0].gs_cost;
+
+        layer.open({
+            type: 2,
+            title: '修改门店单成本',
+            area: ['800px', '800px'],
+            content: url ,
+            end: function(layero, index){
+                table.reload('tableTset', {
+                });
+            }
+        });
+    });
+});
+
+
+
+layui.use(["form"], function(){
+    var layer = layui.layer;
+    form = layui.form;
+    //筛选分类
+    form.on('select(type_id)', function(data){   
+        var val=data.value;
+        $.ajax({
+            type : "post",
+            url : "/admin/Item/category_select",
+            data: {pid:val},
+            dataType: 'json',
+            success:function(res){
+                if( res.code == 1 ){
+                    var category = res.data;
+                    var option = '';
+                    $('#type').empty();
+                    $('#type').append("<option value=''>请选择</option>");
+                    for( var k in category){
+                        $("#type").append("<option value=" + category[k].id + ">" + category[k].cname + "</option>");
+                    }
+                    form.render("select");
+                }
+            }
+        });
+    });
+
+});
+</script>
+{/block}

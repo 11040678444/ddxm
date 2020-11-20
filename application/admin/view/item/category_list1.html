@@ -1,0 +1,143 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-body">
+        <div class="layui-form">
+
+            <!-- <form action="{:url('')}" method="post" style="margin-top: 20px;">
+                <div class="layui-inline">
+                    <input class="layui-input" name="title" value="{$title}">
+                </div>
+                <button class="layui-btn" id="sear" data-type="reload">搜索</button>
+            </form> -->
+
+
+
+            <table class="layui-hide" id="table" lay-filter="table"></table>
+            <script type="text/html" id="toolbarDemo">
+                <div class="layui-btn-container">
+                <a class="layui-btn layui-btn-sm" id="Add">添加分类</a>
+              </div>
+            </script>
+            <script type="text/html" id="barTool">
+                {{#  if(d.userid == 1){ }}
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                {{#  } else { }}
+                <!-- <a class="layui-btn layui-btn-xs" lay-event="next">查看下一级</a> -->
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">禁用</a>
+                {{#  } }}
+            </script>
+            
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.use(["table","layer"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        $ = layui.$;
+    table.render({
+        elem: '#table',
+        toolbar: '#toolbarDemo',
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"tableTset",
+        url: '{:url("admin/item/category_list1")}',
+        height: 'full-128',
+        /*limit:1,
+        limits:[1,2,30,40,50,60,70,80,90],*/
+        pid: 1,
+        page: true,
+        cols: [
+            [
+                { field: 'id', /*width: 80,*/ title: 'ID'},
+                { field: 'sort', /*width: 80,*/ title: '序号'},
+                { field: 'cname', /*width: 80,*/ title: '分类名称'},
+                { field: 'update_id', /*width: 120,*/ title: '更新人'},
+                { field: 'addtime', title: '创建时间'},
+                { field: 'update_time',/* width: 200, */title: '更新时间' },
+                { fixed: 'right', /*width: 160,*/ title: '操作', toolbar: '#barTool' }
+            ]
+        ],
+    });
+
+    //添加
+    $("#Add").on("click",function(){
+        var url  ="{:url('admin/Item/category_add')}";
+        layer.open({
+            type: 2,
+            title: '添加规格',
+            area: ['600px', '300px'],
+            content: url,
+            end: function(layero, index){
+                table.reload('tableTset', {
+                });
+            }
+        });
+    });
+
+
+    //监听行工具事件
+    table.on('tool(table)', function(obj) {
+        var data = obj.data;
+        //console.log(obj);
+        if (obj.event === 'del') {
+            layer.confirm('确定禁用这条数据？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/item/category_del")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }else if (obj.event === 'edit') {
+            var url = '{:url("admin/item/category_add")}' + "?id=" + data.id;
+            layer.open({
+                type: 2,
+                title: '在线调试',
+                area: ['500px', '300px'],
+                content: url,
+                end: function(layero, index){
+                   table.reload('tableTset', {
+                    });
+                }
+            });
+        }else if( obj.event === 'next' ){
+            // var url = '{:url("admin/item/category_lists")}' + "?id=" + data.id;
+            // layer.open({
+            //     type: 2,
+            //     title: '在线调试',
+            //     area: ['800px', '600px'],
+            //     content: url,
+            //     end: function(layero, index){
+            //        table.reload('tableTset', {
+            //         });
+            //     }
+            // });
+        }
+    });
+});
+</script>
+{/block}

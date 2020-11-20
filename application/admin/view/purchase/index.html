@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理系统</title>
+    <meta name="author" content="YZNCMS">
+    <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/admin.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/ddxm.css">
+    <link rel="stylesheet" href="__STATIC__/admin/font/iconfont.css">
+    <script src="__STATIC__/libs/layui/layui.js"></script>
+    <script src="__STATIC__/libs/jquery/jquery.min.js"></script>
+    <style type="text/css">
+        .layui-table-cell{
+            height:auto !important;
+        }
+        .layui-layer-title{
+            text-align: center;
+            padding: 0 ;
+            font-size:20px;
+        
+        }
+        .width150{
+            width:70px;
+        }
+        .width200{
+            width:70px;
+        }
+    </style>
+    
+<script type="text/javascript">
+//全局变量
+var GV = {
+    'image_upload_url': '{$image_upload_url ? $image_upload_url : url("attachment/attachments/upload", ["dir" => "images", "module" => request()->module()])}',
+    'file_upload_url': '{$file_upload_url ? $file_upload_url : url("attachment/attachments/upload", ["dir" => "files", "module" => request()->module()])}',
+    'WebUploader_swf': '__STATIC__/webuploader/Uploader.swf',
+    'upload_check_url': '{$upload_check_url ? $upload_check_url : url("attachment/Attachments/check")}',
+    'ueditor_upload_url': '{$ueditor_upload_url ? $ueditor_upload_url : url("attachment/Ueditor/run")}',
+};
+</script>
+</head>
+<body class="childrenBody">
+<div class="layui-card">
+    <div class="layui-card-header">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>采购单</legend>
+        </fieldset>
+    </div>
+    <div class="layui-card-body">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <div class="layui-input-inline" style="width:180px;">
+                    <select name="supplier" lay-verify="" lay-filter="supplier">
+                        <option value="">选择供应商</option>
+                        {volist name="data.supplier" id ="vo"}
+                        <option value="{$vo.id}">{$vo.name}</option>
+                        {/volist}
+                    </select>  
+                </div>
+                <div class="layui-input-inline" style="width:180px;">
+                    <select name="status" lay-verify="" lay-filter="status">
+                        <option value="">选择状态</option>
+                        <option value="1">采购中</option>
+                        <option value="2">入库中</option>
+                        <option value="3">已入库</option>
+                        <option value="4">已关闭</option>
+                    </select>  
+                </div>
+                <div class="layui-input-inline" style="width:180px;">
+                    <input type="text" name="start_time" readonly  class="layui-input" id="start_time" placeholder="开始时间">
+                </div>
+                <div class="layui-input-inline" style="width:180px;">
+                    <input type="text" name="end_time" readonly  class="layui-input" id="end_time" placeholder="结束时间">
+                </div>
+                <div class="layui-input-inline" style="width:250px;">
+                    <input type="text" name="search" class="layui-input" id="search" placeholder="请输入需查询的订单号">
+                </div>
+                <div class="layui-input-inline" style="width:250px;">
+                    <input type="text" name="item_name" class="layui-input" id="item_name" placeholder="请输入需查询的商品名称">
+                </div>
+                <button class="layui-btn" lay-submit lay-filter="formDemo">搜索</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </form>
+        <div class="layui-btn-container">
+            <a class="layui-btn layui-btn-sm">导出</a>
+            <a class="layui-btn layui-btn-sm" id="add">新增采购</a><!-- href="{:url('admin/manager/add')}" -->
+        </div>
+        <div class="layui-form">
+            <table class="layui-hide" id="table" lay-filter="table"></table> 
+        </div>
+        <script type="text/html" id="statusTool">
+            {{# if(d.status ==1){}}
+                采购中
+            {{#}else if(d.status==2){}}
+                入库中
+            {{#}else if(d.status==3){}}
+                已入库
+            {{#}else if(d.status==4){}}
+                已关闭
+            {{#}else if(d.status==5){}}
+                反入库
+            {{#}else if(d.status==6){}}
+                已删除
+            {{#}}}
+        </script>
+        <script type="text/html" id="itemBarTool">
+             <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="itemrecord" style="background-color:#81bdfa">入库记录</a>   
+        </script>
+        <script type="text/html" id="barTool">
+            {{# if(d.status ==1){}}
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="storage" style="width:68px;background-color:#5ba4f2">入库</a>
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="edit" style="width:68px;background-color:#aec3d8">编辑</a>
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="del" style="width:68px;background-color:#f54146">删除</a>
+            {{#}else if(d.status==2){}} 
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="storage" style="width:68px;background-color:#5ba4f2">入库 </a>
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="record" style="background-color:#81bdfa">入库记录</a>
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="close" style="width:68px;background-color:#f54146">关闭</a>
+            {{#}else if(d.status==3){}}
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="print" style="width:68px;background-color:#d6d6d6">打印</a>
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="record" style="background-color:#81bdfa">入库记录</a>
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="refund_storage" style="width:68px;background-color:#2182E5">反入库</a>
+            {{#}else if(d.status==4){}}
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="print"style="width:68px;background-color:#d6d6d6">打印</a>
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="record" style="background-color:#81bdfa">入库记录</a>
+            {{#}else if(d.status==5){}}
+                反入库
+            {{#}else if(d.status==6){}}
+                <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="record" style="background-color:#81bdfa">入库记录</a>
+            {{#}}}
+        </script>
+    </div>
+</div>
+
+<script type="text/javascript">
+layui.use(["table","layer","laydate","form"], function() {
+    var table = layui.table,
+        form  = layui.form,
+        layer = layui.layer,
+        laydate = layui.laydate,
+        $ = layui.$;
+    table.render({
+        elem: '#table',
+       /* toolbar: '#toolbarDemo',*/
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"tableTest",
+        url: '{:url("admin/purchase/index")}',
+        height: 'full-148',
+        page: true,
+        cols: [[
+            { field: 'message',minWidth:220, title: '采购信息',style:"vertical-align:text-top;"},
+            { field: 'item', minWidth:260,title: '商品信息',style:"vertical-align:text-top;"},
+            { field: 'item_code', minWidth:160,title: '条形码',style:"vertical-align:text-top;"},
+            { field: 'price', title: '采购单价',style:"vertical-align:text-top;"},
+            { field: 'num', title: '采购量',style:"vertical-align:text-top;"},
+            { field: 'r_num', title: '已入量',style:"vertical-align:text-top;"},
+            { field: 'amount', title: '合计金额',style:"vertical-align:text-top;"},
+            { align: 'center', title: '状态',toolbar: '#statusTool'},
+            { align: 'center',minWidth:300, title: '操作',toolbar: '#barTool'},
+        ]],
+    });
+    //时间选择器
+    laydate.render({
+        elem: '#start_time',
+        type: 'date'
+    });
+    laydate.render({
+        elem: '#end_time',
+        type: 'date'
+    });
+    $("#add").click(function(){
+        layer.open({
+            type:2,
+            title: '<strong>新增采购单</strong>',
+            area: ['1200px', '740px'],
+            content: '{:url("admin/purchase/purchaseAdd")}',
+            end: function(layero, index){
+                table.reload('tableTest', {
+                });
+            }
+        })
+    })
+    form.on("submit(formDemo)",function(data){
+        var field = data.field;
+        table.reload('tableTest', {
+            where: { //设定异步数据接口的额外参数，任意设
+                field
+            }
+            ,page: {
+                curr: 1 //重新从第 1 页开始
+            }
+        });
+        return false;
+    })
+    table.on('tool(table)', function(obj) {
+        var data = obj.data;
+        //入库
+        if (obj.event === 'storage') {
+            var id = data.id;
+            var purchase_id = id;
+            $.ajax({
+                url:'{:url("admin/purchase/purchase_storage")}',
+                type:"POST",
+                data:{id:id},
+                success:function(res){
+                    if(res.result){
+                        var shop = res.data.shop;
+                        var select = "";
+                        for(var i = 0 ; i<shop.length;i++){
+                            select += `<option value="`+shop[i]["id"]+`">`+shop[i]["name"]+`</option>`;
+                        }
+                        layer.open({
+                            type:1,
+                            title:"<strong>商品入库</strong>",
+                            area:['1200px',"740px"],
+                            content:`
+                            <div class="layui-card">
+                                <div class="layui-card-body">
+                                <form class="layui-form form-horizontal" method="post">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label width200">采购单号：</label>
+                                        <div class="layui-form-mid layui-word-aux">${res.data.sn}</div>
+                                        <label class="layui-form-label width150">供应商：</label>
+                                        <div class="layui-form-mid layui-word-aux" style="width:120px;white-space:nowrap;
+                                        text-overflow:ellipsis;overflow:hidden;" title="${res.data.supplier_name}">${res.data.supplier_name}</div>                        
+                                        <label class="layui-form-label width150">采购人：</label>
+                                        <div class="layui-form-mid layui-word-aux">${res.data.purchase_admin_name}</div>
+                                        <label class="layui-form-label width200">采购时间：</label>
+                                        <div class="layui-form-mid layui-word-aux">${res.data.create_time}</div>
+                                        <label class="layui-form-label width150">所入仓库</label>
+                                        <div class="layui-input-inline">
+                                            <select name="shop" lay-verify="" lay-filter="parent">
+                                                <option value="">请选择仓库</option>
+                                                ${select}
+                                            </select>
+                                        </div>                            
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label width200">备注：</label>
+                                        <div class="layui-input-block">
+                                            <input readonly  class="layui-input" value="${res.data.remark}">
+                                        </div>                                                      
+                                    </div>
+                                    <table id="purchase_storage" lay-filter="purchase_storage"></table>
+                                    <div class="layui-input-inline layui-btn-group userTable" style="margin-right:40px;float:right">
+                                        <button class="layui-btn layui-btn-primary" lay-submit lay-filter="close" >取消</button>
+                                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="storage_item" >确定</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>`,
+                            success:function(layero,index){
+                                form.render("select");
+                                table.render({
+                                    elem: '#purchase_storage',
+                                   /* toolbar: '#toolbarDemo',*/
+                                    skin: 'row', //行边框风格
+                                    even: true ,//开启隔行背景
+                                    id:"tableItem",
+                                    url: '{:url("admin/purchase/purchase_storage_item")}',
+                                    where:{                        
+                                        id:id,
+                                    }, 
+                                     height: '490',
+                                    page: true,
+                                    cols: [
+                                        [
+                                            {type:'numbers'},
+                                            { field: 'item_name',align:"center" ,width:300, title: '商品名称'},
+                                            { field: 'item_code',align:"center" ,  title: '条形码'},
+                                            { field: 'num', align:"center" , title: '采购数量'},
+                                            { field: 'r_num', align:"center" , title: '已入库数量'},
+                                            { field: 'l_num', align:"center" ,edit:"number",title: '入库数量' },
+                                            { align: 'center',align:"center" ,title: '操作',toolbar: '#itemBarTool'},
+                                        ]
+                                    ],
+                                    done:function(res,curr,count){
+                                        table.on('edit(purchase_storage)', function(obj){
+                                            var s_num = obj.value;
+                                            var num = obj.data.num - obj.data.r_num;
+                                            if(s_num>num){
+                                               layer.msg('入库数量'+obj.value+'  大于剩余数量  '+num);
+                                                obj.update({
+                                                    "s_num":num
+                                                })
+                                                $(this).val(num);
+                                            }
+                                            
+                                        });
+                                        table.on('tool(purchase_storage)', function(obj) {
+                                            if (obj.event === 'itemrecord') {
+                                                var id = obj.data.purchase_id;
+                                                layer.open({
+                                                    type:2,
+                                                    title:"商品选择",
+                                                    area: ['1200px', '740px'],
+                                                    content: '{:url("admin/purchase/record")}?id='+id,
+                                                    end:function(layero,index){
+                                                    }
+                                                })
+                                            }
+                                        });
+                                        form.on("submit(storage_item)", function(datas){
+                                            var data = res.data;
+                                            var shop_id = datas.field.shop;
+                                            if(shop_id ==""){
+                                                layer.msg("请选择仓库", {icon: 5 , time: 1000 ,shade:0.6});
+                                                return false;
+                                            }
+                                            /*console.log(data);
+                                            return false;*/
+                                            data['shop_id'] = shop_id;
+                                            $.ajax({
+                                                url:'{:url("admin/purchase/storage_item")}',
+                                                type:"POST",
+                                                data:{"data":JSON.stringify(data),"shop_id":shop_id,"purchase_id":purchase_id},
+                                                success:function(res){
+
+                                                    if(typeof(res) == 'string')
+                                                    {
+                                                        res = JSON.parse(res);
+                                                    }
+
+                                                    if(res.result){
+                                                        layer.msg(res.msg,{icon: 6 , time: 2000 ,shade:0.6},function(){
+                                                            layer.close(index); //再执行关闭
+                                                            table.reload('tableTest', {
+                                                            });
+                                                        })
+                                                    }else{
+                                                        layer.msg(res.msg, {icon: 5 , time: 2000 ,shade:0.6});
+                                                    }
+                                                }
+                                            })
+                                            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+                                        });
+                                    }
+                                });
+                                
+                            }
+                        })
+                    }else{
+                        layer.msg(res.msg, {icon: 5 , time: 2000 ,shade:0.6});
+                    }
+                }
+            })
+        }
+        //编辑    
+        if (obj.event === 'edit') {
+
+            layer.open({
+                type:2,
+                title: '<strong>编辑采购单</strong>',
+                area: ['1200px', '740px'],
+                content: '{:url("admin/purchase/purchaseEdit")}'+'?id='+data.id,
+                end: function(layero, index){
+                    table.reload('tableTest', {
+                    });
+                }
+            })
+        }
+        //删除
+        if (obj.event === 'del') {
+            layer.confirm('确认删除当前采购单?', {icon:7, title:'友情提示'}, function(index){
+                var id = data.id;
+                $.ajax({
+                    url:'{:url("admin/purchase/purchase_del")}',
+                    type:"POST",
+                    data:{"id":id},
+                    success:function(res){
+                        layer.close(index);
+                        if(res.result){                           
+                            table.reload('tableTest', {});
+                        }else{
+                            layer.msg(res.msg, {icon: 2 , time: 2000 ,shade:0.6},function(){
+                                table.reload('tableTest', {});
+                            });
+                        }
+                    }
+                })                
+            });
+        }
+        //关闭
+        if (obj.event === 'close') {
+            layer.confirm('确认关闭当前采购单?', {icon:7, title:'友情提示'}, function(index){
+                var id = data.id;
+                $.ajax({
+                    url:'{:url("admin/purchase/purchase_close")}',
+                    type:"POST",
+                    data:{"id":id},
+                    success:function(res){
+                        layer.close(index);
+                        if(res.result){                           
+                            table.reload('tableTest', {});
+                        }else{
+                            layer.msg(res.msg, {icon: 5 , time: 2000 ,shade:0.6});
+                        }
+                    }
+                })                
+            });
+        }
+        //入库记录
+        if (obj.event === 'record') {
+            var id = data.id;
+            layer.open({
+                type:2,
+                title:"商品选择",
+                area: ['1200px', '740px'],
+                content: '{:url("admin/purchase/record")}?id='+id,
+                end:function(layero,index){
+                }
+            })
+        }   
+        //打印
+        if (obj.event === 'print') {
+
+        }
+        // 反入库
+        if (obj.event === 'refund_storage') {
+            var id = data.id;
+            layer.confirm('确认反入库?', {icon: 7, title:'系统提示'}, function(index){
+                $.ajax({
+                    url:'{:url("admin/purchase/refund_storage")}',
+                    type:"POST",
+                    data:{"id":id},
+                    success:function(res){
+                        layer.close(index);
+                        if(res.result){                           
+                            layer.msg(res.msg,{icon: 6 , time: 2000 ,shade:0.6},function(){
+                                layer.close(index); //再执行关闭
+                                table.reload('tableTest', {});
+                            })
+                        }else{
+                            layer.msg(res.msg, {icon: 5 , time: 2000 ,shade:0.6});
+                        }
+                    }
+                })       
+            });
+        }
+    });
+});
+</script>
+</body>
+
+</html>

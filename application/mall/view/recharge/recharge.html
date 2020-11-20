@@ -1,0 +1,272 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>活动充值订单</legend>
+        </fieldset>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form">
+            <a class="layui-btn layui-btn-sm" id="Add">充值</a>
+            <div class="layui-input-inline">
+                <select name="shop_id" id="shop_id" lay-filter="shop_id">
+                    <option value="0">全部门店</option>
+                    {volist name="shop" id="vo"}
+                    <option value="{$vo['id']}">{$vo['name']}</option>
+                    {/volist}
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="pay_way" id="pay_way" lay-filter="pay_way">
+                    <option value="0">选择支付方式</option>
+                    <option value="5">现金</option>
+                    <option value="4">银行卡</option>
+                    <option value="1">微信</option>
+                    <option value="2">支付宝</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="is_examine" lay-verify="" id="is_examine" lay-filter="is_examine">
+                    <option value="">对账状态</option>
+                    <option value="0">未对账</option>
+                    <option value="1">已对账</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="name" name="name" placeholder="订单号/会员手机号" autocomplete="off">
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="time" name="time" placeholder="开始时间" autocomplete="off">
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="end_time" name="end_time" placeholder="结束时间" autocomplete="off">
+            </div>
+            <div class="layui-input-inline " style="width: 90px">
+                <button class="layui-btn" id="searchEmailCompany" data-type="reload">
+                    <i class="layui-icon" style="font-size: 20px; "></i> 搜索
+                </button>
+            </div>
+            <div class="layui-input-inline " style="width: 90px">
+                <button class="layui-btn" id="duizhang" data-type="reload">
+                    批量对账
+                </button>
+            </div>
+            <table class="layui-hide" id="table" lay-filter="table"></table>
+            <script type="text/html" id="examineTool">
+                {{# if(d.is_examine == 1){}}
+                <div class="layui-btn layui-btn-xs" style="cursor:default" lay-event="quxiao">已对账</div>
+                {{#  } else { }}
+                <div class="layui-btn layui-btn-xs  layui-btn-normal" style="cursor:default" lay-event="duizhang">未对账</div>
+                {{#}}}
+            </script>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //执行第一个laydate实例
+        laydate.render({
+            elem: '#time', //指定元素
+            type: 'datetime'
+        });
+        //执行第二个laydate实例
+        laydate.render({
+            elem: '#end_time', //指定元素
+            type: 'datetime'
+        });
+    });
+</script>
+<script type="text/javascript">
+    layui.use(["table","layer"], function() {
+        var table = layui.table,
+            layer = layui.layer,
+            $ = layui.$;
+        table.render({
+            elem: '#table',
+            toolbar: '#toolbarDemo',
+            skin: 'row', //行边框风格
+            even: true ,//开启隔行背景
+            id:"tableTest",
+            url: '{:url("mall/Recharge/recharge")}',
+            height: 'full-148',
+            page: true,
+            cols: [
+                [
+                    {type:'checkbox'},
+                    { field: 'sn',  title: '订单号'},
+                    { field: 'name',  title: '门店'},
+                    { field: 'mobile',  title: '会员账号'},
+                    { field: 'nickname',  title: '会员昵称'},
+                    { field: 'amount',  title: '充值金额'},
+                    { field: 'pay_way', title: '付款方式' },
+                    { field: 'add_time',title: '交易时间' },
+                    { field: 'remarks', title: '备注' },
+                    { field: 'is_examine', title: '对账',toolbar:"#examineTool" },
+                    // { fixed: 'right', minWidth: 205, title: '操作', toolbar: '#barTool' }
+                ]
+            ],
+        });
+
+        //充值
+        $("#Add").on("click",function(){
+            var url  ="{:url('mall/Recharge/rechargeAdd')}";
+            layer.open({
+                type: 2,
+                title: '充值',
+                area: ['800px', '650px'],
+                content: url,
+                end: function(layero, index){
+                    table.reload('tableTset', {
+                    });
+                }
+            });
+        });
+
+        $('#duizhang').on("click",function(){
+            //批量对账
+            var tt = layui.table.checkStatus('tableTest').data;
+            let data = [];
+            tt.map(item => {
+                data.push(item.id);
+            })
+            if( data.length == 0 ){
+                return false;
+            }
+            $.ajax({
+                url: "/admin/Order/edit_status",    // 提交到controller的url路径
+                type: "post",    // 提交方式
+                data: {ids:data},  // data为String类型，必须为 Key/Value 格式。
+                dataType: "json",    // 服务器端返回的数据类型
+                success: function (data) {
+                    console.log(data)
+                    if( data.code == 1 ){
+                        layer.msg(data.msg, {time: 3000});
+                        setTimeout(function(){
+                            // location.reload();
+                        }, 1000);
+
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                },
+            });
+        });
+
+        //搜索
+        $("#searchEmailCompany").on("click",function(){
+            var name = $('#name').val();
+            var shop_id = $('#shop_id').val();
+            var pay_way = $('#pay_way').val();
+            var time = $('#time').val();
+            var end_time = $('#end_time').val();
+            var is_examine = $('#is_examine').val();
+            table.reload('tableTest', {
+                url: '/mall/Recharge/recharge',
+                where:{
+                    name:name,
+                    shop_id:shop_id,
+                    pay_way:pay_way,
+                    time:time,
+                    end_time:end_time,
+                    is_examine:is_examine
+                } //设定异步数据接口的额外参数
+            });
+        });
+
+        //监听行工具事件
+        table.on('tool(table)', function(obj) {
+            var data = obj.data;
+            if (obj.event === 'del') {
+                layer.confirm('确定删除这条数据？', { icon: 3, title: '提示' }, function(index) {
+                    layer.close(index);
+                    $.post('{:url("admin/order/del")}', { 'id': data.order_id }, function(data) {
+                        if (data.code == 1) {
+                            if (data.url) {
+                                layer.msg(data.msg + ' 页面即将自动跳转~');
+                            } else {
+                                layer.msg(data.msg);
+                            }
+                            setTimeout(function() {
+                                if (data.url) {
+                                    location.href = data.url;
+                                } else {
+                                    location.reload();
+                                }
+                            }, 1500);
+                        } else {
+                            layer.msg(data.msg);
+                            setTimeout(function() {
+                                if (data.url) {
+                                    location.href = data.url;
+                                }
+                            }, 1500);
+                        }
+
+                    });
+                });
+            }else if (obj.event === 'quxiao') {
+                layer.confirm('确认此条数据改为未对账？', { icon: 3, title: '提示' }, function(index) {
+                    layer.close(index);
+                    $.post('{:url("admin/Order/quxiao")}', { 'id': data.id }, function(data) {
+                        if (data.code == 1) {
+                            if (data.url) {
+                                layer.msg(data.msg + ' 页面即将自动跳转~');
+                            } else {
+                                layer.msg(data.msg);
+                            }
+                            setTimeout(function() {
+                                if (data.url) {
+                                    $(".layui-laypage-btn").click()
+                                } else {
+                                    // location.reload();
+                                }
+                            }, 1500);
+                        } else {
+                            layer.msg(data.msg);
+                            setTimeout(function() {
+                                if (data.url) {
+                                    location.href = data.url;
+                                }
+                            }, 1500);
+                        }
+
+                    });
+                });
+            }else if (obj.event === 'duizhang') {
+                layer.confirm('确定这条数据已对账？', { icon: 3, title: '提示' }, function(index) {
+                    layer.close(index);
+                    $.post('{:url("admin/Order/duizhang")}', { 'id': data.id }, function(data) {
+                        if (data.code == 1) {
+                            if (data.url) {
+                                layer.msg(data.msg + ' 页面即将自动跳转~');
+                            } else {
+                                layer.msg(data.msg);
+                            }
+                            setTimeout(function() {
+                                if (data.url) {
+                                    $(".layui-laypage-btn").click()
+                                } else {
+                                    // location.reload();
+                                }
+                            }, 1500);
+                        } else {
+                            layer.msg(data.msg);
+                            setTimeout(function() {
+                                if (data.url) {
+                                    location.href = data.url;
+                                }
+                            }, 1500);
+                        }
+
+                    });
+                });
+            }
+        });
+    });
+
+</script>
+{/block}

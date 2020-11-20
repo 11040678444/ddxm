@@ -1,0 +1,158 @@
+<!--{extend name="index_layout"/}-->
+{block name="main"}
+<div class="layui-card" style="width:800px;background-color:#affdfd;">
+    <div class="layui-row layui-col-md12">
+        <div class="layui-card-body">
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">服务卡名<span class="must">*</span></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="card_name" lay-verify="cardname" autocomplete="off" placeholder="服务卡名" class="layui-input" value="{$data.card_name}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">发行量 <span class="must">*</span></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="citulation" lay-verify="number" autocomplete="off" placeholder="发行量" class="layui-input number" value="{$data.critulation}" >
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">单人限制 <span class="must">*</span></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="restrict_num" lay-verify="number" autocomplete="off" placeholder="限制数量" class="layui-input number" value="{$data.restrict_num}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">起始时间 <span class="must">*</span></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="start_time" id="start_time" readonly autocomplete="off" placeholder="开始时间" class="layui-input" value="{$data.start_time|date='Y年m月d日'}">
+                    </div>
+                    <div class="layui-input-inline">
+                        <input type="text" name="end_time" id="end_time" readonly autocomplete="off" placeholder="结束时间" class="layui-input" value="{$data.end_time|date='Y年m月d日'}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">所属门店 <span class="must">*</span></label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="all_shop" value="1" lay-skin="primary" title="所有门店" lay-filter="c_all" checked = "{$data.all_shop=='1'?'checked':''}">
+                        <input type="checkbox"  lay-skin="primary" title="反选" class="f_all"lay-filter="f_all" >
+                    </div>
+                    <div class="layui-input-block">
+                        {volist name="data.shop" id="vo"}
+                        <input type="checkbox" name="shop_name" lay-skin="primary" title="{$vo.name}" class="shop_id" value="{$vo.name}" data="{$vo.id}" checked="{$vo.check}">
+                        {/volist}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">所属类型<span class="must">*</span></label>
+                    <div class="layui-input-block">
+                        {volist name="data.type" id="type"}
+                        <input type="radio" name="type" value="{$type.id}" title="{$type.name}" lay-filter="type" {$type.check}>
+                        {/volist}
+                    </div>
+                </div>
+                <div class="layui-form-item" id="service_object">
+                    <label class="layui-form-label">所属项目 <span class="must">*</span></label>
+                    <input type="hidden" name="other_number" id="other_number" value="{$data.service_count}">
+                    {volist name="data.service" id ="service"}
+                    <div class="layui-input-block ddxm-title-bg dd-space">
+                        <div class="dd-center">
+                            <button type="" class="layui-btn layui-btn-normal service" data="0">服务项目</button>
+                            <input type="text" name="service_name" readonly  autocomplete="off" placeholder="左边按钮选择服务项目" class="dd-input service_name dd-input-width-lang" value="{$service.service_name}">
+                            <input type="hidden" name="service_id"   class="service_id" >
+                            <input type="text" name="service_num" lay-verify="number"   autocomplete="off" placeholder="请输入服务次数" class="dd-input sub dd-left number service_number servive_sub" value="" style="width:110px;">
+                            <span class="sub servive_sub">次</span>
+                        </div>
+                        <div id="level_name" data="{$level}">
+                            {volist name="data.level" id="le"}
+                            <div class="dd-bottom">
+                                <label class="layui-form-label">{$le.level_name}<span class="must">*</span></label>
+                                <input type="text" name="service_level_price{$key}" lay-verify="number"   autocomplete="off" placeholder="请输入服务金额" class="dd-input level level{$le.id} price" value="" data="{$le.id}">
+                            </div>
+                            {/volist}
+                        </div>
+                        <div>
+                            <p class="ddxm-form-label">其他限制</p>
+                            <div class="layui-input-block dd-left-60">
+                                <span>每日限制:</span>
+                                <input type="text" name="day" autocomplete="off" placeholder="请输入每日限制次数" class="dd-input number dd-input-width" value="">
+                            </div>
+                            <div class="layui-input-block dd-space dd-left-60">
+                                <span>每月限制:</span>
+                                <input type="text" name="month" autocomplete="off" placeholder="请输入每月限制次数" class="dd-input number dd-input-width" value="">
+                            </div>
+                            <div class="layui-input-block dd-space dd-left-60">
+                                <span>每年限制:</span>
+                                <input type="text" name="year" autocomplete="off" placeholder="请输入每年限制次数" class="dd-input number dd-input-width" value="">
+                            </div>
+                            <div class="layui-input-block custom dd-left-60">
+                                <div class="custom_add custome_num">
+                                    <span>自定义项:</span>
+                                    <input type="text" name="other_time0" autocomplete="off" readonly placeholder="请选择开始时间和结束时间" class="dd-input dd-input-width other_time" value="" >
+                                    <input type="text" name="other_num0" autocomplete="off" placeholder="请输入限制次数" class="dd-input number dd-left other_num" value="" style="width:110px">
+                                </div>
+                                <div class="custom_add custome_attach">
+                                    <button type="" class="layui-btn layui-btn-normal add_custom" data="0"><i class="layui-icon">&#xe654;</i></button>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                        </div>
+                        <div style="clear:both;padding-bottom:10px;">
+                        </div>
+                    </div>
+                    {/volist}
+                </div>
+                <div class="layui-form-item" id="add_service">
+                    <label class="layui-form-label">项目添加</label>
+                    <button class="layui-btn layui-btn-normal add_service"><i class="layui-icon">&#xe654;</i></button>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">卡券金额</label>
+                    {volist name="data.level" id="l"}
+                    <div class="layui-input-block dd-space" id="card{$l.id}">
+                        <label class="layui-form-label">{$l.level_name}:</label>
+                        <label class="layui-form-label" style="color:red;padding-left:20px;padding-right:20px; font-size:20px;font-weight:bold">￥<span>0.00</span></label>
+                        <label class="layui-form-label">销售价格：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="mprice" lay-verify="price" autocomplete="off" placeholder="请输入最低价格" class="layui-input price" value="">
+                            <input type="hidden" name="level_id" value="{$l.id}">
+                            <input type="hidden" name="level_name" value="{$l.level_name}">
+                            <input type="hidden" name="price" value="">
+                        </div>
+                    </div>
+                    {/volist}
+                </div>
+                <div style="float:right;margin-right:20px;margin-bottom:10px">
+                    <button  class="layui-btn  layui-btn-danger" lay-submit lay-filter="add">添加</button>
+                    <button class="layui-btn  layui-btn-normal" lay-submit lay-filter="cancel">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+{/block}
+{block name="script" }
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/ticket.js"></script>
+<script type="text/javascript" src="__STATIC__/index/js/jquery.min.js"></script>
+<script>
+    function NumberCheck(t){
+        var val =0;
+        if(this.value.length==1){
+            val=this.value.replace(/[^0-9]/g,'')
+        }else if (this.value.length==0){
+            val=this.value.replace(/\D/g,'')
+        }
+        this.value(val);
+
+    }
+    layui.use(["table","layer","form"], function() {
+        var table = layui.table,
+        layer = layui.layer,
+        form  = layui.form,
+        $ = layui.$;
+        form.render("radio");
+    });
+</script>
+{/block}

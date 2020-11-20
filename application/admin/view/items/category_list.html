@@ -1,0 +1,188 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-body">
+        <div class="layui-form">
+            <div class="demoTable">
+                <a class="layui-btn layui-btn-sm" id="Add" lay-event="Add">添加分类</a>
+                <a class="layui-btn layui-btn-sm" href="">返回顶层</a>
+                搜索分类：
+                <div class="layui-inline">
+                    <input class="layui-input" name="keyword" id="demoReload" autocomplete="off">
+                </div>
+                <button class="layui-btn" data-type="reload">搜索</button>
+            </div>
+            <table class="layui-hide" id="table" lay-filter="table"> </table>
+            <script type="text/html" id="barTool">
+                {{#  if(d.pid == 0){ }}
+                <a class="layui-btn layui-btn-xs" lay-event="next">查看下一级</a>
+                {{#  } else { }}
+                <a class="layui-btn layui-btn-xs" lay-event="top">查看顶层</a>
+                {{#  } }}
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+
+                {{#  if(d.status == 1){ }}
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">禁用</a>
+                {{#  } else { }}
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="category_start">启用</a>
+                {{#  } }}
+            </script>
+            <input type="hidden" name="pid" id="pid" value="">
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+
+<script type="text/javascript">
+layui.use(["table","layer"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        $ = layui.$;
+    table.render({
+        elem: '#table',
+        toolbar: '#toolbarDemo',
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"tableTset",
+        url: '{:url("admin/items/category_list")}',
+        height: 'full-128',
+        page: true,
+        cols: [
+            [
+                { field: 'id', /*width: 80,*/ title: 'ID'},
+                { field: 'thumb', /*width: 80,*/ title: '缩略图'},
+                { field: 'sort', /*width: 80,*/ title: '序号'},
+                { field: 'title', /*width: 80,*/ title: '分类名称'},
+                { field: 'update_id', /*width: 120,*/ title: '更新人'},
+                { field: 'create_time', title: '创建时间'},
+                { field: 'update_time',/* width: 200, */title: '更新时间' },
+                { fixed: 'right', /*width: 160,*/ title: '操作', toolbar: '#barTool' }
+            ]
+        ],
+        done: function(res, curr, count){
+            var pid = res.pid;
+            $('#pid').val(pid);
+        }
+    });
+
+     var active = {
+        reload: function(){
+            var demoReload = $('#demoReload');
+
+            table.reload('tableTset', {
+                where: {
+                    cname: demoReload.val()
+                }
+            });
+        }
+    };
+
+    $('.demoTable .layui-btn').on('click', function(){
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+    });
+
+    //添加
+    $("#Add").on("click",function(){
+        var pid = $('#pid').val();
+        var url  ="{:url('admin/Items/category_add')}"+"?pid="+pid;
+        layer.open({
+            type: 2,
+            title: '添加分类',
+            area: ['500px', '450px'],
+            content: url,
+            end: function(layero, index){
+                table.reload('tableTset', {
+                });
+            }
+        });
+    });
+
+    //监听行工具事件
+    table.on('tool(table)', function(obj) {
+        var data = obj.data;
+        //console.log(obj);
+        if (obj.event === 'del') {
+            layer.confirm('确定禁用这条数据？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/items/category_del")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+                });
+            });
+        }else if (obj.event === 'category_start') {
+            layer.confirm('确定启用这条数据？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/items/category_start")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+                });
+            });
+        }else if (obj.event === 'edit') {
+            var pid = $('#pid').val();
+            var url = '{:url("admin/items/category_add")}' + "?id=" + data.id+"?pid="+pid;
+            layer.open({
+                type: 2,
+                title: '编辑分类',
+                area: ['500px', '400px'],
+                content: url,
+                end: function(layero, index){
+                   table.reload('tableTset', {
+                    });
+                }
+            });
+        }else if( obj.event === 'next' ){
+            var pid = data.id;
+            table.reload('tableTset', {
+                url: '/admin/items/category_list',
+                where: {pid:pid} //设定异步数据接口的额外参数
+            });
+        }else if( obj.event === 'top' ){
+            table.reload('tableTset', {
+                url: '/admin/items/category_list',
+                where: {pid:0} //设定异步数据接口的额外参数
+            });
+        }
+    });
+});
+</script>
+{/block}

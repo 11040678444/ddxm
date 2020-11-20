@@ -1,0 +1,4 @@
+<?php
+//000000000060
+ exit();?>
+think_serialize:a:3:{i:0;a:12:{s:2:"id";i:289;s:5:"title";s:12:"订单列表";s:4:"icon";s:0:"";s:8:"parentid";i:286;s:3:"app";s:4:"mall";s:10:"controller";s:5:"order";s:6:"action";s:13:"deliver_order";s:9:"parameter";s:0:"";s:6:"status";i:1;s:3:"tip";s:0:"";s:6:"is_dev";i:0;s:9:"listorder";i:0;}i:1;a:12:{s:2:"id";i:290;s:5:"title";s:12:"订单退单";s:4:"icon";s:0:"";s:8:"parentid";i:286;s:3:"app";s:4:"mall";s:10:"controller";s:5:"order";s:6:"action";s:12:"refund_apply";s:9:"parameter";s:0:"";s:6:"status";i:1;s:3:"tip";s:0:"";s:6:"is_dev";i:0;s:9:"listorder";i:0;}i:2;a:12:{s:2:"id";i:291;s:5:"title";s:12:"评论管理";s:4:"icon";s:0:"";s:8:"parentid";i:286;s:3:"app";s:4:"mall";s:10:"controller";s:5:"order";s:6:"action";s:7:"comment";s:9:"parameter";s:0:"";s:6:"status";i:1;s:3:"tip";s:0:"";s:6:"is_dev";i:0;s:9:"listorder";i:0;}}

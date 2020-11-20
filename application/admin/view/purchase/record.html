@@ -1,0 +1,118 @@
+<!--{extend name="index_layout"/}-->
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-row layui-col-md12">
+       <!--  <div class="layui-card-header ddxm-title-bg"><strong>采购信息</strong></div> -->
+        <div class='ddxm-content-bg'>
+            <div class="ddxm-content-col">
+                <div class="layui-card-header"><strong>采购信息</strong></div>
+                <div class="ddxm-form-item" >
+                    <label class="layui-form-label">采购单号</label>
+                    <div class="layui-form-mid layui-word-aux ddxm-col">
+                    {$data.sn}
+                    </div>
+                    <label class="layui-form-label"> 供应商</label>
+                    <div class="layui-form-mid layui-word-aux ddxm-col">
+                    {$data.supplier_name}
+                    </div>
+                </div>
+                <div class="ddxm-form-item" >
+                    <label class="layui-form-label">采购人</label>
+                    <div class="layui-form-mid layui-word-aux ddxm-col">
+                    {$data.purchase_admin_name}
+                    </div>
+                    <label class="layui-form-label">采购时间</label>
+                    <div class="layui-form-mid layui-word-aux ddxm-col">
+                    {$data.create_time}
+                    </div>
+                </div>
+                <div class="ddxm-form-item ddxm-content-long" >
+                    <label class="layui-form-label">备注</label>
+                    <div class="layui-form-mid layui-word-aux ddxm-col">
+                    {$data.remark}
+                    </div>
+                </div>
+                <hr>
+                <div id="item_item">
+                    <div class="ddxm-form-item layui-card-header"><strong>采购清单</strong></div>
+                    <table class="layui-table"  lay-filter="item" id="item">
+                    </table>
+                    <hr>
+                </div>
+                <div id="store_item">
+                    <div class="ddxm-form-item layui-card-header"><strong>入库记录</strong></div>
+                    <table class="layui-table"  lay-filter="store" id="store">
+                    </table>
+                    <hr>
+                </div>
+                <div style="margin-right:40px;float:right">
+                    <button class="layui-btn layui-btn-primary" id="close" >关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{/block}
+{block name="script" }
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    layui.use(["table","layer"], function(){
+    var table = layui.table,
+        layer = layui.layer,
+        $ = layui.$;
+        var id = "{$data.id}";
+        $("#close").click(function(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+        })
+       table.render({
+            elem: '#item',
+            url:'/admin/purchase/item_table?id='+id,
+            title: '商品名称',
+            even: true,
+           /* totalRow: true,*/
+            id:'item',
+            cols: [[
+                {type:'numbers' ,title: ' 序号'},
+                {field: 'item_name',title: '商品名称' },
+                {field: 'num',title: '采购数量' },
+                {field: 'r_num',title: '入库数量'},
+                {field: 's_num',title: '剩余数量'},
+                
+            ]],
+            done: function(res, curr, count){
+                if(count==0){
+                    $("#item_item").hide();
+                }
+            }
+        })
+        table.render({
+            elem: '#store',
+            url:'/admin/purchase/store_item?id='+id,
+            title: '退货信息',
+            even: true,
+            id:'store',
+            cols: [[
+                {type:'numbers' ,title: ' 序号'},
+                {field: 'shop_name',title: '仓库名称'},
+                {field: 'operator',title: '入库人员'},
+                {field: 'time',title: '入库时间'},
+                {field: 'item_name',title: '商品名称'},
+                {field: 'c_num',title: '采购数量'},
+                {field: 'num',title: '入库数量'},
+            ]],
+            done: function(res, curr, count){
+                if(count==0){
+                    $("#store_item").hide();
+                }
+            }
+        })
+        $("#close").click(function(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            return false;
+        })
+    });
+</script>
+{/block}

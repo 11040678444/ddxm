@@ -1,0 +1,167 @@
+{extend name="index_layout"/}
+{block name="main"}
+
+<style type="text/css">
+    .box{
+        margin-top: 10%;
+        margin-bottom: 10px;
+        color: #FF5722;
+        font-size: 18px;
+        margin-left: 45%;
+    }
+    .box1{
+        width: 900px;
+        height: 500px;
+        margin-left: auto;
+        border:solid  1px;
+        margin-right:auto;
+    }
+    .box1 .controls{
+
+    }
+    .upload-icon-img{
+        width:120px;
+    }
+    .upload-pre-item{
+        position: relative;
+    }
+    .upload-pre-item .img{
+        margin-top: 5px;
+        width: 116px;
+        height: 76px;
+    }
+    .upload-pre-item i {
+        position: absolute;
+        cursor: pointer;
+        top: 5px;
+        background: #2F4056;
+        padding: 2px;
+        line-height: 15px;
+        text-align: center;
+        color: #fff;
+        margin-left: 1px;
+        /* float: left; */
+        filter: alpha(opacity=80);
+        -moz-opacity: .8;
+        -khtml-opacity: .8;
+        opacity: .8;
+        transition: 1s;
+    }
+    .upload-pre-item i:hover{transform:rotate(360deg);}
+    .upload-pre-item,.upload-icon-img{
+        width:120px;
+        float: left;
+        margin-left: 8px;
+    }
+</style>
+<div class="layui-card" >
+
+
+    <div class="layui-form-item">
+<!--        <label class="layui-form-label">详情</label>-->
+        <div class="layui-input-block w300">
+            <button type="button" class="layui-btn" id="test2">
+                <i class="layui-icon">&#xe67c;</i>上传图片
+            </button>
+            <div class="upload-img-box1">
+
+                {volist name="arr" id="vo"}
+                <div class="upload-icon-img" ><div class="upload-pre-item">
+                    <i   class="layui-icon  del_img"></i> +
+                    <img src="http://picture.ddxm661.com/{$vo}" class="img">
+                    <input type="hidden" name="content[]" class="img_val" value="{$vo}" /></div></div>
+                {/volist}
+            </div>
+        </div>
+    </div>
+
+
+<!--    <img id="img" style="width: 300px;height: 300px">-->
+
+<!--    <button class="layui-btn"  id="imgupload">上传图片</button>-->
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+
+    // 保存所有的图片地址
+    var imgarr = new Array();
+    var strjson = "{$imgurls}";
+    if(strjson !=''){
+        imgarr = strjson.split(',');
+    }
+
+    /***
+     *删除图片
+     */
+    $(document).on("click",".del_img",function(data){
+        $(this).parent('.upload-pre-item').parent('.upload-icon-img').remove(); //删除页面的
+        var imgname = $(this).nextAll('.img_val').val();
+        $.ajax({
+            type : "post",
+            url : "/admin/Item/delelteImage",
+            data: {file:imgname},
+            dataType: 'json',
+            success:function(res){
+
+                for(var k =0;k<imgarr.length;k++){
+
+                    // 如果有相同的 删除
+                    if(imgname == imgarr[k]){
+                        imgarr.splice(k,1);
+                        continue;
+                    }
+                }
+                layer.msg(res.msg);
+            }
+        });
+
+    })
+
+    //详情上传多图
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#test2', //绑定元素
+            url: '/admin/Upload/upload', //上传接口
+            multiple: true,
+            accept:'images',
+            size:0,
+            before: function(obj) {
+                layer.msg('图片上传中...', {
+                    icon: 16,
+                    shade: 0.01,
+                    time: 0
+                })
+            },
+            done: function(res){
+                //上传完毕回调
+                if( res.code == 0 ){
+                    layer.close(layer.msg('上传成功！'));
+                    imgarr[imgarr.length]=res.data.key;
+                    $('.upload-img-box1').append('<div class="upload-icon-img" ><div class="upload-pre-item">' +
+                        '<i   class="layui-icon  del_img"></i>' +
+                        '<img src="http://picture.ddxm661.com/' + res.data.key + '" class="img">' +
+                        '<input type="hidden" name="content[]" class="img_val" value="' + res.data.key + '" /></div></div>');
+                }
+            },
+            error: function(){
+                //请求异常回调
+            }
+        });
+    });
+
+    // 下面是 返回的  回调 参数
+    var callbackdata = function () {
+
+        var data= {
+            "imgurl": imgarr
+        };
+        return data;
+    }
+
+
+</script>
+{/block}

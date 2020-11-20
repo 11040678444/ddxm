@@ -1,0 +1,4 @@
+<?php
+//000000000060
+ exit();?>
+think_serialize:a:3:{i:0;a:12:{s:2:"id";i:209;s:5:"title";s:9:"盘点单";s:4:"icon";s:0:"";s:8:"parentid";i:204;s:3:"app";s:5:"admin";s:10:"controller";s:7:"Deposit";s:6:"action";s:12:"pandian_list";s:9:"parameter";s:0:"";s:6:"status";i:1;s:3:"tip";s:0:"";s:6:"is_dev";i:0;s:9:"listorder";i:0;}i:1;a:12:{s:2:"id";i:210;s:5:"title";s:9:"盘盈单";s:4:"icon";s:0:"";s:8:"parentid";i:204;s:3:"app";s:5:"admin";s:10:"controller";s:7:"Deposit";s:6:"action";s:8:"win_list";s:9:"parameter";s:0:"";s:6:"status";i:1;s:3:"tip";s:0:"";s:6:"is_dev";i:0;s:9:"listorder";i:0;}i:2;a:12:{s:2:"id";i:211;s:5:"title";s:9:"盘亏单";s:4:"icon";s:0:"";s:8:"parentid";i:204;s:3:"app";s:5:"admin";s:10:"controller";s:7:"Deposit";s:6:"action";s:9:"wane_list";s:9:"parameter";s:0:"";s:6:"status";i:1;s:3:"tip";s:0:"";s:6:"is_dev";i:0;s:9:"listorder";i:0;}}

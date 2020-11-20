@@ -1,0 +1,65 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal"  > <!-- action="{:url('admin/help/doPost')}" method="post" -->
+            <div class="layui-form-item">
+                <label class="layui-form-label">标题</label>
+                <div class="layui-input-block w300">
+                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" value="{$list['title']}">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">内容</label>
+                <div class="layui-input-block w700">
+                    <textarea name="content" autocomplete="off" id="content" lay-verify="content" placeholder="请输入内容" class="layui-textarea">{$list['content']}</textarea>
+
+                </div>
+            </div>
+            <input type="hidden" name="type" value="2">
+            <input type="hidden" name="id" id="dsada" value="{$list.id}" />
+            <div class="layui-form-item">
+                <div class="layui-input-block w300">
+                    <button class="layui-btn" lay-submit lay-filter="confirm">立即提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script" }
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script>
+    layui.use(['layedit',"form"], function(){
+        var layedit = layui.layedit;
+        form = layui.form;
+        var up_url="{:url('admin/help/test')}";//上传图片url
+        layedit.set({
+            uploadImage: {
+                url:up_url //接口url
+                ,type: 'post' //默认post
+            }
+        });
+        var index = layedit.build('content',{height:600}); //建立编辑器
+        form.on('submit(confirm)', function(data){
+            data.field.content = layedit.getContent(index);
+            var formData = data.field;
+            var id = $('#dsada').val();
+            $.ajax({
+                type : "post",
+                url : "/mall/Setting/privacy",
+                data: formData,
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 1 ){
+                        location.reload();
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>
+{/block}

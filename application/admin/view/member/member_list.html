@@ -1,0 +1,172 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <!-- <a class="layui-btn layui-btn-sm " href="{:url('admin/Member/member_add')}">新增</a> -->
+        </div>
+    </script>
+    <div class="layui-card-body">
+        <div class="layui-form">
+            <div class="layui-input-inline">
+                <input class="layui-input" id="demoReload" name="name" placeholder="请输入手机号" autocomplete="off">
+            </div>
+            <div class="layui-input-inline">
+                <select name="shop_id" id="shop_id" lay-filter="shop_id">
+                    <option value="0">请选择门店</option>
+                    {volist name="shop" id="vo"}
+                        <option value="{$vo['code']}">{$vo['name']}</option>
+                    {/volist} 
+                </select>
+            </div>
+            <div class="layui-input-inline " style="width: 90px">
+                <button class="layui-btn" id="searchEmailCompany" data-type="reload">
+                    <i class="layui-icon" style="font-size: 20px; "></i> 搜索
+                </button>
+            </div>
+            <table class="layui-hide" id="table" lay-filter="table"></table>
+            <!-- <script type="text/html" id="toolbarDemo">
+                <div class="layui-btn-container">
+                <a class="layui-btn layui-btn-sm" href="{:url('admin/manager/add')}">添加管理员</a>
+              </div>
+            </script> -->
+            <script type="text/html" id="barTool">
+                {{#  if(d.status == 1){ }}
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">禁用</a>
+                {{#  } else { }}
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="star">启用</a>
+                {{#  } }}
+                <a class="layui-btn layui-btn-xs" lay-event="edit">更改手机号</a>
+            </script>
+            <!-- <script type="text/html" id="statusTool">
+                {{# if(d.status ==1){}}
+                    上架
+                {{#}else if(d.status==0){}}
+                    下架
+                {{#}else{}}
+                    删除
+                {{#}}}
+            </script> -->
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.use(["table","layer"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        $ = layui.$;
+    table.render({
+        elem: '#table',
+        toolbar: '#toolbarDemo',
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"tableTset",
+        url: '{:url("admin/Member/member_list")}',
+        height: 'full-128',
+        /*limit:1,
+        limits:[1,2,30,40,50,60,70,80,90],*/
+        page: true,
+        cols: [
+            [
+                { field: 'id', /*width: 80,*/ title: 'ID'},
+                { field: 'shop_code', /*width: 80,*/ title: '所属门店'},
+                { field: 'nickname', /*width: 120,*/ title: '昵称'},
+                { field: 'mobile', /*width: 80,*/ title: '手机号'},
+                { field: 'level_id', /*width: 120,*/ title: '会员等级'},
+                { field: 'amount', /*width: 80,*/ title: '累积充值'},
+                { field: 'money', /*width: 120,*/ title: '余额'},
+                // { field: 'update_time', /*width: 120,*/ title: '更新时间'},
+                { fixed: 'right', /*width: 160,*/ title: '操作', toolbar: '#barTool' }
+            ]
+        ],
+    });
+
+    //搜索
+    $("#searchEmailCompany").on("click",function(){
+        var name = $('#demoReload').val();
+        var shop_id = $('#shop_id').val();
+        table.reload('tableTset', {
+          url: '/admin/Member/member_list',
+          where: {name:name,shop_id:shop_id} //设定异步数据接口的额外参数
+        });
+    });
+
+    //监听行工具事件
+    table.on('tool(table)', function(obj) {
+        var data = obj.data;
+        //console.log(obj);
+        if (obj.event === 'del') {
+            layer.confirm('确定禁用吗？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/Member/del_member")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }else if (obj.event === 'edit') {
+            var url = '{:url("admin/Member/member_add")}' + "?id=" + data.id;
+            layer.open({
+                type: 2,
+                title: '在线调试',
+                area: ['650px', '300px'],
+                content: url,
+                end: function(layero, index){
+                   table.reload('tableTset', {
+                    });
+                }
+            });
+        }else if (obj.event === 'star') {
+            layer.confirm('确定启用吗？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/Member/star_member")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }
+    });
+});
+</script>
+{/block}

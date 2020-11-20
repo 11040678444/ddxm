@@ -1,0 +1,252 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">服务统计</div>
+    <div class="layui-card-body">
+        <div class="layui-form">
+            <div class="layui-input-inline">
+                <select name="shop_id" id="shop_id" lay-filter="shop_id">
+                    <option value="0">请选择门店</option>
+                    {volist name="shop" id="vo"}
+                    <option value="{$vo['id']}" >{$vo['name']}</option>
+                    {/volist}
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="waiter_id" id="waiter_id" lay-filter="waiter_id">
+                    <option value="0">请先选择门店</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="service_id" id="service_id" lay-filter="service_id">
+                    <option value="0">请先选择门店</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="time" name="start_time"  placeholder="开始时间" autocomplete="off">
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="end_time" value="{$data['end_time']}" placeholder="结束时间" autocomplete="off">
+            </div>
+            <div class="layui-input-inline " style="width: 90px">
+                <button class="layui-btn" id="searchEmailCompany" data-type="reload">
+                    <i class="layui-icon" style="font-size: 20px; "></i> 搜索
+                </button>
+            </div>
+            <div class="layui-input-inline " style="width: 90px">
+                <button class="layui-btn"  data-type="reload">
+                    <a href="" style="color: white">重置</a>
+                </button>
+            </div>
+            <table class="layui-hide" id="table" lay-filter="table"></table>
+
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //执行第一个laydate实例
+        laydate.render({
+            elem: '#time', //指定元素
+            type: 'datetime'
+        });
+        //执行第二个laydate实例
+        laydate.render({
+            elem: '#end_time', //指定元素
+            type: 'datetime'
+        });
+    });
+</script>
+<script type="text/javascript">
+    layui.use(["table","layer"], function() {
+        var table = layui.table,
+            layer = layui.layer,
+            $ = layui.$;
+        table.render({
+            elem: '#table',
+            toolbar: '#toolbarDemo',
+            skin: 'row', //行边框风格
+            even: true ,//开启隔行背景
+            id:"tableTset",
+            url: '{:url("admin/Statistics/service")}',
+            height: 'full-128',
+            /*limit:1,
+            limits:[1,2,30,40,50,60,70,80,90],*/
+            page: true,
+            cols: [
+                [
+                    {type:'numbers'},
+                    { field: 'start_time', /*width: 120,*/ title: '开始时间'},
+                    { field: 'end_time', /*width: 120,*/ title: '结束时间'},
+                    { field: 'name', /*width: 120,*/ title: '服务人员'},
+                    { field: 'service_name', /*width: 120,*/ title: '服务项目'},
+                    { field: 'num', /*width: 120,*/ title: '服务次数'},
+                ]
+            ],
+            done: function(res, curr, count){
+                var all_price = res.all_price;
+                $('#all_price').html(all_price);
+            }
+        });
+
+        //搜索
+        $("#searchEmailCompany").on("click",function(){
+            var start_time = $('#time').val();
+            var end_time = $('#end_time').val();
+            var shop_id = $('#shop_id').val();
+            var waiter_id = $('#waiter_id').val();
+            var service_id = $('#service_id').val();
+            table.reload('tableTset', {
+                url: '/admin/Statistics/service',
+                where: {start_time:start_time,end_time:end_time,shop_id:shop_id,service_id:service_id,waiter_id:waiter_id} //设定异步数据接口的额外参数
+            });
+        });
+
+        //监听行工具事件
+        table.on('tool(table)', function(obj) {
+            var data = obj.data;
+            //console.log(obj);
+            if (obj.event === 'del') {
+                layer.confirm('确定删除这条数据？', { icon: 3, title: '提示' }, function(index) {
+                    layer.close(index);
+                    $.post('{:url("admin/item/item_del")}', { 'id': data.id }, function(data) {
+                        if (data.code == 1) {
+                            if (data.url) {
+                                layer.msg(data.msg + ' 页面即将自动跳转~');
+                            } else {
+                                layer.msg(data.msg);
+                            }
+                            setTimeout(function() {
+                                if (data.url) {
+                                    location.href = data.url;
+                                } else {
+                                    location.reload();
+                                }
+                            }, 1500);
+                        } else {
+                            layer.msg(data.msg);
+                            setTimeout(function() {
+                                if (data.url) {
+                                    location.href = data.url;
+                                }
+                            }, 1500);
+                        }
+
+                    });
+                });
+            }else if (obj.event === 'edit') {
+                var url = '{:url("admin/item/item_add")}' + "?id=" + data.id;
+                layer.open({
+                    type: 2,
+                    title: '编辑商品',
+                    area: ['800px', '800px'],
+                    content: url,
+                    end: function(layero, index){
+                        table.reload('tableTset', {
+                        });
+                    }
+                });
+            }else if (obj.event === 'xiajia') {
+                layer.confirm('确定下架这条数据？', { icon: 3, title: '提示' }, function(index) {
+                    layer.close(index);
+                    $.post('{:url("admin/item/item_xiajia")}', { 'id': data.id }, function(data) {
+                        if (data.code == 1) {
+                            if (data.url) {
+                                layer.msg(data.msg + ' 页面即将自动跳转~');
+                            } else {
+                                layer.msg(data.msg);
+                            }
+                            setTimeout(function() {
+                                if (data.url) {
+                                    location.href = data.url;
+                                } else {
+                                    location.reload();
+                                }
+                            }, 1500);
+                        } else {
+                            layer.msg(data.msg);
+                            setTimeout(function() {
+                                if (data.url) {
+                                    location.href = data.url;
+                                }
+                            }, 1500);
+                        }
+
+                    });
+                });
+            }
+            else if (obj.event === 'shangjia') {
+                layer.confirm('确定上架这条数据？', { icon: 3, title: '提示' }, function(index) {
+                    layer.close(index);
+                    $.post('{:url("admin/item/item_shangjia")}', { 'id': data.id }, function(data) {
+                        if (data.code == 1) {
+                            if (data.url) {
+                                layer.msg(data.msg + ' 页面即将自动跳转~');
+                            } else {
+                                layer.msg(data.msg);
+                            }
+                            setTimeout(function() {
+                                if (data.url) {
+                                    location.href = data.url;
+                                } else {
+                                    location.reload();
+                                }
+                            }, 1500);
+                        } else {
+                            layer.msg(data.msg);
+                            setTimeout(function() {
+                                if (data.url) {
+                                    location.href = data.url;
+                                }
+                            }, 1500);
+                        }
+
+                    });
+                });
+            }
+        });
+        });
+
+    layui.use(["form"], function(){
+        var layer = layui.layer;
+        form = layui.form;
+        //筛选分类
+        form.on('select(shop_id)', function(data){
+            var val=data.value;
+            if( val == 0 ){
+                return false;
+            }
+            $.ajax({
+                type : "post",
+                url : "/admin/statistics/select",
+                data: {shop_id:val},
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 1 ){
+                        var category = res.waiter;
+                        var option = '';
+                        $('#waiter_id').empty();
+                        $('#waiter_id').append("<option value=''>请选择</option>");
+                        for( var k in category){
+                            $("#waiter_id").append("<option value=" + category[k].id + ">" + category[k].name + "</option>");
+                        }
+                        // form.render("select");
+
+                        var service = res.service;
+                        $('#service_id').empty();
+                        $('#service_id').append("<option value=''>请选择</option>");
+                        for( var t in service){
+                            $("#service_id").append("<option value=" + service[t].service_id + ">" + service[t].sname + "</option>");
+                        }
+                        form.render("select");
+                    }
+                }
+            });
+        });
+    });
+
+</script>
+{/block}

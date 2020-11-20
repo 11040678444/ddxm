@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理系统</title>
+    <meta name="author" content="YZNCMS">
+    <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/admin.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/ddxm.css">
+    <link rel="stylesheet" href="__STATIC__/admin/font/iconfont.css">
+    <script src="__STATIC__/libs/layui/layui.js"></script>
+    <script src="__STATIC__/libs/jquery/jquery.min.js"></script>
+    <style type="text/css">
+        .layui-table-cell{
+            height:auto !important;
+        }
+        .layui-layer-title{
+            text-align: center;
+            padding: 0 ;
+            font-size:20px;
+
+        }
+        .width150{
+            width:70px;
+        }
+        .width200{
+            width:70px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        //全局变量
+        var GV = {
+            'image_upload_url': '{$image_upload_url ? $image_upload_url : url("attachment/attachments/upload", ["dir" => "images", "module" => request()->module()])}',
+            'file_upload_url': '{$file_upload_url ? $file_upload_url : url("attachment/attachments/upload", ["dir" => "files", "module" => request()->module()])}',
+            'WebUploader_swf': '__STATIC__/webuploader/Uploader.swf',
+            'upload_check_url': '{$upload_check_url ? $upload_check_url : url("attachment/Attachments/check")}',
+            'ueditor_upload_url': '{$ueditor_upload_url ? $ueditor_upload_url : url("attachment/Ueditor/run")}',
+        };
+    </script>
+</head>
+<body class="childrenBody">
+<div class="layui-card">
+    <!-- <div class="layui-card-header">新增采购单</div> -->
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal" method="post">
+            <input type="hidden" name="count" value="0" id="count">
+            <input type="hidden" name="id" value="{$ad.id}">
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">活动类型</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="type" value="1" hot-filter="hide" title="充值送" {if condition="$ad.type eq 1 "}checked{/if}>
+                    <input type="radio" name="type" lay-filter="hide" value="2" title="累积送" {if condition="$ad.type eq 2 "}checked{/if} >
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="margin-top: 20px;">
+                <label class="layui-form-label"><span style="color:red;">*</span>选择门店 </label>
+                <div class="layui-input-inline w300">
+
+                    <select name="shop_id" id="shop_id" lay-filter="shop_id">
+                        <option value="-1">请选择</option>
+                        {volist name="shop_list" id="vo"}
+                        <option value="{$vo['id']}" {if condition="$ad.shop_id eq $vo['id'] "} selected="selected" {/if}>{$vo['name']}</option>
+                        {/volist}
+                    </select>
+
+                </div>
+            </div>
+
+
+            <div class="layui-form-item" style="margin-top: 20px;">
+                <label class="layui-form-label"><span style="color:red;">*</span>选择服务卡 </label>
+                <div class="layui-input-inline w300">
+
+                    <select name="activity_type_id" id="activity_type_id" lay-filter="activity_type_id">
+                        <option value="-1">请选择</option>
+                        {volist name="list" id="vo"}
+                        <option value="{$vo['id']}"  {if condition="$ad.activity_type_id eq $vo['id'] "} selected="selected" {/if}>{$vo['card_name']}</option>
+                        {/volist}
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="margin-top: 20px;">
+                <label class="layui-form-label"><span style="color:red;">*</span>充值/累积金额 </label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="price" id="tag"  autocomplete="price"
+                           required lay-verify="required" placeholder="充值/累积金额" value="{$ad.price}"class="layui-input" >
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">上下架</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="status" value="1" hot-filter="hide" title="上架" {if condition="$ad.status eq 1 "}checked{/if}>
+                    <input type="radio" name="status" lay-filter="hide" value="2" title="下架" {if condition="$ad.status eq 2 "}checked{/if}>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn ajax-post" lay-submit lay-filter="purchase_add" target-form="form-horizontal" id="purchase_add">立即提交</button>
+                    <button class="layui-btn layui-btn-normal" id = "close">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="parentitem" style="display:none">
+    {volist name="data.item" id="v"}
+    <option value="{$v.id}">{$v.cname}</option>
+    {/volist}
+</div>
+{block name="script"}
+<script>
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //执行第一个laydate实例
+        laydate.render({
+            elem: '#time', //指定元素
+            type: 'datetime'
+        });
+        //执行第二个laydate实例
+        laydate.render({
+            elem: '#end_time', //指定元素
+            type: 'datetime'
+        });
+    });
+
+    layui.use(['table',"form","layer","laydate"],function(){
+        var table = layui.table,
+            layer = layui.layer,
+            form = layui.form,
+            $ = layui.$;
+        //关闭
+        //关闭
+        $("#close").click(function(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            parent.location.reload();
+        });
+
+        form.on('submit(purchase_add)', function(data){
+            var datas = data.field;
+
+            if( '-1' == $.trim($('#activity_type_id').val())){
+                layer.msg('未选择服务卡', {icon: 5});
+                return false;
+            }
+
+            if( '-1' == $.trim($('#shop_id').val())){
+                layer.msg('未选择门店', {icon: 5});
+                return false;
+            }
+
+            $.ajax({
+                url: '{:url("mall/Mailactivity/update")}',
+                type: "POST" ,
+                data: datas,
+                success:function(data){
+                    if(data.code==1){
+                        layer.msg(data.msg,{icon: 6 , time: 2000 ,shade:0.6},function(){
+                            location.href="/mall/Mailactivity/index";
+                        })
+                    }else{
+                        // $("#purchase_add").show();
+                        layer.msg(data.msg, {icon: 5 , time: 2000 ,shade:0.6});
+                    }
+                }
+            })
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+        form.render();
+    });
+</script>
+
+{/block}

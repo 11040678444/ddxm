@@ -1,0 +1,270 @@
+{extend name="index_layout"/}
+
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header">编辑运费</div>
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal">    <!-- action="{:url('admin/Member/level_doPost')}" method="post" -->
+
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red;">*</span>模板名称 </label>
+                <div class="layui-input-inline w300">
+                    <input type="text" name="title" required lay-verify="required"  autocomplete="title"  placeholder="模板名称" value="{$list['title']}" class="layui-input" >
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">运费类型</label>
+                <div class="layui-input-block">
+                    <input type="radio" {if condition="$list['type'] eq 3"} checked {/if} {if condition="!isset($list['type'])"}  checked {/if}  name="type" value="3" title="按件数" lay-filter="jiedian">
+                    <input type="radio" {if condition="$list['type'] eq 1"} checked {/if}  name="type" value="1" title="按重量" lay-filter="jiedian">
+                    <input type="radio" {if condition="$list['type'] eq 2"} checked {/if}  name="type" value="2" title="按体积" lay-filter="jiedian">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">运费类型</label>
+                <!--                <div class="layui-form-mid layui-word-aux">首件输入0元表示免邮</div>-->
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="150">
+                        <col width="200">
+                        <col>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th width="300px;">地区</th>
+                        <th>首件/重(kg)/立方(m³)</th>
+                        <th>首件/重(kg)/立方(m³)的金额</th>
+                        <th>续件/重(kg)/立方(m³)</th>
+                        <th>续件/重(kg)/立方(m³)的金额</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="my-tbody">
+                    <tr>
+                        <td  id="add">
+                            <button type="button" class="layui-btn layui-btn-primary layui-btn-xs">添加</button>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <input type="hidden" name="id" value="{$list['id']}">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="L_submit">立即提交</button>
+                    <button class="layui-btn layui-btn-normal" id = "close">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+
+<link href="__STATIC__/admin/css/formSelects-v4.css" rel="stylesheet">
+<script type="text/javascript" src="__STATIC__/admin/js/formSelects-v4.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/ticket.js"></script>
+<script>
+    layui.use(["form"], function(){
+        var layer = layui.layer;
+        form = layui.form;
+
+        form.verify({
+            cost: [
+                /(^\d+$)/  //正则表达式
+                ,'库存格式不正确'  //提示信息
+            ],
+            validateMoney: function(val, item) {
+                if(!/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/.test(val)){
+                    return '请输入正确的格式'
+                }
+            }
+        });
+
+        form.on('submit(L_submit)', function(data){
+            let city = getCityData();
+            var formData = data.field;
+            formData.citys = city.data;
+            $.ajax({
+                type : "post",
+                url : "/mall/Items/postage_doPost",
+                data: formData,
+                dataType: 'json',
+                success:function(res){
+                    if( res.code == 1 ){
+                        layer.msg(res.msg,{ shift: -1, time: 1000 },function () {
+                            location.href="/mall/Items/postage_list";
+                        });
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+            return false;
+        });
+        //关闭
+        $("#close").click(function(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            parent.location.reload();
+        });
+
+        form.verify({
+            cost: [
+                /(^\d+$)/  //正则表达式
+                ,'库存格式不正确'  //提示信息
+            ],
+            validateMoney: function(val, item) {
+                if(!/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/.test(val)){
+                    return '请输入正确的格式'
+                }
+            }
+        });
+
+        //删除
+        $(document).on("click",'.del_item',function(){
+            $(this).parents('tr:first').remove();
+        });
+
+        var topindex = 0;
+
+        //添加
+        $(document).on("click",'#add',function(){
+            let domStr = `
+                       <tr>
+                        <td>
+                            <button type="button" class="layui-btn" id="btn${topindex}" onclick="selectaddr('btn${topindex}')" >选择地区</button>
+                            <span  id="2btn${topindex}"></span>
+                        </td>
+                        <td><input type="text" required lay-verify="required|validateMoney" placeholder="请输入首件/重/立方" name="first${topindex}" class="layui-input" value="0.00"></td>
+                        <td><input type="text" required lay-verify="required|validateMoney" placeholder="请输入首件/重/立方的金额" name="first_price${topindex}" class="layui-input" value="0.00"></td>
+                        <td><input type="text" required lay-verify="required|validateMoney" placeholder="请输入续件/重/立方" name="two${topindex}" class="layui-input" value="0.00"></td>
+                        <td><input type="text" required lay-verify="required|validateMoney" placeholder="请输入续件/重/立方的金额" name="two_price${topindex}" class="layui-input" value="0.00"></td>
+                        <td><button  class="layui-btn layui-btn-xs layui-btn-danger del_item">删除</button></td>
+                    </tr>
+                `;
+            $('#my-tbody').append(domStr);
+            form.render();
+            topindex++;
+        });
+    });
+
+    //保存 已经 选择的 数组 的 id
+    let checkexist = new Array();
+    //选择城市
+    function selectaddr(idd) {
+        //弹出的数据  不包含  ==  已经有的数据 - 当前选中值的数据
+        var checkexist2 = new Array();
+        for(var f=0;f<checkexist.length;f++) {
+            checkexist2[f] = checkexist[f];
+        }
+        var name =  $("#"+idd).attr("name");
+        var checkexist3 = null;
+        if(name != null){
+            checkexist3 = name.split(",");
+
+            for(var h=0;h<checkexist.length;h++){
+                var idindex = checkexist[h];
+
+                for(var p=0;p<checkexist3.length;p++){
+                    // 如果 全部已经选择的 包含了 当前选中的 需要删除
+                    if(idindex == checkexist3[p]){
+                        // checkexist2.splice(h, 1);
+
+                        for(var i = 0; i < checkexist2.length; i++) {
+                            if(checkexist2[i] == idindex) {
+                                checkexist2.splice(i, 1);
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        var ids = "";
+        for(var ind = 0;ind<checkexist2.length;ind++){
+            ids=ids+checkexist2[ind]+","
+        }
+        if(checkexist2.length >0){
+            if(ids !=""){
+                ids = ids.substring(0,ids.length-1);
+            }
+        }
+        layer.open({
+            type: 2,
+            title: "选择地区",
+            shadeClose: true,
+            shade: 0.4,
+            area: ['50%', '50%'],
+            content: 'select_city?ids='+ids+"&names="+name,
+            btn: ['确定','取消'],
+            yes: function(index){
+                var res = window["layui-layer-iframe" + index].callbackdata();
+                if(res.length == 0 || res.length == 0){
+                    layer.msg("请选择地区",{icon:5});
+                    return;
+                }
+
+                var ids = "";
+                var names = "";
+                for(var ind = 0;ind<res.length;ind++){
+                    ids=ids+res[ind].id+",";
+                    names=names+res[ind].name+",";
+                    checkexist[checkexist.length]=res[ind].id;
+                }
+                if(ids !=""){
+                    ids = ids.substring(0,ids.length-1);
+                    names = names.substring(0,names.length-1);
+                }
+                $("#2"+idd).html(names);
+                $("#"+idd).attr("name",ids);
+                layer.close(index);
+            },
+            cancel: function(){
+            }
+        });
+    }
+
+    //获取选择的城市与金额等
+    function getCityData() {
+        var data = new Array();
+        var length = checkexist.length;
+        var index = 0;
+        $("#my-tbody").find("tr").each(function(){
+            if( index >0 ){
+                var tdArr = $(this).children();
+                var id = tdArr.eq(0).find('button').attr("name");//城市id
+                var city_name = tdArr.eq(0).find('span').html();
+                var first = tdArr.eq(1).find('input').val();//name
+                var first_price = tdArr.eq(2).find('input').val();
+                var two = tdArr.eq(3).find('input').val();
+                var two_price = tdArr.eq(4).find('input').val();
+
+                //封装为 json 数据
+                var obj = new Object();
+                obj.id=id;
+                obj.city_name=city_name;
+                obj.first=first;
+                obj.first_price = first_price;
+                obj.two = two;
+                obj.two_price = two_price;
+                data[index-1] = obj;
+            }
+            index++;
+        });
+        let obj1 = new Object();
+        obj1.data = JSON.stringify(data);
+        return obj1;
+    }
+
+</script>
+{/block}

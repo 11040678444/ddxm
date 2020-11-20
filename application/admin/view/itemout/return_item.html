@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理系统</title>
+    <meta name="author" content="YZNCMS">
+    <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/admin.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/ddxm.css">
+    <link rel="stylesheet" href="__STATIC__/admin/font/iconfont.css">
+    <script src="__STATIC__/libs/layui/layui.js"></script>
+    <script src="__STATIC__/libs/jquery/jquery.min.js"></script>
+    <style type="text/css">
+        .layui-table-cell{
+            height:auto !important;
+        }
+        .layui-layer-title{
+            text-align: center;
+            padding: 0 ;
+            font-size:20px;
+        
+        }
+        .width150{
+            width:70px;
+        }
+        .width200{
+            width:70px;
+        }
+    </style>
+    
+<script type="text/javascript">
+//全局变量
+var GV = {
+    'image_upload_url': '{$image_upload_url ? $image_upload_url : url("attachment/attachments/upload", ["dir" => "images", "module" => request()->module()])}',
+    'file_upload_url': '{$file_upload_url ? $file_upload_url : url("attachment/attachments/upload", ["dir" => "files", "module" => request()->module()])}',
+    'WebUploader_swf': '__STATIC__/webuploader/Uploader.swf',
+    'upload_check_url': '{$upload_check_url ? $upload_check_url : url("attachment/Attachments/check")}',
+    'ueditor_upload_url': '{$ueditor_upload_url ? $ueditor_upload_url : url("attachment/Ueditor/run")}',
+};
+</script>
+</head>
+<body class="childrenBody">
+<div class="layui-card">
+    <div class="layui-card-body">
+        <div class="layui-form">
+        <div class="layui-input-inline">
+                <select name="shop_id" id="shop_id" lay-filter="shop_id">
+                    <option value="0">请选择出货仓库</option>
+                    {volist name="shop" id="vo"}
+                        <option value="{$vo['id']}">{$vo['name']}</option>
+                    {/volist} 
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="time" name="time" placeholder="开始时间" autocomplete="off">
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="end_time" name="end_time" placeholder="结束时间" autocomplete="off">
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" id="name" name="name" placeholder="订单号/盘点人员名称" autocomplete="off">
+            </div>
+            
+            <div class="layui-input-inline " style="width: 90px">
+                <button class="layui-btn" id="searchEmailCompany" data-type="reload">
+                    <i class="layui-icon" style="font-size: 20px; "></i> 搜索
+                </button>
+            </div>
+            <table class="layui-hide" id="table" lay-filter="table"></table>
+            <script type="text/html" id="typeTool">
+                {{# if(d.mobile ==0){}}
+                    非会员
+                {{#}else{}}
+                    <a lay-event="member" style="cursor:pointer">{{d.mobile}}</a>
+                {{#}}}
+            </script>
+             <script type="text/html" id="workerTool">
+
+                <a lay-event="worker" style="cursor:pointer">{{d.waiter}}</a>
+
+            </script>
+           <!-- <script type="text/html" id="toolbarDemo">
+                <div class="layui-btn-container">
+                    <a class="layui-btn layui-btn-sm" id="Add">充值</a>
+              </div>
+            </script> -->
+            <script type="text/html" id="barTool">
+                <a class="layui-btn layui-btn-xs" lay-event="details">订单详情</a>
+            </script>
+            <script type="text/html" id="snTool">
+                <p>订单号:{{d.r_sn}}  出货仓库:{{d.shop_id}}</p>
+
+            </script>
+            <script type="text/html" id="userTool">
+                <p>出库人员:{{d.user}}</p>
+                <p>出库时间:{{d.overtime}}</p>
+            </script>
+            <script type="text/html" id="memberTool">
+                {{# if(d.mobile ==0){}}
+                        非会员
+                {{#}else{}}
+                    <a lay-event="member" style="cursor:pointer">
+                        <p>会员名称:{{d.member.nickname}}</p>
+                        <p>会员号码:{{d.member.mobile}}</p>
+                    </a>
+                {{#}}}
+            </script>
+        </div>
+    </div>
+</div>
+{block name="script"}
+<script>
+    layui.use('laydate', function(){
+      var laydate = layui.laydate;
+      //执行第一个laydate实例
+      laydate.render({
+        elem: '#time', //指定元素
+        type: 'datetime'
+      });
+      //执行第二个laydate实例
+      laydate.render({
+        elem: '#end_time', //指定元素
+        type: 'datetime'
+      });
+    });
+</script>
+<script type="text/javascript">
+layui.use(["table","layer"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        $ = layui.$;
+    table.render({
+        elem: '#table',
+        toolbar: '#toolbarDemo',
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"tableTest",
+        url: '{:url("admin/Itemout/return_item")}',
+        height: 'full-148',
+        page: true,
+        cols: [
+            [
+                { field: 'message',  title: '订单信息',},
+                { field: 'item_list',  title: '商品信息'},
+                { field: 'price_list',  title: '退货单价信息',},
+                // { field: 'all_oprice',  title: '合计成本'},
+                { field: 'num_list', title: '退货数量' },
+                { field: 'all_price',title: '退货总金额' },
+                { field: 'shop', title: '出库信息',},
+                { field: 'member', title: '会员信息', }
+            ]
+        ],
+    });
+
+    //搜索
+    $("#searchEmailCompany").on("click",function(){
+        var name = $('#name').val();
+        var shop_id = $('#shop_id').val();
+        var status = $('#status').val();
+        var time = $('#time').val();
+        var end_time = $('#end_time').val();
+        table.reload('tableTest', {
+          url: '/admin/Itemout/index',
+          where:{  name:name,
+                    shop_id:shop_id,
+                    status:status,
+                    time:time,
+                    end_time:end_time
+                } //设定异步数据接口的额外参数
+        });
+    });
+
+    //监听行工具事件
+    table.on('tool(table)', function(obj) {
+        var data = obj.data;
+        //console.log(obj);
+        if (obj.event === 'del') {
+            layer.confirm('确定删除这条数据？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("admin/order/del")}', { 'id': data.order_id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }else if (obj.event === 'edit') {
+            var url = '{:url("admin/item/edit")}' + "?id=" + data.id;
+            layer.open({
+                type: 2,
+                title: '在线调试',
+                area: ['500px', '300px'],
+                content: url,
+                end: function(layero, index){
+                   table.reload('tableTest', {
+                    });
+                }
+            });
+        }else if(obj.event === 'member'){
+            var loadingFlag;
+            $.ajax({
+                url: '{:url("admin/Itemout/user")}',
+                type: "POST" ,
+                data: {id: data.member.id,title:"member"},
+                beforeSend: function (XMLHttpRequest) {
+                    loadingFlag= layer.msg('正在读取数据，请稍候……',
+                        {icon: 16,
+                        shade: 0.01,
+                        shadeClose:false,
+                        time:60000
+                    });
+                },
+                success:function(data){
+                    layer.close(loadingFlag);
+                    layer.open({
+                        type:1,
+                        title:"会员信息",
+                        area:['300px','300px'],
+                        content:`
+                        <div class="layui-row">
+                            <div class="layui-col-md12 " style="margin-top:10px;">
+                                <label class="layui-form-label">会员昵称</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.nickname}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">手机号码</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.mobile}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">所属门店</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.name}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">会员等级</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.level_name}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">加入时间</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.regtime}
+                                </div>
+                            </div>
+                        </div>
+                        `,
+                    });
+                }
+            })
+        }else if(obj.event==="worker"){
+            var loadingFlag;
+                $.ajax({
+                url: '{:url("admin/order/user")}',
+                type: "POST" ,
+                data: {id: data.waiter_id,title:"worker"},
+                beforeSend: function (XMLHttpRequest) {
+                    loadingFlag= layer.msg('正在读取数据，请稍候……',
+                        {icon: 16,
+                        shade: 0.01,
+                        shadeClose:false,
+                        time:60000
+                    });
+                },
+                success: function(data) {
+                    layer.close(loadingFlag);
+                    layer.open({
+                        type:1,
+                        title:"服务人员信息",
+                        area:['300px','300px'],
+                        content:`
+                        <div class="layui-row">
+                            <div class="layui-col-md12 " style="margin-top:10px;">
+                                <label class="layui-form-label">员工姓名</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.name}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">手机号码</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.mobile}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">所属门店</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.shop_name}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">所属职位</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.type}
+                                </div>
+                            </div>
+                            <div class="layui-col-md12">
+                                <label class="layui-form-label">加入时间</label>
+                                <div class="layui-form-mid layui-word-aux">
+                                    ${data.data.addtime}
+                                </div>
+                            </div>
+                        </div>
+                        `,
+                    });
+                }
+            })
+        }else if(obj.event==="details"){
+            var shop_id = data.id;
+            layer.open({
+                type:2,
+                title:"订单详情",
+                area:['900px','700px'],
+                content:"{:url('admin/order/order_info')}?id="+shop_id,
+                end: function(layero, index){
+                   table.reload('tableTest', {
+                    });
+                }
+            })
+        }else if(obj.event === "refund"){
+            var data =  obj.data;
+            layer.open({
+                type:2,
+                title:"退货订单",
+                area:['760px','640px'],
+                content:"{:url('admin/order/s_refund')}?id="+data.id,
+                end: function(layero, index){
+                   table.reload('tableTest', {
+                    });
+                }
+            })
+        }
+    });
+});
+</script>
+{/block}

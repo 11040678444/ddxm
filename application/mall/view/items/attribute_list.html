@@ -1,0 +1,226 @@
+{extend name="index_layout"/}
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-body">
+        <div class="layui-form">
+        <a class="layui-btn layui-btn-sm" id="Add">添加</a><a class="layui-btn layui-btn-sm" href="">返回顶层</a>
+        <div class="layui-input-inline">
+            <select id="type_id" lay-filter="type_id">
+                <option value="0">请选择</option>
+                {volist name="category" id="vo"}
+                <option value="{$vo['id']}" {if condition="$vo['id'] eq $list['type_id']"} selected="selected" {/if} >{$vo['cname']}</option>
+                {/volist}
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <select id="type" lay-filter="type">
+                <option value="0">请先选择一级分类</option>
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <input class="layui-input" id="demoReload" name="name" placeholder="名称" autocomplete="off">
+        </div>
+        <div class="layui-input-inline " style="width: 90px">
+            <button class="layui-btn" id="searchEmailCompany" data-type="reload">
+                <i class="layui-icon" style="font-size: 20px; "></i> 搜索
+            </button>
+        </div>
+            <input type="hidden" id="pid" value="">
+        <table class="layui-hide" id="table" lay-filter="table"></table>
+            <script type="text/html" id="barTool">
+                {{#  if(d.pid == 0){ }}
+                <a class="layui-btn layui-btn-xs" lay-event="next">查看下一级</a>
+                {{#  } else { }}
+                <a class="layui-btn layui-btn-xs" lay-event="top">查看顶层</a>
+                {{#  } }}
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+
+                {{#  if(d.status == 1){ }}
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">禁用</a>
+                {{#  } else { }}
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="category_start">启用</a>
+                {{#  } }}
+            </script>
+            
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.use(["table","layer"], function() {
+    var table = layui.table,
+        layer = layui.layer,
+        $ = layui.$;
+
+    table.render({
+        elem: '#table',
+        toolbar: '#toolbarDemo',
+        skin: 'row', //行边框风格
+        even: true ,//开启隔行背景
+        id:"tableTset",
+        url: '{:url("mall/Items/attribute_list")}',
+        height: 'full-128',
+        /*limit:1,
+        limits:[1,2,30,40,50,60,70,80,90],*/
+        page: true,
+        cols: [
+            [
+                { field: 'id', /*width: 80,*/ title: 'ID'},
+                { field: 'title', /*width: 80,*/ title: '名称'},
+                { field: 'category_name', /*width: 80,*/ title: '所属分类'},
+                { field: 'update_id', /*width: 120,*/ title: '更新人'},
+                { field: 'create_time', title: '创建时间'},
+                { field: 'update_time',/* width: 200, */title: '更新时间' },
+                { fixed: 'right', /*width: 160,*/ title: '操作', toolbar: '#barTool' }
+            ]
+        ],
+        done: function(res, curr, count){
+        var pid = res.pid;
+        $('#pid').val(pid);
+    }
+    });
+
+    //添加单位
+    $("#Add").on("click",function(){
+        var pid = $('#pid').val();
+        var url  ="{:url('mall/Items/attribute_add')}"+"?pid="+pid;
+        layer.open({
+            type: 2,
+            title: '添加',
+            area: ['600px', '400px'],
+            content: url,
+            end: function(layero, index){
+                table.reload('table', {
+                });
+            }
+        });
+    });
+
+    //搜索
+    $("#searchEmailCompany").on("click",function(){
+        var name = $('#demoReload').val();
+        var type_id = $('#type_id').val();
+        var type = $('#type').val();
+        table.reload('tableTset', {
+          url: '/mall/Items/attribute_list',
+          where: {name:name,type_id:type_id,type:type} //设定异步数据接口的额外参数
+        });
+    });
+
+    //监听行工具事件
+    table.on('tool(table)', function(obj) {
+        var data = obj.data;
+        //console.log(obj);
+        if (obj.event === 'del') {
+            layer.confirm('确定禁用这条数据吗？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("mall/Items/attribute_del")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+
+                });
+            });
+        }else if (obj.event === 'edit') {
+            var url = '{:url("mall/Items/attribute_add")}' + "?id=" + data.id;
+            layer.open({
+                type: 2,
+                title: '编辑',
+                area: ['600px', '400px'],
+                content: url,
+                end: function(layero, index){
+                   table.reload('tableTset', {
+                    });
+                }
+            });
+        }else if (obj.event === 'category_start') {
+            layer.confirm('确定启用这条数据？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('{:url("mall/Items/attribute_start")}', { 'id': data.id }, function(data) {
+                    if (data.code == 1) {
+                        if (data.url) {
+                            layer.msg(data.msg + ' 页面即将自动跳转~');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            } else {
+                                location.reload();
+                            }
+                        }, 1500);
+                    } else {
+                        layer.msg(data.msg);
+                        setTimeout(function() {
+                            if (data.url) {
+                                location.href = data.url;
+                            }
+                        }, 1500);
+                    }
+                });
+            });
+        }else if( obj.event === 'next' ){
+            var pid = data.id;
+            table.reload('tableTset', {
+                url: '/mall/Items/attribute_list',
+                where: {pid:pid} //设定异步数据接口的额外参数
+            });
+        }else if( obj.event === 'top' ){
+            table.reload('tableTset', {
+                url: '/mall/Items/attribute_list',
+                where: {pid:0} //设定异步数据接口的额外参数
+            });
+        }
+    });
+});
+
+layui.use(["form"], function(){
+    var layer = layui.layer;
+    form = layui.form;
+    //筛选分类
+    form.on('select(type_id)', function(data){
+        var val=data.value;
+        $.ajax({
+            type : "post",
+            url : "/admin/Item/category_select",
+            data: {pid:val},
+            dataType: 'json',
+            success:function(res){
+                if( res.code == 1 ){
+                    var category = res.data;
+                    var option = '';
+                    $('#type').empty();
+                    $('#type').append("<option value=''>请选择</option>");
+                    for( var k in category){
+                        $("#type").append("<option value=" + category[k].id + ">" + category[k].cname + "</option>");
+                    }
+                    form.render("select");
+                }
+            }
+        });
+    });
+});
+
+</script>
+
+{/block}

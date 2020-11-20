@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理系统</title>
+    <meta name="author" content="YZNCMS">
+    <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/admin.css">
+    <link rel="stylesheet" href="__STATIC__/admin/css/ddxm.css">
+    <link rel="stylesheet" href="__STATIC__/admin/font/iconfont.css">
+    <script src="__STATIC__/libs/layui/layui.js"></script>
+    <script src="__STATIC__/libs/jquery/jquery.min.js"></script>
+    <style type="text/css">
+        .layui-table-cell{
+            height:auto !important;
+        }
+        .layui-layer-title{
+            text-align: center;
+            padding: 0 ;
+            font-size:20px;
+
+        }
+        .width150{
+            width:70px;
+        }
+        .width200{
+            width:70px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        //全局变量
+        var GV = {
+            'image_upload_url': '{$image_upload_url ? $image_upload_url : url("attachment/attachments/upload", ["dir" => "images", "module" => request()->module()])}',
+            'file_upload_url': '{$file_upload_url ? $file_upload_url : url("attachment/attachments/upload", ["dir" => "files", "module" => request()->module()])}',
+            'WebUploader_swf': '__STATIC__/webuploader/Uploader.swf',
+            'upload_check_url': '{$upload_check_url ? $upload_check_url : url("attachment/Attachments/check")}',
+            'ueditor_upload_url': '{$ueditor_upload_url ? $ueditor_upload_url : url("attachment/Ueditor/run")}',
+        };
+    </script>
+</head>
+<body class="childrenBody">
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form form-horizontal" method="post">
+            <div class="layui-form-item">
+                <div class="layui-input-inline">
+                    <input type="text" name="name"  autocomplete="off" class="layui-input" placeholder="商品名称">
+                </div>
+
+                <div class="layui-input-inline" style="width:100px;margin-left:20px;">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="item_search">搜索</button>
+                </div>
+            </div>
+            <table id="purchase_item" lay-filter="purchase_item"></table>
+
+        </form>
+    </div>
+</div>
+
+<script>
+
+
+    var table = null;
+    layui.use(["table","layer","form"], function() {
+        table = layui.table,
+            layer = layui.layer,
+            form = layui.form,
+            $ = layui.$;
+        table.render({
+            elem: '#purchase_item',
+            /* toolbar: '#toolbarDemo',*/
+            skin: 'row', //行边框风格
+            even: true,//开启隔行背景
+            id: "tableItem",
+            url: '{:url("mall/Seckill/purchase_item")}',
+            where: {
+                // id: item_id,
+            },
+            page: true,
+            cols: [
+                [
+                    {type: 'checkbox'},
+                    {field: 'title', width: 300, title: '商品名称'},
+                    {field: 'pic_src', width: 300, title: '图片'},
+                    {field: 'keyNames',minWidth:240 ,title: '规格'},
+                    {field: 'prices', title: '商品销售金额'},
+                    {field: 'stores2',minWidth:240, title: '总库存'},
+                ]
+            ],
+        });
+        form.on("submit(item_search)",function(data){
+            var data = data.field;
+
+            // table.reload('tableItem', {
+            //     url: '/mall/Seckill/purchase_item',
+            //     where: {name:data.name} //设定异步数据接口的额外参数
+            // });
+
+            table.reload('tableItem', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                ,where: {
+                    data
+                }
+            }, 'data');
+            return false;
+        })
+
+        // form.on('checkbox(nihao)', function(data){
+        //     console.log(data.elem); //得到checkbox原始DOM对象
+        //     console.log(data.elem.checked); //是否被选中，true或者false
+        //     console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+        //     console.log(data.othis); //得到美化后的DOM对象
+        // });
+
+    });
+
+    // 下面是 返回的  回调 参数
+    var callbackdata = function () {
+
+        var checkStatus = table.checkStatus('tableItem');
+        var data = checkStatus.data;
+        // console.log(data);
+        // return;
+
+        var  length = data.length;
+        if(length == 0){
+            return null;
+        }
+
+        var list = new Array();
+        for(var index = 0;index<length;index++){
+
+            var item = new Object();
+            item.title = data[index].title;
+            item.id = data[index].id;
+            item.pic = data[index].pic;
+            var id = data[index].id;
+
+            var arr_box = [];// 装 多规格数据
+            $('input[class='+id+']:checked').each(function() {
+                var title = $(this).attr('title');//商品名字
+                var name = $(this).attr('name');//商品销售价格
+                var id = $(this).attr('id');//商品库存
+                var value = $(this).val();//商品规格ID
+                // 没有多规格
+                if(title !="无"){
+                    var item2 = new Object();
+                    item2.specs_names =   title.trim();
+                    item2.specs_id = value;
+                    item2.price = name;
+                    item2.store = id;
+                    arr_box.push(item2);
+                }else{
+                    var item2 = new Object();
+                    item2.specs_names = title.trim();
+                    item2.specs_id = value;
+                    item2.price = name;
+                    item2.store = id;
+                    arr_box.push(item2);
+                }
+
+            });
+            // console.log(arr_box);
+            item.arr_box = arr_box;
+            list.push(item)
+        }
+        return list;
+    }
+
+</script>
+
