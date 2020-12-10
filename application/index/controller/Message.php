@@ -92,7 +92,7 @@ class Message extends Controller
         }
 
         $code1 = json_encode(['code'=>$code]);
-        $accessKeyId = 'LTAIpjwSnRQBKszY';
+        $accessKeyId = 'your accessKeyId';
         $accessKeySecret = 'gtLq74lXFCIYbXNOAmgFFDtZnil9HD';
         $tplCode = 'SMS_172365016';
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
