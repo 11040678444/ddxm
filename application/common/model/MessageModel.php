@@ -89,8 +89,8 @@ class MessageModel extends Model
             return $res;
         }
         $code1 = json_encode(['code'=>$code]);
-        $accessKeyId = 'LTAIpjwSnRQBKszY';
-        $accessKeySecret = 'gtLq74lXFCIYbXNOAmgFFDtZnil9HD';
+        $accessKeyId = 'your accessKeyId';
+        $accessKeySecret = 'your accessKeySecret';
         $tplCode = 'SMS_172365016';
         AlibabaCloud::accessKeyClient($accessKeyId, $accessKeySecret)
             ->regionId('cn-hangzhou') // replace regionId as you need
@@ -167,8 +167,8 @@ class MessageModel extends Model
         http://web.jianzhou.sh.cn:8080/WebSMP/login.jsp?error=true*/
         //建周短信平台http接口
         $postdata = array();
-        $postdata['userId'] = 'J25888';
-        $postdata['password'] = '851239';
+        $postdata['userId'] = 'userId';
+        $postdata['password'] = 'password';
         $postdata['pszMobis'] = $mobile;
         $postdata['pszMsg'] = $msgtext;   //自动添加签名
         $postdata['iMobiCount'] = 1;
