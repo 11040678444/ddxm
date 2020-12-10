@@ -4,8 +4,6 @@ return [
     'type' => 'mysql',
     // 服务器地址
 //    'hostname' => '127.0.0.1',
-//   'hostname' => '120.55.63.230',
-   'hostname' => '120.79.5.57',     //测试服
     // 数据库名
 //     'database' => 'ddxm2',
    'database' => 'ddxm',
@@ -13,13 +11,9 @@ return [
    'username' => 'ddxm',
 //     'username' => 'root',
     // 密码
-//   'password' => 'zb27eeJbB5JAkRjs',
-   'password' => '5dYybAimtMYLG4kF',      //测试服
 //   'password' => 'root',      //测试服
     // 端口
-//   'hostport' => '2200',
 //    'hostport' => '3306',
-   'hostport' => '3339',        //测试服
     // 连接dsn
     'dsn' => '',
     // 数据库连接参数
